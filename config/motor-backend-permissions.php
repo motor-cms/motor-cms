@@ -1,13 +1,13 @@
 <?php
 
 return [
-    'cms'         => [
+    'cms'              => [
         'name'   => 'motor-cms::backend/global.cms',
         'values' => [
             'read'
         ]
     ],
-    'navigations' => [
+    'navigations'      => [
         'name'   => 'motor-cms::backend/navigations.navigations',
         'values' => [
             'read',
@@ -22,5 +22,14 @@ return [
             'write',
             'delete'
         ]
+    ],
+    'pages'            => [
+        'name'   => 'motor-cms::backend/pages.pages',
+        'values' => [
+            'read',
+            'write',
+            'delete'
+        ]
+
     ],
 ];

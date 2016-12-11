@@ -18,4 +18,18 @@ Route::group([
     Route::resource('navigation_trees', 'NavigationTreesController', ['parameters' => [
         'navigation_trees' => 'navigation'
     ]]);
+
+    Route::resource('pages', 'PagesController');
+});
+
+Route::group([
+    'as'         => 'component.',
+    'prefix'     => 'component',
+    'namespace'  => 'Motor\CMS\Http\Controllers\Component',
+    'middleware' => [
+        'web',
+        'web_auth'
+    ]
+], function () {
+    Route::resource('text', 'Basic\TextController');
 });

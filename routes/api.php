@@ -6,4 +6,5 @@ Route::group([
     'as'         => 'api.',
 ], function () {
     Route::resource('navigations', 'NavigationsController');
+    Route::resource('pages', 'PagesController');
 });

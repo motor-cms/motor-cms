@@ -19,6 +19,14 @@ return [
                     'permissions' => [ 'navigation_trees.read' ],
                     'aliases'     => [ 'backend.navigations' ]
                 ],
+                110 => [ // <-- !!! replace 895 with your own sort position !!!
+                    'slug' => 'pages',
+                    'name'  => 'motor-cms::backend/pages.pages',
+                    'icon'  => 'fa fa-plus',
+                    'route' => 'backend.pages.index',
+                    'roles'       => [ 'SuperAdmin' ],
+                    'permissions' => [ 'pages.read' ],
+                ],
             ]
         ],
     ]
