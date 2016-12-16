@@ -31,5 +31,5 @@ Route::group([
         'web_auth'
     ]
 ], function () {
-    Route::resource('text', 'Basic\TextController');
+    Route::resource('text', 'Basic\TextController', ['parameters' => ['text' => 'component_text']]);
 });

@@ -74,13 +74,15 @@ class NavigationService extends BaseService
         if (is_null($node)) {
             $node = Navigation::find($this->request->get('parent_id'));
             $previousParent = $this->record->ancestors()->get()->last();
-            if (!is_null($node) && $previousParent->id != $node->id) {
+            if (!is_null($node) && !is_null($previousParent) &&  $previousParent->id != $node->id) {
                 $nextSibling = $this->record->getNextSibling();
                 if (is_null($nextSibling)) {
                     $this->record->appendToNode($node);
                 } else {
                     $this->record->prependToNode($node);
                 }
+            } elseif (!is_null($node) && is_null($previousParent)) {
+                $this->record->appendToNode($node);
             }
         }
 
@@ -99,10 +101,17 @@ class NavigationService extends BaseService
         $slugs = [ $this->record->slug ];
 
         foreach ($this->record->getAncestors() as $ancestor) {
-            $slugs[] = $ancestor->slug;
+            if (!empty($ancestor->slug)) {
+                $slugs[] = $ancestor->slug;
+            }
         }
 
         $this->record->full_slug = implode('/', array_reverse($slugs));
+
+        if ($this->record->_lft == 1) {
+            $this->record->slug = '';
+            $this->record->full_slug = '';
+        }
 
         $this->record->save();
     }

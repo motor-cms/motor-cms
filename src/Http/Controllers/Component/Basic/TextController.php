@@ -5,9 +5,10 @@ namespace Motor\CMS\Http\Controllers\Component\Basic;
 use Motor\Backend\Http\Controllers\Controller;
 
 use Motor\CMS\Forms\Component\Basic\TextForm;
+use Motor\CMS\Models\Component\ComponentText;
 use Motor\CMS\Models\Page;
 use Motor\CMS\Http\Requests\Backend\PageRequest;
-use Motor\CMS\Services\PageService;
+use Motor\CMS\Services\Component\TextService;
 use Motor\CMS\Forms\Backend\PageForm;
 
 use Kris\LaravelFormBuilder\FormBuilderTrait;
@@ -50,10 +51,9 @@ class TextController extends Controller
         if ( ! $form->isValid()) {
             return redirect()->back()->withErrors($form->getErrors())->withInput();
         }
-        var_dump($request->all());
-        die();
 
-        PageService::createWithForm($request, $form);
+        TextService::createWithForm($request, $form);
+        dd("created");
 
         flash()->success(trans('motor-cms::backend/pages.created'));
 
@@ -68,19 +68,16 @@ class TextController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function edit(Page $record, PageRequest $request)
+    public function edit(ComponentText $record, PageRequest $request)
     {
-        $form = $this->form(PageForm::class, [
+        $form = $this->form(TextForm::class, [
             'method'  => 'PATCH',
-            'url'     => route('backend.pages.update', [ $record->id ]),
+            'url'     => route('component.text.update', [ $record->id ]),
             'enctype' => 'multipart/form-data',
             'model'   => $record
         ]);
 
-        $templates  = config('motor-cms-page-templates');
-        $components = config('motor-cms-page-components');
-
-        return view('motor-cms::backend.pages.edit', compact('form', 'templates', 'components'));
+        return view('motor-cms::component.basic.text.form', compact('form'));
     }
 
 
@@ -92,20 +89,20 @@ class TextController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(PageRequest $request, Page $record)
+    public function update(PageRequest $request, ComponentText $record)
     {
-        $form = $this->form(PageForm::class);
+        $form = $this->form(TextForm::class);
 
         // It will automatically use current request, get the rules, and do the validation
         if ( ! $form->isValid()) {
             return redirect()->back()->withErrors($form->getErrors())->withInput();
         }
 
-        PageService::updateWithForm($record, $request, $form);
+        TextService::updateWithForm($record, $request, $form);
 
-        flash()->success(trans('motor-cms::backend/pages.updated'));
+        //flash()->success(trans('motor-cms::backend/pages.updated'));
 
-        return redirect('backend/pages');
+        //return redirect('backend/pages');
     }
 
 
@@ -116,9 +113,9 @@ class TextController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Page $record)
+    public function destroy(ComponentText $record)
     {
-        PageService::delete($record);
+        TextService::delete($record);
 
         flash()->success(trans('motor-cms::backend/pages.deleted'));
 

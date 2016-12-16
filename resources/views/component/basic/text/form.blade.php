@@ -7,8 +7,6 @@
     $('form').on('submit', function (e) {
         e.preventDefault();
 
-        console.log("Form SUBMIT");
-
         $.ajax({
             method: "POST",
             data: $(this).serialize(),

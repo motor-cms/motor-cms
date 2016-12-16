@@ -8,14 +8,16 @@
     </div>
     <!-- /.box-body -->
 
-    <div class="box-body">
-        @foreach ($templates as $name => $template)
-            <div class="template-{{$name}}">
-                <h4>{{$name}}</h4>
-                @include('motor-cms::layouts.partials.template-sections', ['rows' => $template])
-            </div>
-        @endforeach
-    </div>
+    @if (isset($record))
+        <div class="box-body">
+            @foreach ($templates as $name => $template)
+                <div class="template-{{$name}}">
+                    <h4>{{$name}}</h4>
+                    @include('motor-cms::layouts.partials.template-sections', ['rows' => $template, 'page' => $record])
+                </div>
+            @endforeach
+        </div>
+    @endif
 
     <div class="box-footer">
         {!! form_row($form->submit) !!}
@@ -31,12 +33,14 @@
                 <h4 class="modal-title"></h4>
             </div>
             <div class="modal-body motor-cms-components hide">
-                @foreach ($components as $sectionIdentifier => $section)
-                    <h4>{{$section['name']}}</h4>
-                    @foreach ($section['components'] as $componentIdentifier => $component)
-                        <button data-href="{{route($component['route'])}}" data-component="{{$componentIdentifier}}"
-                                class="motor-component-add btn btn-default">{{$component['name']}}
-                            <br><sub>{{$component['description']}}</sub></button>
+                @foreach ($components['groups'] as $groupIdentifier => $group)
+                    <h4>{{$group['name']}}</h4>
+                    @foreach ($components['components'] as $componentIdentifier => $component)
+                        @if ($component['group'] == $groupIdentifier)
+                            <button data-href="{{route($component['route'].'.create')}}" data-component="{{$componentIdentifier}}"
+                                    class="motor-component-add btn btn-default">{{$component['name']}}
+                                <br><sub>{{$component['description']}}</sub></button>
+                        @endif
                     @endforeach
                 @endforeach
             </div>
@@ -69,6 +73,8 @@
             $('.motor-cms-component-form').addClass('hide');
             $('.modal-footer').addClass('hide');
 
+            $('.motor-cms-components').data('container', $(this).data('container'));
+
             console.log('new component for container ' + $(this).data('container'));
 
             $('#motor-component-modal').modal();
@@ -91,10 +97,44 @@
             });
         });
 
+        $('.motor-component-edit').on('click', function (e) {
+            e.preventDefault();
+
+            console.log('loading component form for component ' + $(this).data('component'));
+
+            $.ajax({
+                method: "GET",
+                url: $(this).data('href')
+            }).done(function (response) {
+                $('#motor-component-modal').modal();
+
+                $('.motor-cms-component-form').html(response);
+
+                $('.motor-cms-components').addClass('hide');
+                $('.motor-cms-component-form').removeClass('hide');
+                $('.modal-footer').removeClass('hide');
+            });
+        });
+
+        $('.motor-component-delete').on('click', function (e) {
+            e.preventDefault();
+
+            $.ajax({
+                method: "POST",
+                url: $(this).data('href'),
+                data: {'_method': 'DELETE', '_token': $('input[name="_token"]').val()}
+            }).done(function (response) {
+                console.log("yeah");
+            });
+        });
+
         $('.motor-component-save').on('click', function (e) {
             e.preventDefault();
 
-            $('.motor-cms-component-form form input[name="page_id"]').val({{$record->id}});
+            @if (isset($record))
+                $('.motor-cms-component-form form input[name="page_id"]').val({{$record->id}});
+            $('.motor-cms-component-form form input[name="container"]').val($('.motor-cms-components').data('container'));
+            @endif
 
             $('.motor-cms-component-form form').submit();
         });

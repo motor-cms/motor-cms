@@ -11,6 +11,7 @@ class TextForm extends Form
     {
         $this
             ->add('page_id', 'hidden')
+            ->add('container', 'hidden')
             ->add('headline', 'text', ['label' => trans('motor-cms::component/basic/text.headline'), 'rules' => 'required'])
             ->add('body', 'textarea', ['label' => trans('motor-cms::component/basic/text.body')]);
     }

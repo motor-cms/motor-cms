@@ -15,14 +15,15 @@ class PageComponent extends Model
 
     use Eloquence;
     use Filterable;
-    use Blameable, CreatedBy, UpdatedBy, DeletedBy;
+
+    //use Blameable, CreatedBy, UpdatedBy, DeletedBy
 
     /**
      * Columns for the Blameable trait
      *
      * @var array
      */
-    protected $blameable = [ 'created', 'updated', 'deleted' ];
+    //protected $blameable = [ 'created', 'updated', 'deleted' ];
 
     /**
      * Searchable columns for the Eloquence trait
@@ -37,18 +38,22 @@ class PageComponent extends Model
      * @var array
      */
     protected $fillable = [
-        'client_id',
-        'language_id',
-        'is_active',
-        'template',
-        'name',
-        'meta_keywords',
-        'meta_description',
-        'state'
+        'page_id',
+        'container',
+        'sort_position',
+        'component_type',
+        'component_id',
     ];
+
+
+    public function page()
+    {
+        return $this->belongsTo(Page::class);
+    }
+
 
     public function components()
     {
-        return $this->morphMany(Component::class, 'component');
+        return $this->morphTo();
     }
 }

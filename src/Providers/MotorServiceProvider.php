@@ -109,6 +109,10 @@ class MotorServiceProvider extends ServiceProvider
         Route::bind('page', function($id){
             return \Motor\CMS\Models\Page::findOrFail($id);
         });
+
+        Route::bind('component_text', function($id){
+            return \Motor\CMS\Models\Component\ComponentText::findOrFail($id);
+        });
     }
 
 

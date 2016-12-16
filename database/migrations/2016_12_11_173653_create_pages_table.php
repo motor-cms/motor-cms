@@ -38,6 +38,7 @@ class CreatePagesTable extends Migration
             $table->integer('page_id')->unsigned()->index();
             $table->string('container');
             $table->integer('sort_position')->unsigned();
+            $table->string('component_name');
             $table->string('component_type');
             $table->string('component_id');
             $table->timestamps();
@@ -55,7 +56,7 @@ class CreatePagesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('pages');
         Schema::drop('page_components');
+        Schema::drop('pages');
     }
 }
