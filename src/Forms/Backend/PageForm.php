@@ -18,6 +18,14 @@ class PageForm extends Form
             ->add('meta_description', 'textarea', ['label' => trans('motor-cms::backend/pages.meta_description')])
             ->add('meta_keywords', 'text', ['label' => trans('motor-cms::backend/pages.meta_keywords')])
             ->add('is_active', 'checkbox', ['label' => trans('motor-cms::backend/pages.is_active')])
+            ->add('publish', 'submit', ['attr' => ['name' => 'publish', 'value' => 1, 'class' => 'btn btn-primary'], 'label' => trans('motor-cms::backend/pages.save_and_publish')])
             ->add('submit', 'submit', ['attr' => ['class' => 'btn btn-primary'], 'label' => trans('motor-cms::backend/pages.save')]);
+
+
+        if (is_object($this->model)) {
+            if ($this->model->getCurrentVersionNumber() != $this->model->getLatestVersionNumber()) {
+                $this->add('duplicate', 'hidden', ['value' => $this->model->getCurrentVersionNumber()]);
+            }
+        }
     }
 }

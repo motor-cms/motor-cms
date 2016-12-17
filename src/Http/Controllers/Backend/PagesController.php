@@ -108,6 +108,10 @@ class PagesController extends Controller
      */
     public function edit(Page $record, PageRequest $request)
     {
+        if ($request->get('version_number')) {
+            $record->setCurrentVersion($request->get('version_number'));
+        }
+
         $form = $this->form(PageForm::class, [
             'method'  => 'PATCH',
             'url'     => route('backend.pages.update', [ $record->id ]),

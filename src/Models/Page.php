@@ -3,6 +3,7 @@
 namespace Motor\CMS\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Motor\CMS\Traits\Versionable;
 use Sofa\Eloquence\Eloquence;
 use Motor\Core\Traits\Filterable;
 use Culpa\Traits\Blameable;
@@ -16,6 +17,7 @@ class Page extends Model
     use Eloquence;
     use Blameable, CreatedBy, UpdatedBy, DeletedBy;
     use Filterable;
+    use Versionable;
 
     protected $blameable = [ 'created', 'updated', 'deleted' ];
 
@@ -34,16 +36,29 @@ class Page extends Model
     protected $fillable = [
         'client_id',
         'language_id',
+
+        // versioned attributes
         'is_active',
         'template',
         'name',
         'meta_keywords',
         'meta_description',
-        'state'
     ];
 
-    public function components()
+    protected $versionableColumns = [
+        'versionable_state',
+        'versionable_number',
+        'is_active',
+        'template',
+        'name',
+        'meta_keywords',
+        'meta_description',
+    ];
+
+
+    public function versions()
     {
-        return $this->hasMany(PageComponent::class);
+        // we need to join tables and stuff here
+        return $this->hasMany(PageVersion::class, 'versionable_id');
     }
 }

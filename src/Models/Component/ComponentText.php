@@ -23,6 +23,6 @@ class ComponentText extends Model
      */
     public function component()
     {
-        return $this->morphMany('Motor\CMS\Models\PageComponent', 'component');
+        return $this->morphMany('Motor\CMS\Models\PageVersionComponent', 'component');
     }
 }

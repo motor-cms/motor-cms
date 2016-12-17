@@ -10,7 +10,7 @@ class TextForm extends Form
     public function buildForm()
     {
         $this
-            ->add('page_id', 'hidden')
+            ->add('page_version_id', 'hidden')
             ->add('container', 'hidden')
             ->add('headline', 'text', ['label' => trans('motor-cms::component/text.headline'), 'rules' => 'required'])
             ->add('body', 'textarea', ['label' => trans('motor-cms::component/text.body')]);

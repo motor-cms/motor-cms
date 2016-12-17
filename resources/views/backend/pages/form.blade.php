@@ -12,13 +12,14 @@
         <div class="box-body">
             <div class="motor-cms-component-flash alert alert-success flash-message hide"></div>
             <div class="motor-cms-component-container">
-                @include('motor-cms::layouts.partials.template-loop', ['templates' => $templates, 'page' => $record])
+                @include('motor-cms::layouts.partials.template-loop', ['templates' => $templates, 'record' => $record])
             </div>
         </div>
     @endif
 
     <div class="box-footer">
         {!! form_row($form->submit) !!}
+        {!! form_row($form->publish) !!}
     </div>
 </div>
 {!! form_end($form) !!}
@@ -135,8 +136,8 @@
         $('.motor-component-save').on('click', function (e) {
             e.preventDefault();
 
-            @if (isset($record))
-                $('.motor-cms-component-form form input[name="page_id"]').val({{$record->id}});
+            @if (isset($record) && !is_null($record->getCurrentVersion()))
+                $('.motor-cms-component-form form input[name="page_version_id"]').val({{$record->getCurrentVersion()->id}});
             $('.motor-cms-component-form form input[name="container"]').val($('.motor-cms-components').data('container'));
             @endif
 
@@ -154,7 +155,7 @@
 
         });
 
-        @if (isset($record))
+        @if (isset($record) && !is_null($record->getCurrentVersion()))
         var reloadComponentContainer = function(){
             $.ajax({
                 method: "GET",
