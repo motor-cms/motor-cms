@@ -20,6 +20,7 @@ Route::group([
     ]]);
 
     Route::resource('pages', 'PagesController');
+    Route::get('pages/{page}/components', 'PagesController@components')->name('pages.components.read');
 });
 
 Route::group([

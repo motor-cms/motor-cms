@@ -91,6 +91,13 @@ class PagesController extends Controller
         //
     }
 
+    public function components(Page $record)
+    {
+        $templates  = config('motor-cms-page-templates');
+
+        return view('motor-cms::layouts.partials.template-loop', ['templates' => $templates, 'record' => $record]);
+    }
+
 
     /**
      * Show the form for editing the specified resource.

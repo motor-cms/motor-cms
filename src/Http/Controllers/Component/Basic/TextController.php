@@ -53,11 +53,8 @@ class TextController extends Controller
         }
 
         TextService::createWithForm($request, $form);
-        dd("created");
 
-        flash()->success(trans('motor-cms::backend/pages.created'));
-
-        return redirect('backend/pages');
+        return response()->json(['message' => trans('motor-cms::component/text.created')]);
     }
 
 
@@ -100,9 +97,7 @@ class TextController extends Controller
 
         TextService::updateWithForm($record, $request, $form);
 
-        //flash()->success(trans('motor-cms::backend/pages.updated'));
-
-        //return redirect('backend/pages');
+        return response()->json(['message' => trans('motor-cms::component/text.updated')]);
     }
 
 
@@ -117,8 +112,6 @@ class TextController extends Controller
     {
         TextService::delete($record);
 
-        flash()->success(trans('motor-cms::backend/pages.deleted'));
-
-        return redirect('backend/pages');
+        return response()->json(['message' => trans('motor-cms::component/text.deleted')]);
     }
 }

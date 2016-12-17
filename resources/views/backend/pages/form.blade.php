@@ -10,12 +10,10 @@
 
     @if (isset($record))
         <div class="box-body">
-            @foreach ($templates as $name => $template)
-                <div class="template-{{$name}}">
-                    <h4>{{$name}}</h4>
-                    @include('motor-cms::layouts.partials.template-sections', ['rows' => $template, 'page' => $record])
-                </div>
-            @endforeach
+            <div class="motor-cms-component-flash alert alert-success flash-message hide"></div>
+            <div class="motor-cms-component-container">
+                @include('motor-cms::layouts.partials.template-loop', ['templates' => $templates, 'page' => $record])
+            </div>
         </div>
     @endif
 
@@ -66,7 +64,7 @@
 </style>
 @section('view_scripts')
     <script type="text/javascript">
-        $('.motor-component-new').on('click', function (e) {
+        $(document).on('click', '.motor-component-new', function(e) {
             e.preventDefault();
 
             $('.motor-cms-components').removeClass('hide');
@@ -80,7 +78,8 @@
             $('#motor-component-modal').modal();
             $('#motor-component-modal .modal-title').html('Add new component to container ' + $(this).data('container'));
         });
-        $('.motor-component-add').on('click', function (e) {
+
+        $(document).on('click', '.motor-component-add', function(e){
             e.preventDefault();
 
             console.log('loading component form for component ' + $(this).data('component'));
@@ -97,7 +96,7 @@
             });
         });
 
-        $('.motor-component-edit').on('click', function (e) {
+        $(document).on('click', '.motor-component-edit', function(e){
             e.preventDefault();
 
             console.log('loading component form for component ' + $(this).data('component'));
@@ -116,15 +115,20 @@
             });
         });
 
-        $('.motor-component-delete').on('click', function (e) {
+        $(document).on('click', '.motor-component-delete', function(e){
             e.preventDefault();
+
+            if (!confirm('{{trans('motor-cms::backend/pages.delete_component_question')}}')) {
+                return false;
+            }
 
             $.ajax({
                 method: "POST",
                 url: $(this).data('href'),
                 data: {'_method': 'DELETE', '_token': $('input[name="_token"]').val()}
             }).done(function (response) {
-                console.log("yeah");
+                reloadComponentContainer();
+                $('.motor-cms-component-flash').html(response.message).removeClass('hide').css('display', '').delay(3000).fadeOut(350);
             });
         });
 
@@ -136,7 +140,29 @@
             $('.motor-cms-component-form form input[name="container"]').val($('.motor-cms-components').data('container'));
             @endif
 
-            $('.motor-cms-component-form form').submit();
+            var form = $('.motor-cms-component-form form');
+
+            $.ajax({
+                method: "POST",
+                data: $(form).serialize(),
+                url: $(form).attr('action')
+            }).done(function (response) {
+                $('#motor-component-modal').modal('hide');
+                reloadComponentContainer();
+                $('.motor-cms-component-flash').html(response.message).removeClass('hide').css('display', '').delay(3000).fadeOut(350);
+            });
+
         });
+
+        @if (isset($record))
+        var reloadComponentContainer = function(){
+            $.ajax({
+                method: "GET",
+                url: '{{route('backend.pages.components.read', [$record->id])}}'
+            }).done(function (response) {
+                $('.motor-cms-component-container').html(response);
+            });
+        };
+        @endif
     </script>
 @append

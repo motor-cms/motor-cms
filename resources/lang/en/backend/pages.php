@@ -10,9 +10,10 @@ return [
     'updated' => 'Page updated',
     'deleted' => 'Page deleted',
 
-    'name'             => 'Name',
-    'meta_description' => 'Meta description',
-    'meta_keywords'    => 'Meta keywords',
-    'template'         => 'Template',
-    'is_active'        => 'Active'
+    'name'                      => 'Name',
+    'meta_description'          => 'Meta description',
+    'meta_keywords'             => 'Meta keywords',
+    'template'                  => 'Template',
+    'is_active'                 => 'Active',
+    'delete_component_question' => 'Really delete component?'
 ];
