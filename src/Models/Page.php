@@ -37,7 +37,7 @@ class Page extends Model
         'client_id',
         'language_id',
 
-        // versioned attributes
+        // versioned attributes need to be fillable as well so we can save the record. maybe we need to change something about that...
         'is_active',
         'template',
         'name',
