@@ -48,7 +48,7 @@ class NavigationsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Navigation $record)
+    public function create(Navigation $root)
     {
         $form = $this->form(NavigationForm::class, [
             'method'  => 'POST',
@@ -56,11 +56,11 @@ class NavigationsController extends Controller
             'enctype' => 'multipart/form-data'
         ]);
 
-        $trees = Navigation::where('scope', $record->scope)->defaultOrder()->get()->toTree();
+        $trees = Navigation::where('scope', $root->scope)->defaultOrder()->get()->toTree();
         $newItem = true;
         $selectedItem = null;
 
-        return view('motor-cms::backend.navigations.create', compact('form', 'trees', 'newItem', 'selectedItem'));
+        return view('motor-cms::backend.navigations.create', compact('form', 'trees', 'newItem', 'selectedItem', 'root'));
     }
 
 
