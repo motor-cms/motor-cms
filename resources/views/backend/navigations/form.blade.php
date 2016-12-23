@@ -1,26 +1,26 @@
 {!! form_start($form, ['id' => 'navigation-item']) !!}
 <div class="row">
     <div class="col-md-8">
-        <div class="box box-primary">
-            <div class="box-header with-border">
+        <div class="@boxWrapper box-primary">
+            <div class="@boxHeader with-border">
                 <h3 class="box-title">{{ trans('motor-backend::backend/global.base_info') }}</h3>
             </div>
-            <div class="box-body">
+            <div class="@boxBody">
                 {!! form_until($form, 'is_active') !!}
             </div>
             <!-- /.box-body -->
 
-            <div class="box-footer">
+            <div class="@boxFooter">
                 {!! form_row($form->submit) !!}
             </div>
         </div>
     </div>
     <div class="col-md-4">
-        <div class="box box-primary">
-            <div class="box-header with-border">
+        <div class="@boxWrapper box-primary">
+            <div class="@boxHeader with-border">
                 <h3 class="box-title">{{ trans('motor-cms::backend/navigation_trees.navigation_tree') }}</h3>
             </div>
-            <div class="box-body">
+            <div class="@boxBody">
                 <div id="navigation-tree">
                     @include('motor-cms::layouts.partials.navigation-tree-items', array('items' => $trees, 'newItem' => $newItem, 'selectedItem' => $selectedItem))
                 </div>

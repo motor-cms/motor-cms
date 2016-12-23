@@ -1,15 +1,15 @@
 {!! form_start($form) !!}
-<div class="box box-primary">
-    <div class="box-header with-border">
+<div class="@boxWrapper box-primary">
+    <div class="@boxHeader with-border">
         <h3 class="box-title">{{ trans('motor-backend::backend/global.base_info') }}</h3>
     </div>
-    <div class="box-body">
+    <div class="@boxBody">
         {!! form_until($form, 'is_active') !!}
     </div>
     <!-- /.box-body -->
 
     @if (isset($record))
-        <div class="box-body">
+        <div class="@boxBody">
             <div class="motor-cms-component-flash alert alert-success flash-message hide"></div>
             <div class="motor-cms-component-container">
                 @include('motor-cms::layouts.partials.template-loop', ['templates' => $templates, 'record' => $record])
@@ -17,7 +17,7 @@
         </div>
     @endif
 
-    <div class="box-footer">
+    <div class="@boxFooter">
         {!! form_row($form->submit) !!}
         {!! form_row($form->publish) !!}
     </div>
