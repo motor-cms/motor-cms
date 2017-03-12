@@ -1,0 +1,24 @@
+{
+  "name": "dfox288/motor-cms",
+  "description": "Motor content management module",
+  "license": "MIT",
+  "keywords": [
+    "motor"
+  ],
+  "authors": [
+    {
+      "name": "Reza Esmaili",
+      "email": "me@dfox.info"
+    }
+  ],
+  "require": {},
+  "require-dev": {
+    "phpunit/phpunit": "4.0.*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Motor\\CMS\\": "src"
+    }
+  },
+  "minimum-stability": "dev"
+}
