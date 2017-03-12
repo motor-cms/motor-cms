@@ -4,17 +4,17 @@ namespace Motor\CMS\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Motor\CMS\Traits\Versionable;
-use Sofa\Eloquence\Eloquence;
 use Motor\Core\Traits\Filterable;
 use Culpa\Traits\Blameable;
 use Culpa\Traits\CreatedBy;
 use Culpa\Traits\DeletedBy;
 use Culpa\Traits\UpdatedBy;
+use Motor\Core\Traits\Searchable;
 
 class Page extends Model
 {
 
-    use Eloquence;
+    use Searchable;
     use Blameable, CreatedBy, UpdatedBy, DeletedBy;
     use Filterable;
     use Versionable;
@@ -22,7 +22,7 @@ class Page extends Model
     protected $blameable = [ 'created', 'updated', 'deleted' ];
 
     /**
-     * Searchable columns for the Eloquence trait
+     * Searchable columns for the searchable trait
      *
      * @var array
      */

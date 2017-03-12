@@ -11,14 +11,12 @@ use Culpa\Traits\Blameable;
 use Culpa\Traits\CreatedBy;
 use Culpa\Traits\DeletedBy;
 use Culpa\Traits\UpdatedBy;
-use Sofa\Eloquence\Eloquence;
 
 class Navigation extends Model
 {
 
     use Filterable;
     use Blameable, CreatedBy, UpdatedBy, DeletedBy;
-    //use Eloquence;
     use NodeTrait;
 
     /**
@@ -29,7 +27,7 @@ class Navigation extends Model
     protected $blameable = [ 'created', 'updated', 'deleted' ];
 
     /**
-     * Searchable columns for the Eloquence trait
+     * Searchable columns for the searchable trait
      *
      * @var array
      */
