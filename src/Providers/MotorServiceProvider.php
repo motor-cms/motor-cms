@@ -24,6 +24,8 @@ class MotorServiceProvider extends ServiceProvider
         $this->navigationItems();
         $this->permissions();
         $this->migrations();
+        $this->components();
+        $this->templates();
         $this->publishResourceAssets();
     }
 
@@ -62,6 +64,20 @@ class MotorServiceProvider extends ServiceProvider
             array_replace_recursive(require __DIR__ . '/../../config/motor-backend-permissions.php', $config));
     }
 
+
+    public function components()
+    {
+        $config = $this->app['config']->get('motor-cms-page-components', []);
+        $this->app['config']->set('motor-cms-page-components',
+            array_replace_recursive(require __DIR__ . '/../../config/motor-cms-page-components.php', $config));
+    }
+
+    public function templates()
+    {
+        $config = $this->app['config']->get('motor-cms-page-templates', []);
+        $this->app['config']->set('motor-cms-page-templates',
+            array_replace_recursive(require __DIR__ . '/../../config/motor-cms-page-templates.php', $config));
+    }
 
     public function routes()
     {

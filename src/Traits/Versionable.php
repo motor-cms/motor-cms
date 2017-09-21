@@ -28,7 +28,7 @@ trait Versionable
                      'isDirty',
                      'setAttribute',
                  ] as $method) {
-            static::hook($method, $hooks->{$method}());
+            static::observe($method, $hooks->{$method}());
         }
     }
 
