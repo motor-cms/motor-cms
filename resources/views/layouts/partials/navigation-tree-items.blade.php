@@ -9,7 +9,7 @@
             </li>
         @else
             @if ($item->id == $selectedItem)
-                <li data-jstree='{ "icon" : "fa fa-file" }' id="navigation-item" data-navigation-id="{{$item->id}}">{{$item->name}}
+                <li data-jstree='{ "icon" : "fa fa-file" }' id="navigation-item" data-navigation-id="{{$item->id}}"><span class="navigation-item-name">{{$item->name}}</span>
                     @include('motor-cms::layouts.partials.navigation-tree-items', array('items' => $item->children, 'newItem' => false, 'selectedItem' => $selectedItem))
                 </li>
             @else
