@@ -17,5 +17,12 @@
       "Motor\\CMS\\": "src"
     }
   },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Motor\\CMS\\Providers\\MotorServiceProvider"
+      ]
+    }
+  },
   "minimum-stability": "dev"
 }
