@@ -7,7 +7,7 @@
 @section('contentheader_title')
     {{ trans('motor-cms::backend/navigation_trees.navigation_trees') }}
     @if (has_permission('navigation_trees.write'))
-        {!! link_to_route('backend.navigation_trees.create', trans('motor-cms::backend/navigation_trees.new'), [], ['class' => 'pull-right btn btn-sm btn-success']) !!}
+        {!! link_to_route('backend.navigation_trees.create', trans('motor-cms::backend/navigation_trees.new'), [], ['class' => 'pull-right float-right btn btn-sm btn-success']) !!}
     @endif
 @endsection
 

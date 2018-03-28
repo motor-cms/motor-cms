@@ -7,7 +7,7 @@
 @section('contentheader_title')
     {{ trans('motor-cms::backend/pages.pages') }}
     @if (has_permission('pages.write'))
-	    {!! link_to_route('backend.pages.create', trans('motor-cms::backend/pages.new'), [], ['class' => 'pull-right btn btn-sm btn-success']) !!}
+	    {!! link_to_route('backend.pages.create', trans('motor-cms::backend/pages.new'), [], ['class' => 'pull-right float-right btn btn-sm btn-success']) !!}
     @endif
 @endsection
 
