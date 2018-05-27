@@ -43,11 +43,14 @@ class MotorServiceProvider extends ServiceProvider
 
     public function publishResourceAssets()
     {
-        $assets = [
-            __DIR__ . '/../../public/plugins/jstree' => public_path('plugins/jstree'),
-        ];
-
-        $this->publishes($assets, 'motor-cms-install');
+        //$assets = [
+        //    //__DIR__ . '/../../resources/assets/sass'   => resource_path('assets/sass'),
+        //    __DIR__ . '/../../resources/assets/js'     => resource_path('assets/js'),
+        //    //__DIR__ . '/../../resources/assets/images' => resource_path('assets/images'),
+        //    __DIR__ . '/../../resources/assets/npm'    => resource_path('assets/npm'),
+        //];
+        //
+        //$this->publishes($assets, 'motor-cms-install-resources');
     }
 
 

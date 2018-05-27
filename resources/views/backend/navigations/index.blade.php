@@ -33,4 +33,4 @@
             }
         });
     </script>
-@endsection
+@append
