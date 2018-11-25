@@ -39,7 +39,7 @@ class ComponentText extends ComponentBaseModel
     public function preview()
     {
         return [
-            'name'    => trans('motor-cms::component/text.component'),
+            'name'    => trans('motor-cms::component/texts.component'),
             'preview' => $this->headline
         ];
     }

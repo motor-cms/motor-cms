@@ -16,11 +16,11 @@ return [
         ]
     ],
     'components' => [
-        'sidebar' => [
-            'name'            => 'Sidebar navigation',
-            'description'     => 'Show sidebar navigation',
-            'view'            => 'motor-cms::frontend.component.navigation.sidebar',
-            'component_class' => 'Motor\CMS\Components\Navigation\Sidebar',
+        'navigation-sidebar' => [
+            'name'            => 'NavigationSidebar',
+            'description'     => 'Show NavigationSidebar component',
+            'view'            => 'motor-cms::frontend.components.navigation-sidebar',
+            'component_class' => 'Motor\CMS\Components\ComponentNavigationSidebars',
             'compatibility'   => [
 
             ],
@@ -29,12 +29,12 @@ return [
             ],
             'group'           => 'navigation'
         ],
-        'text'    => [
-            'name'            => 'Text component',
-            'description'     => 'Simple text block',
-            'route'           => 'component.text',
-            'view'            => 'motor-cms::frontend.component.basic.text',
-            'component_class' => 'Motor\CMS\Components\Basic\Text',
+        'text' => [
+            'name'            => 'Text',
+            'description'     => 'Show Text component',
+            'view'            => 'motor-cms::frontend.components.text',
+            'route'           => 'component.texts',
+            'component_class' => 'Motor\CMS\Components\ComponentTexts',
             'compatibility'   => [
 
             ],
@@ -43,33 +43,5 @@ return [
             ],
             'group'           => 'basic'
         ],
-        'contact' => [
-            'name'            => 'Contact form',
-            'description'     => 'Simple email contact form',
-            'route'           => 'component.text',
-            'view'            => 'motor-cms::frontend.component.basic.text',
-            'component_class' => 'Motor\CMS\Components\Basic\Text',
-            'compatibility'   => [
-
-            ],
-            'permissions'     => [
-
-            ],
-            'group'           => 'forms'
-        ],
-        'image'   => [
-            'name'            => 'Image',
-            'description'     => 'Displays an image',
-            'route'           => 'component.text',
-            'view'            => 'motor-cms::frontend.component.basic.text',
-            'component_class' => 'Motor\CMS\Components\Basic\Text',
-            'compatibility'   => [
-
-            ],
-            'permissions'     => [
-
-            ],
-            'group'           => 'media'
-        ]
     ],
 ];

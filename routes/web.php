@@ -45,12 +45,16 @@ Route::group([
 Route::group([
     'as'         => 'component.',
     'prefix'     => 'component',
-    'namespace'  => 'Motor\CMS\Http\Controllers\Component',
+    'namespace'  => 'Motor\CMS\Http\Controllers\Backend\Component',
     'middleware' => [
         'web',
         //'web_auth'
     ]
 ], function () {
     Route::resource('base', 'BaseController')->only(['store', 'destroy']);
-    Route::resource('text', 'Basic\ComponentTextController', ['parameters' => ['text' => 'component_text']]);
-});
+
+    // You only need this part if you already have a component group for the given namespace
+    Route::get('texts', 'ComponentTextsController@create')->name('texts.create');
+    Route::post('texts', 'ComponentTextsController@store')->name('texts.store');
+    Route::get('texts/{component_text}', 'ComponentTextsController@edit')->name('texts.edit');
+    Route::patch('texts/{component_text}', 'ComponentTextsController@update')->name('texts.update');});

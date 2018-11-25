@@ -14,7 +14,7 @@
             <div class="@boxBody">
                 <div class="motor-cms-component-flash alert alert-success flash-message d-none"></div>
                 <div class="motor-cms-component-container">
-                    <motor-cms-template :page-id="@if (isset($record) && !is_null($record)) {{$record->id}} @else null @endif" :available-components="{{ $components }}" :template-data="@if (isset($record) && !is_null($record->getCurrentVersion())) {{ $template }} @else [] @endif"></motor-cms-template>
+                    <motor-cms-page-template :page-id="@if (isset($record) && !is_null($record)) {{$record->id}} @else null @endif" :available-components="{{ $components }}" :template-data="@if (isset($record) && !is_null($record->getCurrentVersion())) {{ $template }} @else [] @endif"></motor-cms-page-template>
                 </div>
             </div>
         @endif

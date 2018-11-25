@@ -1,0 +1,1 @@
+@include('motor-cms::frontend.components.navigation-sidebar-loop', ['navigationItem' => $activeTopLevelNavigationItem, 'depth' => 0])

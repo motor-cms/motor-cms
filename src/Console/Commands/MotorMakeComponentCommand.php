@@ -63,24 +63,48 @@ class MotorMakeComponentCommand extends Command
             // Create form
             unset($extraoptions['--stub_path']);
             $this->call('motor:make:form', array_merge([ 'name' => 'Forms/Backend/Component/' . $classSingular . 'Form' ], $extraoptions));
+
+            $extraoptions['--stub_path'] = __DIR__.'/stubs/views/component.blade.stub';
+            $extraoptions['--directory'] = 'frontend';
+            unset($extraoptions['--prefix']);
+            $this->call('motor:make:view', array_merge([ 'name' => 'component', 'type' => Str::kebab($this->argument('name')) ], $extraoptions));
+
+            // Create frontend class
+            unset($extraoptions['--directory']);
+            unset($extraoptions['--stub_path']);
+            if (isset($extraoptions['--prefix'])) {
+                unset($extraoptions['--prefix']);
+            }
+            $this->call('motor:make:component-class', array_merge([ 'name' => $classPlural ], $extraoptions));
+
+        } else {
+            $extraoptions['--stub_path'] = __DIR__.'/stubs/views/component_no_model.blade.stub';
+            $extraoptions['--directory'] = 'frontend';
+            unset($extraoptions['--prefix']);
+            $this->call('motor:make:view', array_merge([ 'name' => 'component', 'type' => Str::kebab($this->argument('name')) ], $extraoptions));
+
+            // Create frontend class
+            $extraoptions['--stub_path'] = __DIR__.'/stubs/component_class_no_model.stub';
+            unset($extraoptions['--directory']);
+            if (isset($extraoptions['--prefix'])) {
+                unset($extraoptions['--prefix']);
+            }
+            $this->call('motor:make:component-class', array_merge([ 'name' => $classPlural ], $extraoptions));
         }
 
         // Create i18n file
         $extraoptions['--stub_path'] = __DIR__.'/stubs/i18n.stub';
         $extraoptions['--prefix'] = 'component';
+        if (isset($extraoptions['--directory'])) {
+            unset($extraoptions['--directory']);
+        }
+
         $this->call('motor:make:i18n', array_merge([ 'name' => Str::plural($this->argument('name')), 'locale' => $this->argument('locale') ], $extraoptions));
 
-        $extraoptions['--stub_path'] = __DIR__.'/stubs/views/component.blade.stub';
-        $extraoptions['--directory'] = 'frontend';
-        unset($extraoptions['--prefix']);
-        $this->call('motor:make:view', array_merge([ 'name' => 'component', 'type' => Str::kebab($this->argument('name')) ], $extraoptions));
-
-        // Create frontend class
-        unset($extraoptions['--directory']);
-        unset($extraoptions['--stub_path']);
-        $this->call('motor:make:component-class', array_merge([ 'name' => $classPlural ], $extraoptions));
-
         // Display config information
+        unset($extraoptions['--stub_path']);
+        unset($extraoptions['--prefix']);
+        $extraoptions['--create_model'] = (int)$this->argument('create_model');
         $this->call('motor:make:component-info', array_merge([ 'name' => $classPlural ], $extraoptions));
     }
 

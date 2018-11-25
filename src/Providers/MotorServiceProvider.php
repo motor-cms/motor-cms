@@ -46,6 +46,7 @@ class MotorServiceProvider extends ServiceProvider
         }
     }
 
+
     /**
      * Register the application services.
      *
@@ -56,7 +57,9 @@ class MotorServiceProvider extends ServiceProvider
         //$this->mergeConfigFrom(__DIR__ . '/../../config/laravel-menu/settings.php', 'laravel-menu.settings');
     }
 
-    public function blade() {
+
+    public function blade()
+    {
     }
 
 
@@ -102,12 +105,14 @@ class MotorServiceProvider extends ServiceProvider
             array_replace_recursive(require __DIR__ . '/../../config/motor-cms-page-components.php', $config));
     }
 
+
     public function templates()
     {
         $config = $this->app['config']->get('motor-cms-page-templates', []);
         $this->app['config']->set('motor-cms-page-templates',
             array_replace_recursive(require __DIR__ . '/../../config/motor-cms-page-templates.php', $config));
     }
+
 
     public function routes()
     {
@@ -148,20 +153,22 @@ class MotorServiceProvider extends ServiceProvider
 
     public function routeModelBindings()
     {
+        // Modules
         Route::bind('navigation', function ($id) {
             return \Motor\CMS\Models\Navigation::findOrFail($id);
         });
 
-        Route::bind('page', function($id){
+        Route::bind('page', function ($id) {
             return \Motor\CMS\Models\Page::findOrFail($id);
         });
 
-        Route::bind('component_text', function($id){
-            return \Motor\CMS\Models\Component\ComponentText::findOrFail($id);
+        Route::bind('page_version_component', function ($id) {
+            return \Motor\CMS\Models\PageVersionComponent::findOrFail($id);
         });
 
-        Route::bind('page_version_component', function($id){
-            return \Motor\CMS\Models\PageVersionComponent::findOrFail($id);
+        // Components
+        Route::bind('component_text', function ($id) {
+            return \Motor\CMS\Models\Component\ComponentText::findOrFail($id);
         });
     }
 

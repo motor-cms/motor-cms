@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
+use Culpa\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Culpa\Facades\Schema;
 
-class CreateComponentText extends Migration
+class CreateComponentTextsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,12 +15,9 @@ class CreateComponentText extends Migration
     {
         Schema::create('component_texts', function (Blueprint $table) {
             $table->increments('id');
-            //$table->integer('page_component_id')->unsigned()->index();
             $table->string('headline');
             $table->text('body');
             $table->timestamps();
-
-            //$table->foreign('page_component_id')->references('id')->on('page_components')->onDelete('cascade');
         });
     }
 
@@ -31,6 +28,6 @@ class CreateComponentText extends Migration
      */
     public function down()
     {
-        Schema::drop('component_texts');
+        Schema::dropIfExists('component_texts');
     }
 }

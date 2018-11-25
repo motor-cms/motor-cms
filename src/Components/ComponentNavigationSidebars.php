@@ -1,11 +1,11 @@
 <?php
 
-namespace Motor\CMS\Components\Navigation;
+namespace Motor\CMS\Components;
 
 use Illuminate\Http\Request;
 use Motor\CMS\Models\PageVersionComponent;
 
-class Sidebar {
+class ComponentNavigationSidebars {
 
     protected $pageVersionComponent;
 
@@ -19,10 +19,9 @@ class Sidebar {
         return $this->render();
     }
 
-
     public function render()
     {
-        return view(config('motor-cms-page-components.components.'.$this->pageVersionComponent->component_name.'.view'));
+        return view(config('motor-cms-page-components.components.'.$this->pageVersionComponent->component_name.'.view'), []);
     }
 
 }

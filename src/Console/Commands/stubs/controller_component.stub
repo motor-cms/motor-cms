@@ -24,7 +24,7 @@ class DummyClass extends ComponentController
     {
         $this->form = $this->form(DummyForm::class);
 
-        return response()->json($this->getFormData('component.DummyComponentView.store', ['mediapool' => false]));
+        return response()->json($this->getFormData('component.DummyComponentViewKebab.store', ['mediapool' => false]));
     }
 
 
@@ -45,7 +45,7 @@ class DummyClass extends ComponentController
 
         DummyService::createWithForm($request, $this->form);
 
-        return response()->json(['message' => trans('DummyPackageNamecomponent/DummyComponentView.created')]);
+        return response()->json(['message' => trans('DummyPackageNamecomponent/DummyComponentViewKebab.created')]);
     }
 
     /**
@@ -61,7 +61,7 @@ class DummyClass extends ComponentController
             'model' => $record
         ]);
 
-        return response()->json($this->getFormData('component.DummyComponentView.update', ['mediapool' => false]));
+        return response()->json($this->getFormData('component.DummyComponentViewKebab.update', ['mediapool' => false]));
     }
 
 
@@ -83,6 +83,6 @@ class DummyClass extends ComponentController
 
         DummyService::updateWithForm($record, $request, $form);
 
-        return response()->json(['message' => trans('DummyPackageNamecomponent/DummyComponentView.update')]);
+        return response()->json(['message' => trans('DummyPackageNamecomponent/DummyComponentViewKebab.updated')]);
     }
 }

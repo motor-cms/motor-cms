@@ -1,0 +1,13 @@
+'{{singularKebabWithoutPrefix}}' => [
+	'name'            => '{{singularTitleWithoutPrefix}}',
+	'description'     => 'Show {{singularTitleWithoutPrefix}} component',
+	'view'            => '{{packageName}}frontend.components.{{singularKebabWithoutPrefix}}',
+	'component_class' => '{{namespace}}Components\{{pluralStudly}}',
+	'compatibility'   => [
+
+	],
+	'permissions'     => [
+
+	],
+	'group'           => 'basic'
+],

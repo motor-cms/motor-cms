@@ -1,3 +1,3 @@
 Route::bind('{{singularSnake}}', function($id){
-	return \{{namespace}}Models\{{singularStudly}}::findOrFail($id);
+	return \{{namespace}}Models\Component\{{singularStudly}}::findOrFail($id);
 });

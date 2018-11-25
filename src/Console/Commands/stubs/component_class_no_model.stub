@@ -7,12 +7,10 @@ use Motor\CMS\Models\PageVersionComponent;
 
 class DummyModelPlural {
 
-    protected $component;
     protected $pageVersionComponent;
 
-    public function __construct(PageVersionComponent $pageVersionComponent, \DummyRootNamespaceModels\Component\DummyModel $component)
+    public function __construct(PageVersionComponent $pageVersionComponent)
     {
-        $this->component = $component;
         $this->pageVersionComponent = $pageVersionComponent;
     }
 
@@ -21,10 +19,9 @@ class DummyModelPlural {
         return $this->render();
     }
 
-
     public function render()
     {
-        return view(config('motor-cms-page-components.components.'.$this->pageVersionComponent->component_name.'.view'), ['component' => $this->component]);
+        return view(config('motor-cms-page-components.components.'.$this->pageVersionComponent->component_name.'.view'), []);
     }
 
 }

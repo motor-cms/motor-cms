@@ -1,19 +1,16 @@
 <?php
 
-namespace Motor\CMS\Components\Basic;
+namespace Motor\CMS\Components;
 
 use Illuminate\Http\Request;
-use Motor\CMS\Models\Component\ComponentText;
 use Motor\CMS\Models\PageVersionComponent;
 
-class Text
-{
+class ComponentTexts {
 
     protected $component;
     protected $pageVersionComponent;
-    protected $request;
 
-    public function __construct(PageVersionComponent $pageVersionComponent, ComponentText $component)
+    public function __construct(PageVersionComponent $pageVersionComponent, \Motor\CMS\Models\Component\ComponentText $component)
     {
         $this->component = $component;
         $this->pageVersionComponent = $pageVersionComponent;
@@ -21,7 +18,6 @@ class Text
 
     public function index(Request $request)
     {
-        $this->request = $request;
         return $this->render();
     }
 

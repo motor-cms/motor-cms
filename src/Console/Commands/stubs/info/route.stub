@@ -8,8 +8,8 @@ Route::group([
     ]
 ], function () {
     // You only need this part if you already have a component group for the given namespace
-    Route::get('{{pluralSnakeWithoutPrefix}}', '{{pluralStudly}}Controller@create')->name('{{singularSnakeWithoutPrefix}}.create');
-    Route::post('{{pluralSnakeWithoutPrefix}}', '{{pluralStudly}}Controller@store')->name('{{singularSnakeWithoutPrefix}}.store');
-    Route::get('{{pluralSnakeWithoutPrefix}}/{{{singularSnake}}}', '{{pluralStudly}}Controller@edit')->name('{{singularSnakeWithoutPrefix}}.edit');
-    Route::patch('{{pluralSnakeWithoutPrefix}}/{{{singularSnake}}}', '{{pluralStudly}}Controller@update')->name('{{singularSnakeWithoutPrefix}}.update');
+    Route::get('{{pluralKebabWithoutPrefix}}', '{{pluralStudly}}Controller@create')->name('{{pluralKebabWithoutPrefix}}.create');
+    Route::post('{{pluralKebabWithoutPrefix}}', '{{pluralStudly}}Controller@store')->name('{{pluralKebabWithoutPrefix}}.store');
+    Route::get('{{pluralKebabWithoutPrefix}}/{{{singularSnake}}}', '{{pluralStudly}}Controller@edit')->name('{{pluralKebabWithoutPrefix}}.edit');
+    Route::patch('{{pluralKebabWithoutPrefix}}/{{{singularSnake}}}', '{{pluralStudly}}Controller@update')->name('{{pluralKebabWithoutPrefix}}.update');
 });

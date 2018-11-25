@@ -1,8 +1,8 @@
-'{{singularSnakeWithoutPrefix}}' => [
+'{{singularKebabWithoutPrefix}}' => [
 	'name'            => '{{singularTitleWithoutPrefix}}',
 	'description'     => 'Show {{singularTitleWithoutPrefix}} component',
-	'view'            => '{{packageName}}frontend.components.{{singularSnakeWithoutPrefix}}',
-	'route'           => 'component.{{singularSnakeWithoutPrefix}}',
+	'view'            => '{{packageName}}frontend.components.{{singularKebabWithoutPrefix}}',
+	'route'           => 'component.{{pluralKebabWithoutPrefix}}',
 	'component_class' => '{{namespace}}Components\{{pluralStudly}}',
 	'compatibility'   => [
 

@@ -2,6 +2,7 @@
 
 namespace Motor\CMS\Http\Controllers\Backend;
 
+use Illuminate\Support\Str;
 use Motor\Backend\Http\Controllers\Controller;
 
 use Motor\CMS\Models\Page;
@@ -133,9 +134,12 @@ class PagesController extends Controller
     }
 
     public function destroyComponent(Page $page, PageVersionComponent $pageVersionComponent) {
-        $pageVersionComponent->component()->delete();
+        if (!is_null($pageVersionComponent->component)) {
+            $pageVersionComponent->component()->delete();
+        }
+        $componentName = $pageVersionComponent->component_name;
         $pageVersionComponent->delete();
-        return response()->json(['message' => 'Success']);
+        return response()->json(['message' => trans('motor-cms::component/global.deleted', ['name' => Str::ucfirst(str_replace('_', ' ', $componentName))])]);
     }
 
     //public function components(Page $record)

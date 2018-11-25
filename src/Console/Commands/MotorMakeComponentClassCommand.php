@@ -14,7 +14,7 @@ class MotorMakeComponentClassCommand extends MotorMakeServiceCommand
      */
     protected $name = 'motor:make:component-class';
 
-    protected $signature = 'motor:make:component-class {name} {--path=} {--namespace=} {--model=} {--parent=}';
+    protected $signature = 'motor:make:component-class {name} {--path=} {--namespace=} {--model=} {--parent=} {--stub_path=}';
 
     /**
      * The console command description.
@@ -44,6 +44,9 @@ class MotorMakeComponentClassCommand extends MotorMakeServiceCommand
      */
     protected function getStub()
     {
+        if ($this->option('stub_path')) {
+            return $this->option('stub_path');
+        }
         return __DIR__ . '/stubs/component_class.stub';
     }
 

@@ -1,20 +1,19 @@
 <?php
 
-namespace Motor\CMS\Http\Controllers\Component\Basic;
+namespace Motor\CMS\Http\Controllers\Backend\Component;
 
-use Illuminate\Http\Request;
-use Motor\CMS\Forms\Component\Basic\TextForm;
 use Motor\CMS\Http\Controllers\Component\ComponentController;
+use Illuminate\Http\Request;
+
 use Motor\CMS\Models\Component\ComponentText;
 use Motor\CMS\Services\Component\ComponentTextService;
+use Motor\CMS\Forms\Backend\Component\ComponentTextForm;
 
 use Kris\LaravelFormBuilder\FormBuilderTrait;
 
-class ComponentTextController extends ComponentController
+class ComponentTextsController extends ComponentController
 {
-
     use FormBuilderTrait;
-
 
     /**
      * Show the form for creating a new resource.
@@ -23,9 +22,9 @@ class ComponentTextController extends ComponentController
      */
     public function create()
     {
-        $this->form = $this->form(TextForm::class);
+        $this->form = $this->form(ComponentTextForm::class);
 
-        return response()->json($this->getFormData('component.text.store', ['mediapool' => true]));
+        return response()->json($this->getFormData('component.texts.store', ['mediapool' => true]));
     }
 
 
@@ -38,7 +37,7 @@ class ComponentTextController extends ComponentController
      */
     public function store(Request $request)
     {
-        $this->form = $this->form(TextForm::class);
+        $this->form = $this->form(ComponentTextForm::class);
 
         if ( ! $this->isValid()) {
             return $this->respondWithValidationError();
@@ -46,9 +45,8 @@ class ComponentTextController extends ComponentController
 
         ComponentTextService::createWithForm($request, $this->form);
 
-        return response()->json(['message' => trans('motor-cms::component/text.created')]);
+        return response()->json(['message' => trans('motor-cms::component/texts.created')]);
     }
-
 
     /**
      * Show the form for editing the specified resource.
@@ -59,11 +57,11 @@ class ComponentTextController extends ComponentController
      */
     public function edit(ComponentText $record)
     {
-        $this->form = $this->form(TextForm::class, [
+        $this->form = $this->form(ComponentTextForm::class, [
             'model' => $record
         ]);
 
-        return response()->json($this->getFormData('component.text.update', ['mediapool' => true]));
+        return response()->json($this->getFormData('component.texts.update', ['mediapool' => true]));
     }
 
 
@@ -77,7 +75,7 @@ class ComponentTextController extends ComponentController
      */
     public function update(Request $request, ComponentText $record)
     {
-        $form = $this->form(TextForm::class);
+        $form = $this->form(ComponentTextForm::class);
 
         if ( ! $this->isValid()) {
             return $this->respondWithValidationError();
@@ -85,6 +83,6 @@ class ComponentTextController extends ComponentController
 
         ComponentTextService::updateWithForm($record, $request, $form);
 
-        return response()->json(['message' => trans('motor-cms::component/text.updated')]);
+        return response()->json(['message' => trans('motor-cms::component/texts.updated')]);
     }
 }

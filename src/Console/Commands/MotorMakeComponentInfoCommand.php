@@ -3,7 +3,6 @@
 namespace Motor\CMS\Console\Commands;
 
 use Illuminate\Filesystem\Filesystem;
-use Illuminate\Support\Str;
 use Motor\Core\Console\Commands\MotorAbstractCommand;
 
 class MotorMakeComponentInfoCommand extends MotorAbstractCommand
@@ -14,7 +13,7 @@ class MotorMakeComponentInfoCommand extends MotorAbstractCommand
      *
      * @var string
      */
-    protected $signature = 'motor:make:component-info {name} {--path=} {--namespace=}';
+    protected $signature = 'motor:make:component-info {name} {--path=} {--namespace=} {--create_model=}';
 
     /**
      * The console command description.
@@ -36,9 +35,14 @@ class MotorMakeComponentInfoCommand extends MotorAbstractCommand
 
     protected function getComponentConfigurationStub()
     {
-        return __DIR__ . '/stubs/info/component-configuration.stub';
+        return __DIR__ . '/stubs/info/component_configuration.stub';
     }
 
+
+    protected function getComponentConfigurationNoModelStub()
+    {
+        return __DIR__ . '/stubs/info/component_configuration_no_model.stub';
+    }
 
     protected function getRouteStub()
     {
@@ -65,25 +69,6 @@ class MotorMakeComponentInfoCommand extends MotorAbstractCommand
     }
 
 
-    protected function replaceTemplateVars($stub)
-    {
-        $replaceVars = [
-            'singularSnakeWithoutPrefix' => Str::snake(Str::singular(str_replace('Component', '',
-                $this->argument('name')))),
-            'pluralSnakeWithoutPrefix'   => Str::snake(Str::plural(str_replace('Component', '',
-                $this->argument('name')))),
-            'singularTitleWithoutPrefix' => Str::ucfirst(str_replace('_', ' ', (str_replace('Component', '',
-                Str::singular($this->argument('name')))))),
-        ];
-
-        foreach ($replaceVars as $key => $value) {
-            $stub = str_replace('{{' . $key . '}}', $value, $stub);
-        }
-
-        return parent::replaceTemplateVars($stub);
-    }
-
-
     /**
      * Execute the console command.
      *
@@ -91,30 +76,40 @@ class MotorMakeComponentInfoCommand extends MotorAbstractCommand
      */
     public function handle()
     {
-        $componentConfiguration = file_get_contents($this->getComponentConfigurationStub());
-        $componentConfiguration = $this->replaceTemplateVars($componentConfiguration);
+        if ((int)$this->option('create_model') == 1) {
+            $componentConfiguration = file_get_contents($this->getComponentConfigurationStub());
+            $componentConfiguration = $this->replaceTemplateVars($componentConfiguration);
 
-        $route = file_get_contents($this->getRouteStub());
-        $route = $this->replaceTemplateVars($route);
+            $this->info('Add this to the components array in your app/config/motor-cms-page-components.php');
+            echo $componentConfiguration . "\n";
 
-        $routeModelBinding = file_get_contents($this->getRouteModelBindingStub());
-        $routeModelBinding = $this->replaceTemplateVars($routeModelBinding);
+            $route = file_get_contents($this->getRouteStub());
+            $route = $this->replaceTemplateVars($route);
+
+            $this->info('Add this to the component route groups in your routes/web.php');
+            echo $route . "\n";
+
+            $routeModelBinding = file_get_contents($this->getRouteModelBindingStub());
+            $routeModelBinding = $this->replaceTemplateVars($routeModelBinding);
+
+            $this->info('Add this to the boot method in your app/Providers/RouteServiceProvider.php (or your own service provider)');
+            echo $routeModelBinding . "\n";
+
+            $this->info('In order to make your routes and translations available for the page manager please, execute \'php artisan ziggy:generate\' and \'php artisan vue-i18n:generate\'. If you are using the development environment please also run \'./update-dev.sh\' before running your migrations');
+        } else {
+            $componentConfiguration = file_get_contents($this->getComponentConfigurationNoModelStub());
+            $componentConfiguration = $this->replaceTemplateVars($componentConfiguration);
+
+            $this->info('Add this to the components array in your app/config/motor-cms-page-components.php');
+            echo $componentConfiguration . "\n";
+
+            $this->info('In order to make your translations available for the page manager please, execute \'php artisan motor:vue-i18n:generate\'');
+        }
 
         //$permission = file_get_contents($this->getPermissionStub());
         //$permission = $this->replaceTemplateVars($permission);
 
-        $this->info('Add this to the components array in your app/config/motor-cms-page-components.php');
-        echo $componentConfiguration . "\n";
-
-        $this->info('Add this to the component route groups in your routes/web.php');
-        echo $route . "\n";
-
-        $this->info('Add this to the boot method in your app/Providers/RouteServiceProvider.php (or your own service provider)');
-        echo $routeModelBinding . "\n";
-
         //$this->info('Add this to your app/config/motor-backend-permissions.php file');
         //echo $permission."\n";
-
-        $this->info('In order to make your routes and translations available for the page manager please, execute \'php artisan ziggy:generate\' and \'php artisan vue-i18n:generate\'');
     }
 }
