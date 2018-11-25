@@ -1,0 +1,14 @@
+'{{singularSnakeWithoutPrefix}}' => [
+	'name'            => '{{singularTitleWithoutPrefix}}',
+	'description'     => 'Show {{singularTitleWithoutPrefix}} component',
+	'view'            => '{{packageName}}frontend.components.{{singularSnakeWithoutPrefix}}',
+	'route'           => 'component.{{singularSnakeWithoutPrefix}}',
+	'component_class' => '{{namespace}}Components\{{pluralStudly}}',
+	'compatibility'   => [
+
+	],
+	'permissions'     => [
+
+	],
+	'group'           => 'basic'
+],

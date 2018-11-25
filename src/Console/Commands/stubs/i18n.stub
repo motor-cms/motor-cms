@@ -1,0 +1,8 @@
+<?php
+
+return [
+    'component' => '{{singularTitle}} component',
+    'created'   => '{{singularTitle}} component created',
+    'updated'   => '{{singularTitle}} component updated',
+    'deleted'   => '{{singularTitle}} component deleted'
+];

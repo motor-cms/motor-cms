@@ -1,0 +1,14 @@
+<?php
+
+namespace DummyRootNamespaceServices\Component;
+
+use DummyRootNamespaceModels\Component\DummyModel;
+use Motor\CMS\Services\ComponentBaseService;
+
+class DummyService extends ComponentBaseService
+{
+
+    protected $model = DummyModel::class;
+
+    protected $name = 'ComponentNameSingularLowercase';
+}

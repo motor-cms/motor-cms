@@ -10,10 +10,17 @@ class PageForm extends Form
     public function buildForm()
     {
         $clients = config('motor-backend.models.client')::pluck('name', 'id')->toArray();
+
+        $templates = config('motor-cms-page-templates');
+        $templateChoices = [];
+        foreach ($templates as $template => $templateData) {
+            $templateChoices[$template] = $template;
+        }
+
         $this
             ->add('client_id', 'select', ['label' => trans('motor-backend::backend/clients.client'), 'choices' => $clients, 'empty_value' => trans('motor-backend::backend/global.please_choose')])
             ->add('language_id', 'select', ['label' => trans('motor-backend::backend/languages.language'), 'choices' => Language::pluck('native_name', 'id')->toArray(), 'empty_value' => trans('motor-backend::backend/global.please_choose')])
-            ->add('template', 'select', ['label' => trans('motor-cms::backend/pages.template'), 'rules' => 'required', 'choices' => ['default' => 'default']])
+            ->add('template', 'select', ['label' => trans('motor-cms::backend/pages.template'), 'rules' => 'required', 'choices' => $templateChoices])
             ->add('name', 'text', ['label' => trans('motor-cms::backend/pages.name'), 'rules' => 'required'])
             ->add('meta_description', 'textarea', ['label' => trans('motor-cms::backend/pages.meta_description')])
             ->add('meta_keywords', 'text', ['label' => trans('motor-cms::backend/pages.meta_keywords')])

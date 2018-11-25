@@ -1,4 +1,7 @@
 <?php
+
+use Illuminate\Container\Container;
+
 Route::group([
     'as'         => 'backend.',
     'prefix'     => 'backend',
@@ -20,8 +23,24 @@ Route::group([
     ]]);
 
     Route::resource('pages', 'PagesController');
+    Route::delete('pages/{page}/components/{page_version_component}', 'PagesController@destroyComponent')->name('pages.components.delete');
     Route::get('pages/{page}/components', 'PagesController@components')->name('pages.components.read');
+    Route::get('pages/{page}/component_data', 'PagesController@component_data')->name('pages.component_data.read');
+    Route::patch('pages/{page}/component_data', 'PagesController@patch_component_data')->name('pages.component_data.update');
 });
+
+Route::group([
+    'as'         => 'frontend.',
+    'prefix'     => 'f',
+    'namespace'  => 'Motor\CMS\Http\Controllers\Frontend',
+    'middleware' => [
+        'web',
+        'frontend',
+    ]
+], function () {
+    Route::get('{slug}', 'PagesController@index')->name('pages.index')->where('slug', '.*');
+});
+
 
 Route::group([
     'as'         => 'component.',
@@ -29,8 +48,9 @@ Route::group([
     'namespace'  => 'Motor\CMS\Http\Controllers\Component',
     'middleware' => [
         'web',
-        'web_auth'
+        //'web_auth'
     ]
 ], function () {
-    Route::resource('text', 'Basic\TextController', ['parameters' => ['text' => 'component_text']]);
+    Route::resource('base', 'BaseController')->only(['store', 'destroy']);
+    Route::resource('text', 'Basic\ComponentTextController', ['parameters' => ['text' => 'component_text']]);
 });

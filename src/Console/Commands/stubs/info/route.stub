@@ -1,0 +1,15 @@
+// Only add the route group if you don't already have one for the given namespace
+Route::group([
+    'as'         => 'component.',
+    'prefix'     => 'component',
+    'namespace'  => '{{namespace}}Http\Controllers\Backend\Component',
+    'middleware' => [
+        'web',
+    ]
+], function () {
+    // You only need this part if you already have a component group for the given namespace
+    Route::get('{{pluralSnakeWithoutPrefix}}', '{{pluralStudly}}Controller@create')->name('{{singularSnakeWithoutPrefix}}.create');
+    Route::post('{{pluralSnakeWithoutPrefix}}', '{{pluralStudly}}Controller@store')->name('{{singularSnakeWithoutPrefix}}.store');
+    Route::get('{{pluralSnakeWithoutPrefix}}/{{{singularSnake}}}', '{{pluralStudly}}Controller@edit')->name('{{singularSnakeWithoutPrefix}}.edit');
+    Route::patch('{{pluralSnakeWithoutPrefix}}/{{{singularSnake}}}', '{{pluralStudly}}Controller@update')->name('{{singularSnakeWithoutPrefix}}.update');
+});

@@ -6,6 +6,7 @@ use Motor\Backend\Http\Controllers\Controller;
 
 use Motor\CMS\Models\Page;
 use Motor\CMS\Http\Requests\Backend\PageRequest;
+use Motor\CMS\Models\PageVersionComponent;
 use Motor\CMS\Services\PageService;
 use Motor\CMS\Grids\PageGrid;
 use Motor\CMS\Forms\Backend\PageForm;
@@ -49,7 +50,7 @@ class PagesController extends Controller
         ]);
 
         $templates  = config('motor-cms-page-templates');
-        $components = config('motor-cms-page-components');
+        $components = json_encode(config('motor-cms-page-components'));
 
         return view('motor-cms::backend.pages.create', compact('form', 'templates', 'components'));
     }
@@ -91,12 +92,58 @@ class PagesController extends Controller
         //
     }
 
-    public function components(Page $record)
+    public function patch_component_data(Page $record, PageRequest $request)
     {
-        $templates  = config('motor-cms-page-templates');
-
-        return view('motor-cms::layouts.partials.template-loop', ['templates' => $templates, 'record' => $record]);
+        foreach ($request->all() as $container => $components) {
+            foreach ($components as $component) {
+                $pageVersionComponent = PageVersionComponent::where('page_version_id', $component['page_component_data']['page_version_id'])->where('id', $component['page_component_data']['id'])->first();
+                if (!is_null($pageVersionComponent)) {
+                    $pageVersionComponent->container = $component['page_component_data']['container'];
+                    $pageVersionComponent->sort_position = $component['page_component_data']['sort_position'];
+                    $pageVersionComponent->save();
+                }
+            }
+        }
+        return response()->json(['message' => 'Success']);
     }
+
+    public function component_data(Page $record)
+    {
+        $returnArray = [];
+        foreach ($record->getCurrentVersion()->components()->orderBy('container')->orderBy('sort_position')->get() as $pageComponent) {
+            if (!isset($returnArray[$pageComponent->container])) {
+                $returnArray[$pageComponent->container] = [];
+            }
+            if ($pageComponent->component == null) {
+                $returnArray[$pageComponent->container][] = [
+                    'page_component_data' => $pageComponent->toArray(),
+                    'preview' => '',
+                    'component_name' => config('motor-cms-page-components.components.'.$pageComponent->component_name.'.name'),
+                ];
+            } else {
+                $preview = $pageComponent->component->preview();
+                $returnArray[$pageComponent->container][] = [
+                    'page_component_data' => $pageComponent->toArray(),
+                    'component_name' => $preview['name'],
+                    'preview' => $preview['preview']
+                ];
+            }
+        }
+        return response()->json($returnArray);
+    }
+
+    public function destroyComponent(Page $page, PageVersionComponent $pageVersionComponent) {
+        $pageVersionComponent->component()->delete();
+        $pageVersionComponent->delete();
+        return response()->json(['message' => 'Success']);
+    }
+
+    //public function components(Page $record)
+    //{
+    //    $templates  = config('motor-cms-page-templates');
+    //
+    //    return view('motor-cms::layouts.partials.template-loop', ['templates' => $templates, 'record' => $record]);
+    //}
 
 
     /**
@@ -120,9 +167,11 @@ class PagesController extends Controller
         ]);
 
         $templates  = config('motor-cms-page-templates');
-        $components = config('motor-cms-page-components');
+        $components = json_encode(config('motor-cms-page-components'));
 
-        return view('motor-cms::backend.pages.edit', compact('form', 'templates', 'components', 'record'));
+        $template = json_encode($templates[$record->getCurrentVersion()->template]);
+
+        return view('motor-cms::backend.pages.edit', compact('form', 'templates', 'template', 'components', 'record'));
     }
 
 

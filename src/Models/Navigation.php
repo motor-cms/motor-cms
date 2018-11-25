@@ -24,7 +24,7 @@ class Navigation extends Model
      *
      * @var array
      */
-    protected $blameable = [ 'created', 'updated', 'deleted' ];
+    protected $blameable = ['created', 'updated', 'deleted'];
 
     /**
      * Searchable columns for the searchable trait
@@ -45,9 +45,11 @@ class Navigation extends Model
         'language_id',
         'name',
         'scope',
+        'page_id',
         'is_visible',
         'is_active'
     ];
+
 
     /**
      * Get searchable columns defined on the model.
@@ -59,18 +61,27 @@ class Navigation extends Model
         return (property_exists($this, 'searchableColumns')) ? $this->searchableColumns : [];
     }
 
+
     protected function getScopeAttributes()
     {
-        return [ 'scope' ];
+        return ['scope'];
     }
+
 
     public function client()
     {
         return $this->belongsTo(Client::class);
     }
 
+
     public function language()
     {
         return $this->belongsTo(Language::class);
+    }
+
+
+    public function page()
+    {
+        return $this->belongsTo(Page::class);
     }
 }

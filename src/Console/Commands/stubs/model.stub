@@ -1,0 +1,30 @@
+<?php
+
+namespace DummyNamespace;
+
+use Motor\CMS\Models\ComponentBaseModel;
+
+class DummyClass extends ComponentBaseModel
+{
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+
+    ];
+
+	/**
+	 * Preview function for the page editor
+	 *
+	 * @return mixed
+	 */
+	public function preview()
+	{
+		return [
+			'name'    => trans('DummyPackageNamecomponent/DummyComponentView.component'),
+			'preview' => 'Preview for DummyClass component'
+		];
+	}
+}

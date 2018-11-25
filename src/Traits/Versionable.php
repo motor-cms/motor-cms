@@ -69,6 +69,11 @@ trait Versionable
         return $this->versionAttributes;
     }
 
+    public function setVersionAttributes($attributes)
+    {
+        $this->versionAttributes = $attributes;
+    }
+
     /**
      * @return string
      */
@@ -100,10 +105,22 @@ trait Versionable
                 $newVersion->components()->save($c);
 
                 // 3. clone actual components
-                $cc = $c->component->replicate();
-                if ($cc->push()) {
-                    $cc->component()->save($c);
+                if ($c->component != null) {
+                    $cc = $c->component->replicate();
+                    if ($cc->push()) {
+                        $cc->component()->save($c);
+                    }
+
+                    // 4. clone file associations
+                    if (isset($c->component->file_associations)) {
+                        foreach ($c->component->file_associations as $file_association) {
+                            $fa = $file_association->replicate();
+                            $fa->model_id = $cc->id;
+                            $fa->save();
+                        }
+                    }
                 }
+
             }
         }
     }
@@ -236,6 +253,14 @@ trait Versionable
         return $version->versionable_number;
     }
 
+    public function getLiveVersion()
+    {
+        $model = $this->getVersionModel();
+        $version = $model::where('versionable_id', $this->id)->where('versionable_state', 'LIVE')->first();
+
+        return $version;
+    }
+
 
     /**
      * Return currently used version
@@ -286,7 +311,7 @@ trait Versionable
         }
 
         if ($this->getVersionState() == 'LIVE') {
-            foreach ($model::where('versionable_state', 'LIVE')->get() as $v) {
+            foreach ($model::where('versionable_id', $this->id)->where('versionable_state', 'LIVE')->get() as $v) {
                 $v->versionable_state = 'CLEARED';
                 $v->save();
             }

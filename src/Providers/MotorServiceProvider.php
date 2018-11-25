@@ -4,7 +4,9 @@ namespace Motor\CMS\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
-use Motor\Backend\Console\Commands\MotorCreatePermissionsCommand;
+use Motor\CMS\Console\Commands\MotorMakeComponentCommand;
+use Motor\CMS\Console\Commands\MotorMakeComponentClassCommand;
+use Motor\CMS\Console\Commands\MotorMakeComponentInfoCommand;
 
 class MotorServiceProvider extends ServiceProvider
 {
@@ -26,9 +28,23 @@ class MotorServiceProvider extends ServiceProvider
         $this->migrations();
         $this->components();
         $this->templates();
+        $this->vueRoutes();
         $this->publishResourceAssets();
+        $this->blade();
+        $this->registerCommands();
     }
 
+
+    public function registerCommands()
+    {
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                MotorMakeComponentCommand::class,
+                MotorMakeComponentClassCommand::class,
+                MotorMakeComponentInfoCommand::class,
+            ]);
+        }
+    }
 
     /**
      * Register the application services.
@@ -38,6 +54,9 @@ class MotorServiceProvider extends ServiceProvider
     public function register()
     {
         //$this->mergeConfigFrom(__DIR__ . '/../../config/laravel-menu/settings.php', 'laravel-menu.settings');
+    }
+
+    public function blade() {
     }
 
 
@@ -65,6 +84,14 @@ class MotorServiceProvider extends ServiceProvider
         $config = $this->app['config']->get('motor-backend-permissions', []);
         $this->app['config']->set('motor-backend-permissions',
             array_replace_recursive(require __DIR__ . '/../../config/motor-backend-permissions.php', $config));
+    }
+
+
+    public function vueRoutes()
+    {
+        $config = $this->app['config']->get('ziggy', []);
+        $this->app['config']->set('ziggy',
+            array_replace_recursive(require __DIR__ . '/../../config/ziggy.php', $config));
     }
 
 
@@ -131,6 +158,10 @@ class MotorServiceProvider extends ServiceProvider
 
         Route::bind('component_text', function($id){
             return \Motor\CMS\Models\Component\ComponentText::findOrFail($id);
+        });
+
+        Route::bind('page_version_component', function($id){
+            return \Motor\CMS\Models\PageVersionComponent::findOrFail($id);
         });
     }
 
