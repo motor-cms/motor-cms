@@ -5,7 +5,7 @@ namespace Motor\CMS\Models\Component;
 use Motor\CMS\Models\ComponentBaseModel;
 use Motor\Media\Models\FileAssociation;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
-use Spatie\MediaLibrary\Media;
+use Spatie\MediaLibrary\Models\Media;
 
 class ComponentText extends ComponentBaseModel
 {

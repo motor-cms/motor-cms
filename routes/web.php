@@ -12,21 +12,28 @@ Route::group([
         'navigation'
     ]
 ], function () {
-    Route::resource('navigations', 'NavigationsController', ['except' => [
-        'index', 'create'
-    ]]);
+    Route::resource('navigations', 'NavigationsController', [
+        'except' => [
+            'index',
+            'create'
+        ]
+    ]);
     Route::get('navigations/{navigation}', 'NavigationsController@index')->name('navigations.index');
     Route::get('navigations/{navigation}/create', 'NavigationsController@create')->name('navigations.create');
 
-    Route::resource('navigation_trees', 'NavigationTreesController', ['parameters' => [
-        'navigation_trees' => 'navigation'
-    ]]);
+    Route::resource('navigation_trees', 'NavigationTreesController', [
+        'parameters' => [
+            'navigation_trees' => 'navigation'
+        ]
+    ]);
 
     Route::resource('pages', 'PagesController');
-    Route::delete('pages/{page}/components/{page_version_component}', 'PagesController@destroyComponent')->name('pages.components.delete');
+    Route::delete('pages/{page}/components/{page_version_component}',
+        'PagesController@destroyComponent')->name('pages.components.delete');
     Route::get('pages/{page}/components', 'PagesController@components')->name('pages.components.read');
     Route::get('pages/{page}/component_data', 'PagesController@component_data')->name('pages.component_data.read');
-    Route::patch('pages/{page}/component_data', 'PagesController@patch_component_data')->name('pages.component_data.update');
+    Route::patch('pages/{page}/component_data',
+        'PagesController@patch_component_data')->name('pages.component_data.update');
 });
 
 Route::group([
@@ -41,7 +48,6 @@ Route::group([
     Route::get('{slug}', 'PagesController@index')->name('pages.index')->where('slug', '.*');
 });
 
-
 Route::group([
     'as'         => 'component.',
     'prefix'     => 'component',
@@ -51,10 +57,20 @@ Route::group([
         //'web_auth'
     ]
 ], function () {
-    Route::resource('base', 'BaseController')->only(['store', 'destroy']);
-
     // You only need this part if you already have a component group for the given namespace
     Route::get('texts', 'ComponentTextsController@create')->name('texts.create');
     Route::post('texts', 'ComponentTextsController@store')->name('texts.store');
     Route::get('texts/{component_text}', 'ComponentTextsController@edit')->name('texts.edit');
-    Route::patch('texts/{component_text}', 'ComponentTextsController@update')->name('texts.update');});
+    Route::patch('texts/{component_text}', 'ComponentTextsController@update')->name('texts.update');
+});
+Route::group([
+    'as'         => 'component.',
+    'prefix'     => 'component',
+    'namespace'  => 'Motor\CMS\Http\Controllers\Component',
+    'middleware' => [
+        'web',
+        //'web_auth'
+    ]
+], function () {
+    Route::resource('base', 'BaseController')->only(['store', 'destroy']);
+});
