@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use Motor\CMS\Console\Commands\MotorMakeComponentCommand;
 use Motor\CMS\Console\Commands\MotorMakeComponentClassCommand;
 use Motor\CMS\Console\Commands\MotorMakeComponentInfoCommand;
+use Motor\CMS\Http\Middleware\Frontend\Navigation;
 
 class MotorServiceProvider extends ServiceProvider
 {
@@ -18,6 +19,8 @@ class MotorServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $result = app('router')->pushMiddlewareToGroup('frontend', Navigation::class);
+
         $this->config();
         $this->routes();
         $this->routeModelBindings();

@@ -13,7 +13,7 @@ class PageService extends BaseService
 
     public function beforeCreate()
     {
-
+        $this->record->setVersionAttributes($this->data);
     }
 
 
@@ -31,9 +31,6 @@ class PageService extends BaseService
 
     public function afterUpdate()
     {
-        //$version = $this->record->getCurrentVersion();
-        //$version->fill($this->data);
-        //$version->save();
         //
         if ((int)$this->request->get('publish') == 1) {
             $this->record->getVersionState('LIVE');

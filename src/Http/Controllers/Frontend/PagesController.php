@@ -2,10 +2,11 @@
 
 namespace Motor\CMS\Http\Controllers\Frontend;
 
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 use Motor\Backend\Http\Controllers\Controller;
 
 use Motor\CMS\Models\Navigation;
-use Motor\CMS\Models\Page;
 
 class PagesController extends Controller
 {
@@ -36,7 +37,23 @@ class PagesController extends Controller
             return response('No live version found for navigation item ' . $slug, 404);
         }
 
-        return view('motor-cms::frontend.default', compact('version'));
+        $renderedOutput = [];
+
+        foreach ($version->components()->orderBy('container')->orderBy('sort_position')->get() as $pageComponent) {
+            if (!isset($renderedOutput[$pageComponent->container])) {
+                $renderedOutput[$pageComponent->container] = [];
+            }
+            $result = \Motor\CMS\Services\ComponentBaseService::render($pageComponent);
+            if ($result instanceOf View) {
+                $renderedOutput[$pageComponent->container][] = $result;
+            } elseif ($result instanceOf RedirectResponse) {
+                return $result;
+            }
+        }
+
+        $template = config('motor-cms-page-templates.'.$version->template);
+
+        return view('motor-cms::frontend.default', compact('template', 'version', 'renderedOutput'));
 
     }
 }

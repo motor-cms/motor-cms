@@ -93,52 +93,62 @@ class PagesController extends Controller
         //
     }
 
+
     public function patch_component_data(Page $record, PageRequest $request)
     {
         foreach ($request->all() as $container => $components) {
             foreach ($components as $component) {
-                $pageVersionComponent = PageVersionComponent::where('page_version_id', $component['page_component_data']['page_version_id'])->where('id', $component['page_component_data']['id'])->first();
-                if (!is_null($pageVersionComponent)) {
-                    $pageVersionComponent->container = $component['page_component_data']['container'];
+                $pageVersionComponent = PageVersionComponent::where('page_version_id', $component['page_component_data']['page_version_id'])->where('id',
+                    $component['page_component_data']['id'])->first();
+                if ( ! is_null($pageVersionComponent)) {
+                    $pageVersionComponent->container     = $component['page_component_data']['container'];
                     $pageVersionComponent->sort_position = $component['page_component_data']['sort_position'];
                     $pageVersionComponent->save();
                 }
             }
         }
+
         return response()->json(['message' => 'Success']);
     }
+
 
     public function component_data(Page $record)
     {
         $returnArray = [];
         foreach ($record->getCurrentVersion()->components()->orderBy('container')->orderBy('sort_position')->get() as $pageComponent) {
-            if (!isset($returnArray[$pageComponent->container])) {
+            if ( ! isset($returnArray[$pageComponent->container])) {
                 $returnArray[$pageComponent->container] = [];
             }
             if ($pageComponent->component == null) {
                 $returnArray[$pageComponent->container][] = [
+                    'component_slug'      => $pageComponent->component_name,
                     'page_component_data' => $pageComponent->toArray(),
-                    'preview' => '',
-                    'component_name' => config('motor-cms-page-components.components.'.$pageComponent->component_name.'.name'),
+                    'preview'             => '',
+                    'component_name'      => config('motor-cms-page-components.components.' . $pageComponent->component_name . '.name'),
                 ];
             } else {
-                $preview = $pageComponent->component->preview();
+                $preview                                  = $pageComponent->component->preview();
                 $returnArray[$pageComponent->container][] = [
+                    'component_slug'      => $pageComponent->component_name,
                     'page_component_data' => $pageComponent->toArray(),
-                    'component_name' => $preview['name'],
-                    'preview' => $preview['preview']
+                    'component_name'      => $preview['name'],
+                    'preview'             => $preview['preview']
                 ];
             }
         }
+
         return response()->json($returnArray);
     }
 
-    public function destroyComponent(Page $page, PageVersionComponent $pageVersionComponent) {
-        if (!is_null($pageVersionComponent->component)) {
+
+    public function destroyComponent(Page $page, PageVersionComponent $pageVersionComponent)
+    {
+        if ( ! is_null($pageVersionComponent->component)) {
             $pageVersionComponent->component()->delete();
         }
         $componentName = $pageVersionComponent->component_name;
         $pageVersionComponent->delete();
+
         return response()->json(['message' => trans('motor-cms::component/global.deleted', ['name' => Str::ucfirst(str_replace('_', ' ', $componentName))])]);
     }
 
@@ -148,7 +158,6 @@ class PagesController extends Controller
     //
     //    return view('motor-cms::layouts.partials.template-loop', ['templates' => $templates, 'record' => $record]);
     //}
-
 
     /**
      * Show the form for editing the specified resource.
@@ -165,7 +174,7 @@ class PagesController extends Controller
 
         $form = $this->form(PageForm::class, [
             'method'  => 'PATCH',
-            'url'     => route('backend.pages.update', [ $record->id ]),
+            'url'     => route('backend.pages.update', [$record->id]),
             'enctype' => 'multipart/form-data',
             'model'   => $record
         ]);
@@ -173,7 +182,7 @@ class PagesController extends Controller
         $templates  = config('motor-cms-page-templates');
         $components = json_encode(config('motor-cms-page-components'));
 
-        $template = json_encode($templates[$record->getCurrentVersion()->template]);
+        $template = json_encode($templates[$record->getCurrentVersion()->template]['items']);
 
         return view('motor-cms::backend.pages.edit', compact('form', 'templates', 'template', 'components', 'record'));
     }

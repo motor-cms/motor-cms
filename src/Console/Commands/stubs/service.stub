@@ -10,5 +10,5 @@ class DummyService extends ComponentBaseService
 
     protected $model = DummyModel::class;
 
-    protected $name = 'ComponentNameSingularLowercase';
+    protected $name = 'ComponentNamePluralKebab';
 }

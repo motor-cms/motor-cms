@@ -46,6 +46,8 @@ Route::group([
     ]
 ], function () {
     Route::get('{slug}', 'PagesController@index')->name('pages.index')->where('slug', '.*');
+    Route::post('{slug}', 'PagesController@index')->name('pages.index')->where('slug', '.*');
+    Route::patch('{slug}', 'PagesController@index')->name('pages.index')->where('slug', '.*');
 });
 
 Route::group([

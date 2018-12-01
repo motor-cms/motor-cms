@@ -14,11 +14,11 @@ class PageForm extends Form
         $templates = config('motor-cms-page-templates');
         $templateChoices = [];
         foreach ($templates as $template => $templateData) {
-            $templateChoices[$template] = $template;
+            $templateChoices[$template] = $templateData['meta']['name'];
         }
 
         $this
-            ->add('client_id', 'select', ['label' => trans('motor-backend::backend/clients.client'), 'choices' => $clients, 'empty_value' => trans('motor-backend::backend/global.please_choose')])
+            ->add('client_id', 'select', ['label' => trans('motor-backend::backend/clients.client'), 'rules' => ['required'], 'choices' => $clients, 'empty_value' => trans('motor-backend::backend/global.please_choose')])
             ->add('language_id', 'select', ['label' => trans('motor-backend::backend/languages.language'), 'choices' => Language::pluck('native_name', 'id')->toArray(), 'empty_value' => trans('motor-backend::backend/global.please_choose')])
             ->add('template', 'select', ['label' => trans('motor-cms::backend/pages.template'), 'rules' => 'required', 'choices' => $templateChoices])
             ->add('name', 'text', ['label' => trans('motor-cms::backend/pages.name'), 'rules' => 'required'])

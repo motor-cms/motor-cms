@@ -9,12 +9,16 @@
                     </button>
                 </div>
                 <div class="modal-body motor-cms-components d-none">
-                    <template v-for="(group, name) in availableComponents.groups">
-                        <h4>{{group.name}}</h4>
-                        <template v-for="(component, index) in availableComponents.components">
-                            <button v-if="component.group == name" @click="addComponent(component, index)"
-                                    class="btn btn-secondary">{{component.name}}
-                                <br><sub>{{component.description}}</sub></button>
+                    <template v-for="(group, name, index) in availableComponents.groups">
+                        <template v-if="hasComponents(name)">
+                            <h4 :class="{'pt-3' : index > 0}">{{group.name}}</h4>
+                            <div>
+                                <template v-for="(component, name, index) in getComponents(name)">
+                                    <button @click="addComponent(component, name)"
+                                            class="btn btn-secondary">{{component.name}}
+                                        <br><sub>{{component.description}}</sub></button>
+                                </template>
+                            </div>
                         </template>
                     </template>
                 </div>
@@ -32,6 +36,7 @@
                                             field.options.label }}</label>
                                         <select v-model="field.options.selected" :name="field.options.real_name"
                                                 :id="field.options.real_name" class="form-control">
+                                            <option v-if="field.options.empty_value">{{field.options.empty_value}}</option>
                                             <option v-for="(name, value) in field.options.choices" :value="value">
                                                 {{name}}
                                             </option>
@@ -82,7 +87,7 @@
                                 </template>
                                 <template v-if="field.type == 'file_association'">
                                     <motor-backend-file-association-field v-model="field.options.value"
-                                                            :options="field.options"></motor-backend-file-association-field>
+                                                                          :options="field.options"></motor-backend-file-association-field>
                                 </template>
                             </template>
                         </div>
@@ -154,6 +159,27 @@
         mounted: function () {
         },
         methods: {
+            getComponents(group) {
+                let components = {};
+                for (var key in this.availableComponents.components) {
+                    if (this.availableComponents.components.hasOwnProperty(key)) {
+                        if (this.availableComponents.components[key].group == group) {
+                            components[key] = this.availableComponents.components[key];
+                        }
+                    }
+                }
+                return components;
+            },
+            hasComponents(group) {
+                for (var key in this.availableComponents.components) {
+                    if (this.availableComponents.components.hasOwnProperty(key)) {
+                        if (this.availableComponents.components[key].group == group) {
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            },
             closeModal() {
                 // Send clear event to all components to remove data in case the component gets reused
                 this.$eventHub.$emit('motor-cms:clear-data');

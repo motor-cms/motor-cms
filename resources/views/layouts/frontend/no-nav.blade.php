@@ -15,7 +15,7 @@
 </head>
 <body>
 <div class="grid-container">
-@include('motor-cms::layouts.frontend.partials.template-sections', ['rows' => config('motor-cms-page-templates.'.$version->template)])
+    @include('motor-cms::layouts.frontend.partials.template-sections', ['rows' => $template['items']])
 </div>
 
 <script src="{{mix('js/partymeister-frontend.js')}}"></script>

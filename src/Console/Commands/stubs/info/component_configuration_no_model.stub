@@ -1,7 +1,7 @@
-'{{singularKebabWithoutPrefix}}' => [
+'{{pluralKebabWithoutPrefix}}' => [
 	'name'            => '{{singularTitleWithoutPrefix}}',
 	'description'     => 'Show {{singularTitleWithoutPrefix}} component',
-	'view'            => '{{packageName}}frontend.components.{{singularKebabWithoutPrefix}}',
+	'view'            => '{{packageName}}frontend.components.{{pluralKebabWithoutPrefix}}',
 	'component_class' => '{{namespace}}Components\{{pluralStudly}}',
 	'compatibility'   => [
 

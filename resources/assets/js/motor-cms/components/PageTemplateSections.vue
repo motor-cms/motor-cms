@@ -27,7 +27,7 @@
                                                     <button @click="deleteComponent(component.page_component_data.id, $event)"
                                                             class="motor-component-delete btn btn-sm btn-danger pull-right float-right">
                                                         <i class="fa fa-trash"></i></button>
-                                                    <button v-if="availableComponents.components[component.page_component_data.component_name].route !== undefined" @click="editComponent(availableComponents.components[component.page_component_data.component_name].route+'.edit', component.page_component_data.component_id, element.container, $event)"
+                                                    <button v-if="availableComponents.components[component.component_slug].route !== undefined" @click="editComponent(availableComponents.components[component.page_component_data.component_name].route+'.edit', component.page_component_data.component_id, element.container, $event)"
                                                             class="motor-component-edit btn btn-sm btn-warning pull-right float-right">
                                                         <i class="fa fa-edit"></i></button>
                                                     <button class="motor-component-move btn btn-sm btn-primary pull-right float-right handle">

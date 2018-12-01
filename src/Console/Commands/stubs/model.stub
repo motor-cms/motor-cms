@@ -23,7 +23,7 @@ class DummyClass extends ComponentBaseModel
 	public function preview()
 	{
 		return [
-			'name'    => trans('DummyPackageNamecomponent/DummyComponentView.component'),
+			'name'    => trans('DummyPackageNamecomponent/DummyComponentViewKebab.component'),
 			'preview' => 'Preview for DummyClass component'
 		];
 	}
