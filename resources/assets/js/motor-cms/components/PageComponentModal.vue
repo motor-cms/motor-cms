@@ -22,6 +22,7 @@
                         </template>
                     </template>
                 </div>
+
                 <div class="modal-body motor-cms-component-form d-none">
                     <div class="row">
                         <div :class="[form.options.mediapool ? 'col-md-8' : 'col-md-12']">

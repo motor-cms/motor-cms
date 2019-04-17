@@ -1,16 +1,17 @@
 Vue.component(
     'motor-cms-page-template',
-    require('./components/PageTemplate.vue')
+    require('./components/PageTemplate.vue').default
 );
 
 Vue.component(
     'motor-cms-page-template-sections',
-    require('./components/PageTemplateSections.vue')
+    require('./components/PageTemplateSections.vue').default
 );
+
 
 Vue.component(
     'motor-cms-page-component-modal',
-    require('./components/PageComponentModal.vue')
+    require('./components/PageComponentModal.vue').default
 );
 
 // Import date picker css
