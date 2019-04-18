@@ -119,7 +119,8 @@ class PagesController extends Controller
             if ( ! isset($returnArray[$pageComponent->container])) {
                 $returnArray[$pageComponent->container] = [];
             }
-            if ($pageComponent->component == null) {
+
+            if ($pageComponent->component_id == null) {
                 $returnArray[$pageComponent->container][] = [
                     'component_slug'      => $pageComponent->component_name,
                     'page_component_data' => $pageComponent->toArray(),

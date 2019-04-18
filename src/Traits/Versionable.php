@@ -105,7 +105,7 @@ trait Versionable
                 $newVersion->components()->save($c);
 
                 // 3. clone actual components
-                if ($c->component != null) {
+                if ($c->component_id != null) {
                     $cc = $c->component->replicate();
                     if ($cc->push()) {
                         $cc->component()->save($c);

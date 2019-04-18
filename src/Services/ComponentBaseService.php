@@ -14,7 +14,7 @@ class ComponentBaseService extends BaseService
         $container = app();
 
         $controller = $container->make(config('motor-cms-page-components.components.' . $pageComponent->component_name . '.component_class'),
-            ['pageVersionComponent' => $pageComponent, 'component' => $pageComponent->component]);
+            ['pageVersionComponent' => $pageComponent, 'component' => ($pageComponent->component_id == null ? null : $pageComponent->component)]);
 
         return $container->call([$controller, 'index']);
 
