@@ -22,14 +22,15 @@ trait Versionable
      */
     public static function bootVersionable()
     {
-        $hooks = new VersionableHooks;
-
-        foreach ([
-                     'isDirty',
-                     'setAttribute',
-                 ] as $method) {
-            static::observe($method, $hooks->{$method}());
-        }
+        // FIXME: these seem to be unused currently - can we get rid of them (incompatibility with Laravel 5.8 as well)
+        //$hooks = new VersionableHooks;
+        //
+        //foreach ([
+        //             'isDirty',
+        //             'setAttribute',
+        //         ] as $method) {
+        //    static::observe($method, $hooks->{$method}());
+        //}
     }
 
 

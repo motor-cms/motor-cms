@@ -8,6 +8,27 @@ use Spatie\MediaLibrary\Models\Media;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 
+/**
+ * Motor\CMS\Models\Component\ComponentText
+ *
+ * @property int $id
+ * @property string $headline
+ * @property string $body
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Motor\CMS\Models\PageVersionComponent[] $component
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Motor\Media\Models\FileAssociation[] $file_associations
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Spatie\MediaLibrary\Models\Media[] $media
+ * @method static \Illuminate\Database\Eloquent\Builder|\Motor\CMS\Models\Component\ComponentText newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\Motor\CMS\Models\Component\ComponentText newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\Motor\CMS\Models\Component\ComponentText query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\Motor\CMS\Models\Component\ComponentText whereBody($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Motor\CMS\Models\Component\ComponentText whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Motor\CMS\Models\Component\ComponentText whereHeadline($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Motor\CMS\Models\Component\ComponentText whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Motor\CMS\Models\Component\ComponentText whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class ComponentText extends ComponentBaseModel implements HasMedia
 {
 
