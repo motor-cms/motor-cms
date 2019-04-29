@@ -11,7 +11,9 @@
       "email": "me@dfox.info"
     }
   ],
-  "require": {},
+  "require": {
+    "motor-cms/motor-backend": "0.8.*"
+  },
   "autoload": {
     "psr-4": {
       "Motor\\CMS\\": "src"
