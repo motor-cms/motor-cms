@@ -4,10 +4,11 @@ namespace Motor\CMS\Models\Component;
 
 use Motor\CMS\Models\ComponentBaseModel;
 use Motor\Media\Models\FileAssociation;
-use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\Models\Media;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 
-class ComponentText extends ComponentBaseModel
+class ComponentText extends ComponentBaseModel implements HasMedia
 {
 
     use HasMediaTrait;

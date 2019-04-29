@@ -13,6 +13,7 @@ class ComponentTexts {
     public function __construct(PageVersionComponent $pageVersionComponent, \Motor\CMS\Models\Component\ComponentText $component)
     {
         $this->component = $component;
+        //dd($this->component->getMedia('image'));
         $this->pageVersionComponent = $pageVersionComponent;
     }
 
