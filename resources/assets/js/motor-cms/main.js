@@ -18,8 +18,8 @@ Vue.component(
 import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css';
 
 // Import ckeditor
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
-import VueCkeditor from 'vue-ckeditor5'
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import CKEditor from '@ckeditor/ckeditor5-vue';
 
 const options = {
     editors: {
@@ -28,4 +28,9 @@ const options = {
     name: 'ckeditor'
 };
 
-Vue.use(VueCkeditor.plugin, options);
+Vue.use(CKEditor, {
+    editor: ClassicEditor,
+    editors: {
+        classic: ClassicEditor
+    }
+});

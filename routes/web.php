@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Container\Container;
-
 Route::group([
     'as'         => 'backend.',
     'prefix'     => 'backend',
@@ -36,6 +34,8 @@ Route::group([
         'PagesController@patch_component_data')->name('pages.component_data.update');
 });
 
+Route::redirect('/', '/f/start'); //'Motor\CMS\Http\Controllers\Frontend\PagesController@index')->name('pages.start');
+
 Route::group([
     'as'         => 'frontend.',
     'prefix'     => 'f',
@@ -45,10 +45,15 @@ Route::group([
         'frontend',
     ]
 ], function () {
-    Route::get('{slug}', 'PagesController@index')->name('pages.index')->where('slug', '.*');
-    Route::post('{slug}', 'PagesController@index')->name('pages.index')->where('slug', '.*');
-    Route::patch('{slug}', 'PagesController@index')->name('pages.index')->where('slug', '.*');
+    Route::get('{slug}', 'PagesController@index')->name('pages.index')->where('slug', '[0-9a-zA-Z\-]+');
+    Route::post('{slug}', 'PagesController@index')->name('pages.index')->where('slug', '[0-9a-zA-Z\-]+');
+    Route::patch('{slug}', 'PagesController@index')->name('pages.index')->where('slug', '[0-9a-zA-Z\-]+');
 });
+
+//Route::get('/', function () {
+//    return redirect('/f/start');
+//});
+
 
 Route::group([
     'as'         => 'component.',

@@ -62,7 +62,7 @@
                                         <label :for="field.options.real_name" class="control-label">{{
                                             field.options.label
                                             }}</label>
-                                        <ckeditor type="classic" :id="field.options.real_name"
+                                        <ckeditor :editor="editor" :id="field.options.real_name"
                                                   v-model="field.options.value"></ckeditor>
                                     </div>
                                 </template>
@@ -118,6 +118,7 @@
 
     import {Ziggy} from 'ziggy';
     import route from 'ziggy/src/js/route';
+    import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
     window.Ziggy = Ziggy;
 
@@ -136,6 +137,7 @@
         },
         data() {
             return {
+                editor: ClassicEditor,
                 componentContainer: '',
                 form: {
                     fields: [],
@@ -195,7 +197,9 @@
 
                 console.log('new component for container ' + data.container);
 
-                $('#motor-component-modal').modal();
+                $.fn.modal.Constructor.prototype._enforceFocus = function() {};
+                $('#motor-component-modal').modal({focus: false});
+
                 $('#motor-component-modal .modal-title').html('Add new component to container ' + data.container);
                 this.componentContainer = data.container;
             },
@@ -261,7 +265,24 @@
                     this.form.route = response.data.route;
                     this.form.componentId = componentId;
 
-                    $('#motor-component-modal').modal();
+                    console.log("Apply bs4 modal hack for ckeditor 5");
+
+                    $.fn.modal.Constructor.prototype._enforceFocus = function _enforceFocus() {
+                        var _this4 = this;
+                        $(document).off(Event.FOCUSIN).on(Event.FOCUSIN, function (event) {
+                            if (
+                                document !== event.target
+                                && _this4._element !== event.target
+                                && $(_this4._element).has(event.target).length === 0
+                                && !$(event.target.parentNode).hasClass('cke_dialog_ui_input_select')
+                                && !$(event.target.parentNode).hasClass('cke_dialog_ui_input_text')
+                            ) {
+                                _this4._element.focus();
+                            }
+                        });
+                    };
+
+                    $('#motor-component-modal').modal({focus: false});
                     $('.motor-cms-components').addClass('d-none');
                     $('.motor-cms-component-form').removeClass('d-none');
                     $('.modal-footer').removeClass('d-none');
