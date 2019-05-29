@@ -45,9 +45,9 @@ Route::group([
         'frontend',
     ]
 ], function () {
-    Route::get('{slug}', 'PagesController@index')->name('pages.index')->where('slug', '[0-9a-zA-Z\-]+');
-    Route::post('{slug}', 'PagesController@index')->name('pages.index')->where('slug', '[0-9a-zA-Z\-]+');
-    Route::patch('{slug}', 'PagesController@index')->name('pages.index')->where('slug', '[0-9a-zA-Z\-]+');
+    Route::get('{slug}', 'PagesController@index')->name('pages.index')->where('slug', '[0-9a-zA-Z\/\-]+');
+    Route::post('{slug}', 'PagesController@index')->name('pages.index')->where('slug', '[0-9a-zA-Z\/\-]+');
+    Route::patch('{slug}', 'PagesController@index')->name('pages.index')->where('slug', '[0-9a-zA-Z\/\-]+');
 });
 
 //Route::get('/', function () {
