@@ -2,6 +2,7 @@
 
 namespace Motor\CMS\Services;
 
+use Illuminate\Support\Str;
 use Motor\CMS\Models\Navigation;
 use Motor\Backend\Services\BaseService;
 use Motor\Core\Filter\Renderers\WhereRenderer;
@@ -109,7 +110,7 @@ class NavigationService extends BaseService
 
     protected function assembleSlugs()
     {
-        $this->record->slug = str_slug($this->record->name);
+        $this->record->slug = Str::slug($this->record->name);
 
         $slugs = [$this->record->slug];
 

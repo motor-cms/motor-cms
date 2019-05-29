@@ -1,11 +1,11 @@
 @foreach($rows as $row)
     <div class="grid-x grid-margin-x">
         @foreach($row as $element)
-            <div class="cell {{array_get($element, 'class')}} medium-{{array_get($element, 'width')}}">
-                @if (array_get($element, 'items'))
-                    @include('motor-cms::layouts.frontend.partials.template-sections', ['rows' => array_get($element, 'items')])
+            <div class="cell {{Arr::get($element, 'class')}} medium-{{Arr::get($element, 'width')}}">
+                @if (Arr::get($element, 'items'))
+                    @include('motor-cms::layouts.frontend.partials.template-sections', ['rows' => Arr::get($element, 'items')])
                 @endif
-                @yield(array_get($element, 'container'))
+                @yield(Arr::get($element, 'container'))
             </div>
         @endforeach
     </div>
