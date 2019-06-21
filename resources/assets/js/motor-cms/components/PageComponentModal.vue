@@ -1,6 +1,6 @@
 <template>
     <div id="motor-component-modal" class="modal fade" data-backdrop="static" data-keyboard="false">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-xlg">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title"></h4>
@@ -25,7 +25,7 @@
 
                 <div class="modal-body motor-cms-component-form d-none">
                     <div class="row">
-                        <div :class="[form.options.mediapool ? 'col-md-8' : 'col-md-12']">
+                        <div class="component-body" :class="[form.options.mediapool ? 'col-md-8' : 'col-md-12']">
                             <template v-for="field of form.fields">
                                 <template v-if="field.type == 'hidden'">
                                     <input type="hidden" v-model="field.options.value" :name="field.options.real_name">
@@ -62,7 +62,7 @@
                                         <label :for="field.options.real_name" class="control-label">{{
                                             field.options.label
                                             }}</label>
-                                        <ckeditor :editor="editor" :id="field.options.real_name"
+                                        <ckeditor :config="editorConfig" :editor="editor" :id="field.options.real_name"
                                                   v-model="field.options.value"></ckeditor>
                                     </div>
                                 </template>
@@ -93,7 +93,7 @@
                             </template>
                         </div>
                         <div v-if="form.options.mediapool" class="col-md-4">
-                            <motor-media-mediapool></motor-media-mediapool>
+                            <motor-media-mediapool :component-modal="true"></motor-media-mediapool>
                         </div>
                     </div>
                 </div>
@@ -138,6 +138,7 @@
         data() {
             return {
                 editor: ClassicEditor,
+                editorConfig: { toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote' ]},
                 componentContainer: '',
                 form: {
                     fields: [],
@@ -160,6 +161,7 @@
             });
         },
         mounted: function () {
+            $('#motor-component-modal').modal({focus: false, show: false});
         },
         methods: {
             getComponents(group) {
@@ -197,11 +199,11 @@
 
                 console.log('new component for container ' + data.container);
 
-                $.fn.modal.Constructor.prototype._enforceFocus = function() {};
-                $('#motor-component-modal').modal({focus: false});
+                // $.fn.modal.Constructor.prototype._enforceFocus = function() {};
 
                 $('#motor-component-modal .modal-title').html('Add new component to container ' + data.container);
                 this.componentContainer = data.container;
+                $('#motor-component-modal').modal('show');
             },
             addComponent(component, index) {
                 if (component.route === undefined) {
@@ -265,28 +267,12 @@
                     this.form.route = response.data.route;
                     this.form.componentId = componentId;
 
-                    console.log("Apply bs4 modal hack for ckeditor 5");
-
-                    $.fn.modal.Constructor.prototype._enforceFocus = function _enforceFocus() {
-                        var _this4 = this;
-                        $(document).off(Event.FOCUSIN).on(Event.FOCUSIN, function (event) {
-                            if (
-                                document !== event.target
-                                && _this4._element !== event.target
-                                && $(_this4._element).has(event.target).length === 0
-                                && !$(event.target.parentNode).hasClass('cke_dialog_ui_input_select')
-                                && !$(event.target.parentNode).hasClass('cke_dialog_ui_input_text')
-                            ) {
-                                _this4._element.focus();
-                            }
-                        });
-                    };
-
-                    $('#motor-component-modal').modal({focus: false});
                     $('.motor-cms-components').addClass('d-none');
                     $('.motor-cms-component-form').removeClass('d-none');
                     $('.modal-footer').removeClass('d-none');
                     $('#motor-component-modal .modal-title').html('Edit component in container ' + container);
+                    $('#motor-component-modal').modal('show');
+
 
                 });
             },
@@ -347,7 +333,6 @@
             deleteComponent: function (pageId, componentId) {
 
                 if (!confirm(this.$t('motor-cms.backend.pages.delete_component_question'))) {
-                    // if (!confirm('{{trans('motor-cms::backend/pages.delete_component_question')}}')) {
                     return false;
                 }
 
@@ -362,4 +347,21 @@
 
 
 <style lang="scss">
+    .ck-balloon-panel {
+        z-index: 5000 !important;
+    }
+    .ck-editor__editable_inline {
+        min-height: 300px;
+    }
+    /* Important part */
+    .modal-dialog {
+        overflow-y: initial !important
+    }
+    .modal-body .component-body {
+        height: 70vh;
+        overflow-y: auto;
+    }
+    .modal-xlg {
+        max-width: 1000px;
+    }
 </style>

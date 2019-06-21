@@ -24,6 +24,8 @@ import CKEditor from '@ckeditor/ckeditor5-vue';
 const options = {
     editors: {
         classic: ClassicEditor,
+        toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote' ],
+
     },
     name: 'ckeditor'
 };
