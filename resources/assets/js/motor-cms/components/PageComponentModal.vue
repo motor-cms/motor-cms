@@ -361,7 +361,4 @@
         height: 70vh;
         overflow-y: auto;
     }
-    .modal-xlg {
-        max-width: 1000px;
-    }
 </style>
