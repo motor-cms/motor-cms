@@ -4,32 +4,41 @@ namespace Motor\CMS\Http\Middleware\Frontend;
 
 use Closure;
 
+/**
+ * Class Navigation
+ * @package Motor\CMS\Http\Middleware\Frontend
+ */
 class Navigation
 {
 
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \Closure                 $next
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure                 $next
      *
      * @return mixed
      */
     public function handle($request, Closure $next)
     {
         $activeNavigationSlug = $request->route()->parameter('slug');
-        $navigationItems = \Motor\CMS\Models\Navigation::where('scope', 'main')->where('parent_id', '!=', null)->defaultOrder()->get()->toTree();
+        $navigationItems      = \Motor\CMS\Models\Navigation::where('scope', 'main')
+                                                            ->where('parent_id', '!=', null)
+                                                            ->defaultOrder()
+                                                            ->get()
+                                                            ->toTree();
 
-        $activeNavigationItem = null;
+        $activeNavigationItem         = null;
         $activeTopLevelNavigationItem = null;
 
-        $traverse = function ($nodes) use (&$traverse, &$activeNavigationItem, $activeNavigationSlug) {
-            if (!is_null($activeNavigationItem)) {
+        $traverse = static function ($nodes) use (&$traverse, &$activeNavigationItem, $activeNavigationSlug) {
+            if ( ! is_null($activeNavigationItem)) {
                 return;
             }
             foreach ($nodes as $node) {
                 if ($node->full_slug == $activeNavigationSlug) {
                     $activeNavigationItem = $node;
+
                     return;
                 }
 
@@ -39,16 +48,16 @@ class Navigation
 
         $traverse($navigationItems);
 
-        $activeNavigationSlugs = [$activeNavigationSlug];
+        $activeNavigationSlugs = [ $activeNavigationSlug ];
 
-        foreach ($activeNavigationItem->ancestors->reverse() as $a) {
-            if ($a->full_slug != '') {
-                $activeNavigationSlugs[] = $a->full_slug;
+        foreach ($activeNavigationItem->ancestors->reverse() as $anchor) {
+            if ($anchor->full_slug != '') {
+                $activeNavigationSlugs[] = $anchor->full_slug;
             }
         }
         $activeNavigationSlugs = array_reverse($activeNavigationSlugs);
 
-        foreach($navigationItems as $node) {
+        foreach ($navigationItems as $node) {
             if ($node->full_slug == $activeNavigationSlugs[0]) {
                 $activeTopLevelNavigationItem = $node;
             }

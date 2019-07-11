@@ -5,6 +5,10 @@ namespace Motor\CMS\Console\Commands;
 use Illuminate\Filesystem\Filesystem;
 use Motor\Core\Console\Commands\MotorAbstractCommand;
 
+/**
+ * Class MotorMakeComponentInfoCommand
+ * @package Motor\CMS\Console\Commands
+ */
 class MotorMakeComponentInfoCommand extends MotorAbstractCommand
 {
 
@@ -23,34 +27,56 @@ class MotorMakeComponentInfoCommand extends MotorAbstractCommand
     protected $description = 'Display config information according to the given name';
 
 
-    protected function getTargetPath()
+    /**
+     * @return string
+     */
+    protected function getTargetPath(): string
     {
+        return '';
     }
 
 
-    protected function getTargetFile()
+    /**
+     * @return string
+     */
+    protected function getTargetFile(): string
     {
+        return '';
     }
 
 
-    protected function getComponentConfigurationStub()
+    /**
+     * @return string
+     */
+    protected function getComponentConfigurationStub(): string
     {
         return __DIR__ . '/stubs/info/component_configuration.stub';
     }
 
 
-    protected function getComponentConfigurationNoModelStub()
+    /**
+     * @return string
+     */
+    protected function getComponentConfigurationNoModelStub(): string
     {
         return __DIR__ . '/stubs/info/component_configuration_no_model.stub';
     }
 
-    protected function getRouteStub()
+
+    /**
+     * @return string
+     */
+    protected function getRouteStub(): string
+
     {
         return __DIR__ . '/stubs/info/route.stub';
     }
 
 
-    protected function getRouteModelBindingStub()
+    /**
+     * @return string
+     */
+    protected function getRouteModelBindingStub(): string
     {
         return __DIR__ . '/stubs/info/routemodelbinding.stub';
     }
@@ -60,7 +86,10 @@ class MotorMakeComponentInfoCommand extends MotorAbstractCommand
     //    return __DIR__ . '/stubs/info/permissions.stub';
     //}
 
-    protected function makeDirectory($directory)
+    /**
+     * @param $directory
+     */
+    protected function makeDirectory($directory): void
     {
         $filesystem = new Filesystem();
         if ( ! $filesystem->isDirectory($directory)) {
@@ -72,11 +101,11 @@ class MotorMakeComponentInfoCommand extends MotorAbstractCommand
     /**
      * Execute the console command.
      *
-     * @return mixed
+     * @return void
      */
-    public function handle()
+    public function handle(): void
     {
-        if ((int)$this->option('create_model') == 1) {
+        if ((int) $this->option('create_model') == 1) {
             $componentConfiguration = file_get_contents($this->getComponentConfigurationStub());
             $componentConfiguration = $this->replaceTemplateVars($componentConfiguration);
 

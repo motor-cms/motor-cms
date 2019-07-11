@@ -4,6 +4,10 @@ namespace Motor\CMS\Http\Requests\Backend;
 
 use Motor\Backend\Http\Requests\Request;
 
+/**
+ * Class NavigationRequest
+ * @package Motor\CMS\Http\Requests\Backend
+ */
 class NavigationRequest extends Request
 {
 

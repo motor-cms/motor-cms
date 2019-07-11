@@ -8,13 +8,20 @@ use Motor\Backend\Http\Controllers\Controller;
 
 use Motor\CMS\Models\Navigation;
 
+/**
+ * Class PagesController
+ * @package Motor\CMS\Http\Controllers\Frontend
+ */
 class PagesController extends Controller
 {
 
     /**
      * Get current live version of the given page
      *
-     * @return \Illuminate\Http\Response
+     * @param $slug
+     *
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|View|object
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function index($slug)
     {
@@ -40,7 +47,7 @@ class PagesController extends Controller
         $renderedOutput = [];
 
         foreach ($version->components()->orderBy('container')->orderBy('sort_position')->get() as $pageComponent) {
-            if (!isset($renderedOutput[$pageComponent->container])) {
+            if ( ! isset($renderedOutput[$pageComponent->container])) {
                 $renderedOutput[$pageComponent->container] = [];
             }
             $result = \Motor\CMS\Services\ComponentBaseService::render($pageComponent);
@@ -51,7 +58,7 @@ class PagesController extends Controller
             }
         }
 
-        $template = config('motor-cms-page-templates.'.$version->template);
+        $template = config('motor-cms-page-templates.' . $version->template);
 
         return view('motor-cms::frontend.default', compact('template', 'version', 'renderedOutput'));
 

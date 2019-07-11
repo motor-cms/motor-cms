@@ -5,6 +5,10 @@ namespace Motor\CMS\Traits;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
 
+/**
+ * Trait Versionable
+ * @package Motor\CMS\Traits
+ */
 trait Versionable
 {
 
@@ -62,6 +66,7 @@ trait Versionable
         return Str::singular($this->getTable()) . '_versions';
     }
 
+
     /**
      * @return array
      */
@@ -70,10 +75,15 @@ trait Versionable
         return $this->versionAttributes;
     }
 
+
+    /**
+     * @param $attributes
+     */
     public function setVersionAttributes($attributes)
     {
         $this->versionAttributes = $attributes;
     }
+
 
     /**
      * @return string
@@ -101,27 +111,26 @@ trait Versionable
         // 2. clone PageVersionComponents
         foreach ($oldVersion->components()->get() as $component) {
 
-            $c = $component->replicate();
-            if ($c->push()) {
-                $newVersion->components()->save($c);
+            $clonedComponent = $component->replicate();
+            if ($clonedComponent->push()) {
+                $newVersion->components()->save($clonedComponent);
 
                 // 3. clone actual components
-                if ($c->component_id != null) {
-                    $cc = $c->component->replicate();
-                    if ($cc->push()) {
-                        $cc->component()->save($c);
+                if ($clonedComponent->component_id != null) {
+                    $clonedComponentCopy = $clonedComponent->component->replicate();
+                    if ($clonedComponentCopy->push()) {
+                        $clonedComponentCopy->component()->save($clonedComponent);
                     }
 
                     // 4. clone file associations
-                    if (isset($c->component->file_associations)) {
-                        foreach ($c->component->file_associations as $file_association) {
-                            $fa = $file_association->replicate();
-                            $fa->model_id = $cc->id;
-                            $fa->save();
+                    if (isset($clonedComponent->component->file_associations)) {
+                        foreach ($clonedComponent->component->file_associations as $fileAssociation) {
+                            $clonedFileAssociation           = $fileAssociation->replicate();
+                            $clonedFileAssociation->model_id = $clonedComponentCopy->id;
+                            $clonedFileAssociation->save();
                         }
                     }
                 }
-
             }
         }
     }
@@ -140,6 +149,7 @@ trait Versionable
 
         return $this;
     }
+
 
     /**
      * Get current version state
@@ -233,11 +243,11 @@ trait Versionable
      */
     public function getLatestVersion()
     {
-        $model   = $this->getVersionModel();
-        $version = $model::where('versionable_id', $this->id)->orderBy('versionable_number', 'DESC')->first();
+        $model = $this->getVersionModel();
 
-        return $version;
+        return $model::where('versionable_id', $this->id)->orderBy('versionable_number', 'DESC')->first();
     }
+
 
     /**
      * Return the versionable_number of the currently used version
@@ -251,15 +261,19 @@ trait Versionable
         if (is_null($version)) {
             return 0;
         }
+
         return $version->versionable_number;
     }
 
+
+    /**
+     * @return mixed
+     */
     public function getLiveVersion()
     {
         $model = $this->getVersionModel();
-        $version = $model::where('versionable_id', $this->id)->where('versionable_state', 'LIVE')->first();
 
-        return $version;
+        return $model::where('versionable_id', $this->id)->where('versionable_state', 'LIVE')->first();
     }
 
 
@@ -274,8 +288,9 @@ trait Versionable
         if (is_null($this->currentVersion)) {
             $version = $model::where('versionable_id', $this->id)->orderBy('versionable_number', 'DESC')->first();
         } else {
-            $version = $model::where('versionable_id', $this->id)->where('versionable_number',
-                $this->currentVersion)->first();
+            $version = $model::where('versionable_id', $this->id)
+                             ->where('versionable_number', $this->currentVersion)
+                             ->first();
         }
 
         return $version;
@@ -294,6 +309,7 @@ trait Versionable
         if (is_null($version)) {
             return 0;
         }
+
         return $version->versionable_number;
     }
 
@@ -312,9 +328,11 @@ trait Versionable
         }
 
         if ($this->getVersionState() == 'LIVE') {
-            foreach ($model::where('versionable_id', $this->id)->where('versionable_state', 'LIVE')->get() as $v) {
-                $v->versionable_state = 'CLEARED';
-                $v->save();
+            foreach ($model::where('versionable_id', $this->id)
+                           ->where('versionable_state', 'LIVE')
+                           ->get() as $oldVersion) {
+                $oldVersion->versionable_state = 'CLEARED';
+                $oldVersion->save();
             }
         }
 

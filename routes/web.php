@@ -9,7 +9,7 @@ Route::group([
         'web_auth',
         'navigation'
     ]
-], function () {
+], static function () {
     Route::resource('navigations', 'NavigationsController', [
         'except' => [
             'index',
@@ -26,12 +26,12 @@ Route::group([
     ]);
 
     Route::resource('pages', 'PagesController');
-    Route::delete('pages/{page}/components/{page_version_component}',
-        'PagesController@destroyComponent')->name('pages.components.delete');
+    Route::delete('pages/{page}/components/{page_version_component}', 'PagesController@destroyComponent')
+         ->name('pages.components.delete');
     Route::get('pages/{page}/components', 'PagesController@components')->name('pages.components.read');
     Route::get('pages/{page}/component_data', 'PagesController@component_data')->name('pages.component_data.read');
-    Route::patch('pages/{page}/component_data',
-        'PagesController@patch_component_data')->name('pages.component_data.update');
+    Route::patch('pages/{page}/component_data', 'PagesController@patch_component_data')
+         ->name('pages.component_data.update');
 });
 
 Route::redirect('/', '/f/start'); //'Motor\CMS\Http\Controllers\Frontend\PagesController@index')->name('pages.start');
@@ -44,7 +44,7 @@ Route::group([
         'web',
         'frontend',
     ]
-], function () {
+], static function () {
     Route::get('{slug}', 'PagesController@index')->name('pages.index')->where('slug', '[0-9a-zA-Z\/\-]+');
     Route::post('{slug}', 'PagesController@index')->name('pages.index')->where('slug', '[0-9a-zA-Z\/\-]+');
     Route::patch('{slug}', 'PagesController@index')->name('pages.index')->where('slug', '[0-9a-zA-Z\/\-]+');
@@ -54,7 +54,6 @@ Route::group([
 //    return redirect('/f/start');
 //});
 
-
 Route::group([
     'as'         => 'component.',
     'prefix'     => 'component',
@@ -63,7 +62,7 @@ Route::group([
         'web',
         //'web_auth'
     ]
-], function () {
+], static function () {
     // You only need this part if you already have a component group for the given namespace
     Route::get('texts', 'ComponentTextsController@create')->name('texts.create');
     Route::post('texts', 'ComponentTextsController@store')->name('texts.store');
@@ -78,6 +77,6 @@ Route::group([
         'web',
         //'web_auth'
     ]
-], function () {
-    Route::resource('base', 'BaseController')->only(['store', 'destroy']);
+], static function () {
+    Route::resource('base', 'BaseController')->only([ 'store', 'destroy' ]);
 });

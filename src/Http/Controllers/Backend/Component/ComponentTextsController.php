@@ -4,16 +4,20 @@ namespace Motor\CMS\Http\Controllers\Backend\Component;
 
 use Motor\CMS\Http\Controllers\Component\ComponentController;
 use Illuminate\Http\Request;
-
 use Motor\CMS\Models\Component\ComponentText;
 use Motor\CMS\Services\Component\ComponentTextService;
 use Motor\CMS\Forms\Backend\Component\ComponentTextForm;
-
 use Kris\LaravelFormBuilder\FormBuilderTrait;
 
+/**
+ * Class ComponentTextsController
+ * @package Motor\CMS\Http\Controllers\Backend\Component
+ */
 class ComponentTextsController extends ComponentController
 {
+
     use FormBuilderTrait;
+
 
     /**
      * Show the form for creating a new resource.
@@ -24,14 +28,14 @@ class ComponentTextsController extends ComponentController
     {
         $this->form = $this->form(ComponentTextForm::class);
 
-        return response()->json($this->getFormData('component.texts.store', ['mediapool' => true]));
+        return response()->json($this->getFormData('component.texts.store', [ 'mediapool' => true ]));
     }
 
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\Response
      */
@@ -45,13 +49,14 @@ class ComponentTextsController extends ComponentController
 
         ComponentTextService::createWithForm($request, $this->form);
 
-        return response()->json(['message' => trans('motor-cms::component/texts.created')]);
+        return response()->json([ 'message' => trans('motor-cms::component/texts.created') ]);
     }
+
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
+     * @param int $id
      *
      * @return \Illuminate\Http\Response
      */
@@ -61,15 +66,15 @@ class ComponentTextsController extends ComponentController
             'model' => $record
         ]);
 
-        return response()->json($this->getFormData('component.texts.update', ['mediapool' => true]));
+        return response()->json($this->getFormData('component.texts.update', [ 'mediapool' => true ]));
     }
 
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int                      $id
+     * @param \Illuminate\Http\Request $request
+     * @param int                      $id
      *
      * @return \Illuminate\Http\Response
      */
@@ -83,6 +88,6 @@ class ComponentTextsController extends ComponentController
 
         ComponentTextService::updateWithForm($record, $request, $form);
 
-        return response()->json(['message' => trans('motor-cms::component/texts.updated')]);
+        return response()->json([ 'message' => trans('motor-cms::component/texts.updated') ]);
     }
 }

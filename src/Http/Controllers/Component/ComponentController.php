@@ -2,46 +2,63 @@
 
 namespace Motor\CMS\Http\Controllers\Component;
 
+use Illuminate\Http\JsonResponse;
 use Motor\Backend\Http\Controllers\Controller;
 
-use Motor\CMS\Http\Requests\Backend\PageRequest;
-use Motor\CMS\Services\Component\ComponentService;
-
+/**
+ * Class ComponentController
+ * @package Motor\CMS\Http\Controllers\Component
+ */
 class ComponentController extends Controller
 {
 
+    /**
+     * @var
+     */
     protected $form;
 
 
-    protected function getFormData($route, $options = [])
+    /**
+     * @param       $route
+     * @param array $options
+     *
+     * @return object
+     */
+    protected function getFormData($route, $options = []): object
     {
         $object          = new \stdClass();
         $object->route   = $route;
         $object->options = $options;
         $object->fields  = [];
         foreach ($this->form->getFields() as $field) {
-            $f = new \stdClass();
+            $fieldConfig = new \stdClass();
             if (method_exists($field, 'getData')) {
-                $f->options = array_merge($field->getOptions(), $field->getData());
+                $fieldConfig->options = array_merge($field->getOptions(), $field->getData());
             } else {
-                $f->options = $field->getOptions();
+                $fieldConfig->options = $field->getOptions();
             }
-            $f->type          = $field->getType();
-            $object->fields[] = $f;
+            $fieldConfig->type = $field->getType();
+            $object->fields[]  = $fieldConfig;
         }
 
         return $object;
     }
 
 
-    protected function isValid()
+    /**
+     * @return bool
+     */
+    protected function isValid(): bool
     {
         return true;
     }
 
 
-    protected function respondWithValidationError()
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
+    protected function respondWithValidationError(): JsonResponse
     {
-        return response()->json(['error'], 406);
+        return response()->json([ 'error' ], 406);
     }
 }

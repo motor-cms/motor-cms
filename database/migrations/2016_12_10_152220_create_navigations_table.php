@@ -4,6 +4,9 @@ use Culpa\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 use Kalnoy\Nestedset\NestedSet;
 
+/**
+ * Class CreateNavigationsTable
+ */
 class CreateNavigationsTable extends Migration
 {
     /**

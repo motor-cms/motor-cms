@@ -5,8 +5,11 @@ namespace Motor\CMS\Services;
 use Illuminate\Support\Str;
 use Motor\CMS\Models\Navigation;
 use Motor\Backend\Services\BaseService;
-use Motor\Core\Filter\Renderers\WhereRenderer;
 
+/**
+ * Class NavigationService
+ * @package Motor\CMS\Services
+ */
 class NavigationService extends BaseService
 {
 
@@ -60,7 +63,7 @@ class NavigationService extends BaseService
             if ($this->record->exists) {
                 $formerPreviousSibling = $this->record->getPrevSibling();
             }
-            if ((is_null($formerPreviousSibling) || ( ! is_null($formerPreviousSibling) && $formerPreviousSibling->id != $node->id))) {
+            if (( is_null($formerPreviousSibling) || ( ! is_null($formerPreviousSibling) && $formerPreviousSibling->id != $node->id ) )) {
                 $this->record->afterNode($node);
             }
         }
@@ -76,7 +79,7 @@ class NavigationService extends BaseService
                 if ($this->record->exists) {
                     $formerNextSibling = $this->record->getNextSibling();
                 }
-                if ((is_null($formerNextSibling) || ( ! is_null($formerNextSibling) && $formerNextSibling->id != $node->id))) {
+                if (( is_null($formerNextSibling) || ( ! is_null($formerNextSibling) && $formerNextSibling->id != $node->id ) )) {
                     $this->record->beforeNode($node);
                 }
             }
@@ -112,10 +115,10 @@ class NavigationService extends BaseService
     {
         $this->record->slug = Str::slug($this->record->name);
 
-        $slugs = [$this->record->slug];
+        $slugs = [ $this->record->slug ];
 
         foreach ($this->record->getAncestors() as $ancestor) {
-            if ( ! empty($ancestor->slug)) {
+            if ($ancestor->slug !== '') {
                 $slugs[] = $ancestor->slug;
             }
         }

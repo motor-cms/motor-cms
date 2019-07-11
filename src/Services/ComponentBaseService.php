@@ -2,26 +2,43 @@
 
 namespace Motor\CMS\Services;
 
+use Motor\Backend\Http\Requests\Request;
 use Motor\Backend\Services\BaseService;
 use Motor\CMS\Models\PageVersionComponent;
 use Motor\Media\Models\FileAssociation;
 
+/**
+ * Class ComponentBaseService
+ * @package Motor\CMS\Services
+ */
 class ComponentBaseService extends BaseService
 {
 
+    /**
+     * @param PageVersionComponent $pageComponent
+     *
+     * @return object
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
     public static function render(PageVersionComponent $pageComponent)
     {
         $container = app();
 
         $controller = $container->make(config('motor-cms-page-components.components.' . $pageComponent->component_name . '.component_class'),
-            ['pageVersionComponent' => $pageComponent, 'component' => ($pageComponent->component_id == null ? null : $pageComponent->component)]);
+            [
+                'pageVersionComponent' => $pageComponent,
+                'component'            => ( $pageComponent->component_id == null ? null : $pageComponent->component )
+            ]);
 
-        return $container->call([$controller, 'index']);
+        return $container->call([ $controller, 'index' ]);
 
     }
 
 
-    public static function createPageComponent($request)
+    /**
+     * @param Request $request
+     */
+    public static function createPageComponent(Request $request): void
     {
         // Create the page component
         $pageComponent                  = new PageVersionComponent();
@@ -34,12 +51,12 @@ class ComponentBaseService extends BaseService
     }
 
 
-    public function beforeCreate()
+    public function beforeCreate(): void
     {
     }
 
 
-    public function afterCreate()
+    public function afterCreate(): void
     {
         // Create the page component
         $pageComponent                  = new PageVersionComponent();
@@ -47,13 +64,14 @@ class ComponentBaseService extends BaseService
         $pageComponent->container       = $this->request->get('container');
         $pageComponent->component_name  = $this->name;
         $pageComponent->sort_position   = PageVersionComponent::where('page_version_id',
-                $this->request->get('page_version_id'))->where('container',
-                $this->request->get('container'))->count() + 1;
+                $this->request->get('page_version_id'))
+                                                              ->where('container', $this->request->get('container'))
+                                                              ->count() + 1;
         $this->record->component()->save($pageComponent);
     }
 
 
-    public function afterUpdate()
+    public function afterUpdate(): void
     {
         // Delete file associations
         if (isset($this->record->file_associations)) {
@@ -66,7 +84,10 @@ class ComponentBaseService extends BaseService
     }
 
 
-    protected function addFileAssociation($field)
+    /**
+     * @param $field
+     */
+    protected function addFileAssociation($field): void
     {
         if ($this->request->get($field) == '' || $this->request->get($field) == 'deleted') {
             return;
@@ -75,11 +96,11 @@ class ComponentBaseService extends BaseService
         $file = json_decode($this->request->get($field));
 
         // Create file association
-        $fa             = new FileAssociation();
-        $fa->file_id    = $file->id;
-        $fa->model_type = get_class($this->record);
-        $fa->model_id   = $this->record->id;
-        $fa->identifier = $field;
-        $fa->save();
+        $fileAssociation             = new FileAssociation();
+        $fileAssociation->file_id    = $file->id;
+        $fileAssociation->model_type = get_class($this->record);
+        $fileAssociation->model_id   = $this->record->id;
+        $fileAssociation->identifier = $field;
+        $fileAssociation->save();
     }
 }

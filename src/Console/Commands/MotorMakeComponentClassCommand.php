@@ -4,6 +4,10 @@ namespace Motor\CMS\Console\Commands;
 
 use Motor\Core\Console\Commands\MotorMakeServiceCommand;
 
+/**
+ * Class MotorMakeComponentClassCommand
+ * @package Motor\CMS\Console\Commands
+ */
 class MotorMakeComponentClassCommand extends MotorMakeServiceCommand
 {
 
@@ -25,15 +29,17 @@ class MotorMakeComponentClassCommand extends MotorMakeServiceCommand
 
     protected $type = 'Component class';
 
+
     /**
      * Get the default namespace for the class.
      *
-     * @param  string  $rootNamespace
+     * @param string $rootNamespace
+     *
      * @return string
      */
-    protected function getDefaultNamespace($rootNamespace)
+    protected function getDefaultNamespace($rootNamespace): string
     {
-        return $rootNamespace.'\Components';
+        return $rootNamespace . '\Components';
     }
 
 
@@ -42,11 +48,12 @@ class MotorMakeComponentClassCommand extends MotorMakeServiceCommand
      *
      * @return string
      */
-    protected function getStub()
+    protected function getStub(): string
     {
         if ($this->option('stub_path')) {
             return $this->option('stub_path');
         }
+
         return __DIR__ . '/stubs/component_class.stub';
     }
 

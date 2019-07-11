@@ -2,7 +2,12 @@
 
 namespace Motor\CMS\Traits;
 
-class VersionableHooks {
+/**
+ * Class VersionableHooks
+ * @package Motor\CMS\Traits
+ */
+class VersionableHooks
+{
 
     /**
      * Register hook on setAttribute method.
@@ -46,6 +51,5 @@ class VersionableHooks {
             return $next($attributes, $args);
         };
     }
-
 
 }

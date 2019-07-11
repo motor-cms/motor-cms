@@ -2,22 +2,25 @@
 
 namespace Motor\CMS\Http\Controllers\Backend;
 
-use Illuminate\Support\NamespacedItemResolver;
 use Kalnoy\Nestedset\NestedSet;
 use Motor\Backend\Http\Controllers\Controller;
-
 use Motor\CMS\Models\Navigation;
 use Motor\CMS\Http\Requests\Backend\NavigationRequest;
 use Motor\CMS\Services\NavigationService;
 use Motor\CMS\Grids\NavigationGrid;
 use Motor\CMS\Forms\Backend\NavigationForm;
-
 use Kris\LaravelFormBuilder\FormBuilderTrait;
 use Motor\Core\Filter\Renderers\WhereRenderer;
 
+/**
+ * Class NavigationsController
+ * @package Motor\CMS\Http\Controllers\Backend
+ */
 class NavigationsController extends Controller
 {
+
     use FormBuilderTrait;
+
 
     /**
      * Display a listing of the resource.
@@ -35,9 +38,9 @@ class NavigationsController extends Controller
         $filter->add(new WhereRenderer('scope'))->setValue($record->scope);
         $filter->add(new WhereRenderer('parent_id'))->setOperator('!=')->setAllowNull(true)->setValue(null);
 
-        $grid->filter = $filter;
+        $grid->setFilter($filter);
 
-        $paginator    = $service->getPaginator();
+        $paginator = $service->getPaginator();
 
         return view('motor-cms::backend.navigations.index', compact('paginator', 'grid', 'record'));
     }
@@ -56,18 +59,19 @@ class NavigationsController extends Controller
             'enctype' => 'multipart/form-data'
         ]);
 
-        $trees = Navigation::where('scope', $root->scope)->defaultOrder()->get()->toTree();
-        $newItem = true;
+        $trees        = Navigation::where('scope', $root->scope)->defaultOrder()->get()->toTree();
+        $newItem      = true;
         $selectedItem = null;
 
-        return view('motor-cms::backend.navigations.create', compact('form', 'trees', 'newItem', 'selectedItem', 'root'));
+        return view('motor-cms::backend.navigations.create',
+            compact('form', 'trees', 'newItem', 'selectedItem', 'root'));
     }
 
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\Response
      */
@@ -86,14 +90,14 @@ class NavigationsController extends Controller
 
         flash()->success(trans('motor-cms::backend/navigations.created'));
 
-        return redirect('backend/navigations/'.$root->id);
+        return redirect('backend/navigations/' . $root->id);
     }
 
 
     /**
      * Display the specified resource.
      *
-     * @param  int $id
+     * @param int $id
      *
      * @return \Illuminate\Http\Response
      */
@@ -106,7 +110,7 @@ class NavigationsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
+     * @param int $id
      *
      * @return \Illuminate\Http\Response
      */
@@ -123,7 +127,7 @@ class NavigationsController extends Controller
             'model'   => $record
         ]);
 
-        $newItem = false;
+        $newItem      = false;
         $selectedItem = $record->id;
 
         return view('motor-cms::backend.navigations.edit', compact('form', 'trees', 'root', 'newItem', 'selectedItem'));
@@ -133,8 +137,8 @@ class NavigationsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int                      $id
+     * @param \Illuminate\Http\Request $request
+     * @param int                      $id
      *
      * @return \Illuminate\Http\Response
      */
@@ -153,14 +157,14 @@ class NavigationsController extends Controller
 
         flash()->success(trans('motor-cms::backend/navigations.updated'));
 
-        return redirect('backend/navigations/'.$root->id);
+        return redirect('backend/navigations/' . $root->id);
     }
 
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
+     * @param int $id
      *
      * @return \Illuminate\Http\Response
      */
@@ -172,6 +176,6 @@ class NavigationsController extends Controller
 
         flash()->success(trans('motor-cms::backend/navigations.deleted'));
 
-        return redirect('backend/navigations/'.$root->id);
+        return redirect('backend/navigations/' . $root->id);
     }
 }

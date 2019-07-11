@@ -9,6 +9,10 @@ use Motor\CMS\Console\Commands\MotorMakeComponentClassCommand;
 use Motor\CMS\Console\Commands\MotorMakeComponentInfoCommand;
 use Motor\CMS\Http\Middleware\Frontend\Navigation;
 
+/**
+ * Class MotorServiceProvider
+ * @package Motor\CMS\Providers
+ */
 class MotorServiceProvider extends ServiceProvider
 {
 
@@ -19,7 +23,7 @@ class MotorServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $result = app('router')->pushMiddlewareToGroup('frontend', Navigation::class);
+        app('router')->pushMiddlewareToGroup('frontend', Navigation::class);
 
         $this->config();
         $this->routes();
@@ -157,20 +161,20 @@ class MotorServiceProvider extends ServiceProvider
     public function routeModelBindings()
     {
         // Modules
-        Route::bind('navigation', function ($id) {
+        Route::bind('navigation', static function ($id) {
             return \Motor\CMS\Models\Navigation::findOrFail($id);
         });
 
-        Route::bind('page', function ($id) {
+        Route::bind('page', static function ($id) {
             return \Motor\CMS\Models\Page::findOrFail($id);
         });
 
-        Route::bind('page_version_component', function ($id) {
+        Route::bind('page_version_component', static function ($id) {
             return \Motor\CMS\Models\PageVersionComponent::findOrFail($id);
         });
 
         // Components
-        Route::bind('component_text', function ($id) {
+        Route::bind('component_text', static function ($id) {
             return \Motor\CMS\Models\Component\ComponentText::findOrFail($id);
         });
     }

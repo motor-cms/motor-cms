@@ -3,20 +3,23 @@
 namespace Motor\CMS\Http\Controllers\Backend;
 
 use Motor\Backend\Http\Controllers\Controller;
-
 use Motor\CMS\Grids\NavigationTreeGrid;
 use Motor\CMS\Models\Navigation;
 use Motor\CMS\Http\Requests\Backend\NavigationRequest;
 use Motor\CMS\Services\NavigationService;
-use Motor\CMS\Grids\NavigationGrid;
 use Motor\CMS\Forms\Backend\NavigationTreeForm;
-
 use Kris\LaravelFormBuilder\FormBuilderTrait;
 use Motor\Core\Filter\Renderers\WhereRenderer;
 
+/**
+ * Class NavigationTreesController
+ * @package Motor\CMS\Http\Controllers\Backend
+ */
 class NavigationTreesController extends Controller
 {
+
     use FormBuilderTrait;
+
 
     /**
      * Display a listing of the resource.
@@ -32,12 +35,13 @@ class NavigationTreesController extends Controller
         $filter = $service->getFilter();
         $filter->add(new WhereRenderer('parent_id'))->setDefaultValue(null)->setAllowNull(true);
 
-        $grid->filter = $filter;
+        $grid->setFilter($filter);
 
-        $paginator    = $service->getPaginator();
+        $paginator = $service->getPaginator();
 
         return view('motor-cms::backend.navigation_trees.index', compact('paginator', 'grid'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -59,7 +63,7 @@ class NavigationTreesController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\Response
      */
@@ -83,7 +87,7 @@ class NavigationTreesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
+     * @param int $id
      *
      * @return \Illuminate\Http\Response
      */
@@ -103,8 +107,8 @@ class NavigationTreesController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int                      $id
+     * @param \Illuminate\Http\Request $request
+     * @param int                      $id
      *
      * @return \Illuminate\Http\Response
      */
@@ -128,7 +132,7 @@ class NavigationTreesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
+     * @param int $id
      *
      * @return \Illuminate\Http\Response
      */

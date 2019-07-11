@@ -4,6 +4,10 @@ namespace Motor\CMS\Grids;
 
 use Motor\Backend\Grid\Grid;
 
+/**
+ * Class PageGrid
+ * @package Motor\CMS\Grids
+ */
 class PageGrid extends Grid
 {
 

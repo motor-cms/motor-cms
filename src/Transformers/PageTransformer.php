@@ -5,8 +5,13 @@ namespace Motor\CMS\Transformers;
 use League\Fractal;
 use Motor\CMS\Models\Page;
 
+/**
+ * Class PageTransformer
+ * @package Motor\CMS\Transformers
+ */
 class PageTransformer extends Fractal\TransformerAbstract
 {
+
     /**
      * List of resources possible to include
      *
@@ -25,7 +30,7 @@ class PageTransformer extends Fractal\TransformerAbstract
     public function transform(Page $record)
     {
         return [
-            'id'        => (int) $record->id
+            'id' => (int) $record->id
         ];
     }
 }

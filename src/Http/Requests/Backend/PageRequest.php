@@ -4,6 +4,10 @@ namespace Motor\CMS\Http\Requests\Backend;
 
 use Motor\Backend\Http\Requests\Request;
 
+/**
+ * Class PageRequest
+ * @package Motor\CMS\Http\Requests\Backend
+ */
 class PageRequest extends Request
 {
 

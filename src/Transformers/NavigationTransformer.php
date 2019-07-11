@@ -5,8 +5,13 @@ namespace Motor\CMS\Transformers;
 use League\Fractal;
 use Motor\CMS\Models\Navigation;
 
+/**
+ * Class NavigationTransformer
+ * @package Motor\CMS\Transformers
+ */
 class NavigationTransformer extends Fractal\TransformerAbstract
 {
+
     /**
      * List of resources possible to include
      *
@@ -25,7 +30,7 @@ class NavigationTransformer extends Fractal\TransformerAbstract
     public function transform(Navigation $record)
     {
         return [
-            'id'        => (int) $record->id
+            'id' => (int) $record->id
         ];
     }
 }

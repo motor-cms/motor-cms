@@ -1,6 +1,6 @@
 <?php
 
-$templates = [
+return [
     'default' => [
         'meta'  => [
             'name' => 'Default template',
@@ -137,5 +137,3 @@ $templates = [
         ],
     ]
 ];
-
-return $templates;

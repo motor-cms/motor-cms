@@ -5,6 +5,9 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Motor\CMS\Models\Navigation;
 
+/**
+ * Class MotorCMSBackendNavigationTest
+ */
 class MotorCMSBackendNavigationTest extends TestCase
 {
 

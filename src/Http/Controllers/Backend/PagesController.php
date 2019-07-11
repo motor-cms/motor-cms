@@ -4,16 +4,18 @@ namespace Motor\CMS\Http\Controllers\Backend;
 
 use Illuminate\Support\Str;
 use Motor\Backend\Http\Controllers\Controller;
-
 use Motor\CMS\Models\Page;
 use Motor\CMS\Http\Requests\Backend\PageRequest;
 use Motor\CMS\Models\PageVersionComponent;
 use Motor\CMS\Services\PageService;
 use Motor\CMS\Grids\PageGrid;
 use Motor\CMS\Forms\Backend\PageForm;
-
 use Kris\LaravelFormBuilder\FormBuilderTrait;
 
+/**
+ * Class PagesController
+ * @package Motor\CMS\Http\Controllers\Backend
+ */
 class PagesController extends Controller
 {
 
@@ -29,9 +31,9 @@ class PagesController extends Controller
     {
         $grid = new PageGrid(Page::class);
 
-        $service      = PageService::collection($grid);
-        $grid->filter = $service->getFilter();
-        $paginator    = $service->getPaginator();
+        $service = PageService::collection($grid);
+        $grid->setFilter($service->getFilter());
+        $paginator = $service->getPaginator();
 
         return view('motor-cms::backend.pages.index', compact('paginator', 'grid'));
     }
@@ -60,7 +62,7 @@ class PagesController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\Response
      */
@@ -84,7 +86,7 @@ class PagesController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int $id
+     * @param int $id
      *
      * @return \Illuminate\Http\Response
      */
@@ -94,12 +96,19 @@ class PagesController extends Controller
     }
 
 
+    /**
+     * @param Page        $record
+     * @param PageRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function patch_component_data(Page $record, PageRequest $request)
     {
-        foreach ($request->all() as $container => $components) {
+        foreach ($request->all() as $components) {
             foreach ($components as $component) {
-                $pageVersionComponent = PageVersionComponent::where('page_version_id', $component['page_component_data']['page_version_id'])->where('id',
-                    $component['page_component_data']['id'])->first();
+                $pageVersionComponent = PageVersionComponent::where('page_version_id',
+                    $component['page_component_data']['page_version_id'])
+                                                            ->where('id', $component['page_component_data']['id'])
+                                                            ->first();
                 if ( ! is_null($pageVersionComponent)) {
                     $pageVersionComponent->container     = $component['page_component_data']['container'];
                     $pageVersionComponent->sort_position = $component['page_component_data']['sort_position'];
@@ -108,14 +117,22 @@ class PagesController extends Controller
             }
         }
 
-        return response()->json(['message' => 'Success']);
+        return response()->json([ 'message' => 'Success' ]);
     }
 
 
+    /**
+     * @param Page $record
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function component_data(Page $record)
     {
         $returnArray = [];
-        foreach ($record->getCurrentVersion()->components()->orderBy('container')->orderBy('sort_position')->get() as $pageComponent) {
+        foreach ($record->getCurrentVersion()
+                        ->components()
+                        ->orderBy('container')
+                        ->orderBy('sort_position')
+                        ->get() as $pageComponent) {
             if ( ! isset($returnArray[$pageComponent->container])) {
                 $returnArray[$pageComponent->container] = [];
             }
@@ -142,6 +159,12 @@ class PagesController extends Controller
     }
 
 
+    /**
+     * @param Page                 $page
+     * @param PageVersionComponent $pageVersionComponent
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
+     */
     public function destroyComponent(Page $page, PageVersionComponent $pageVersionComponent)
     {
         if ( ! is_null($pageVersionComponent->component)) {
@@ -150,7 +173,10 @@ class PagesController extends Controller
         $componentName = $pageVersionComponent->component_name;
         $pageVersionComponent->delete();
 
-        return response()->json(['message' => trans('motor-cms::component/global.deleted', ['name' => Str::ucfirst(str_replace('_', ' ', $componentName))])]);
+        return response()->json([
+            'message' => trans('motor-cms::component/global.deleted',
+                [ 'name' => Str::ucfirst(str_replace('_', ' ', $componentName)) ])
+        ]);
     }
 
     //public function components(Page $record)
@@ -163,7 +189,7 @@ class PagesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
+     * @param int $id
      *
      * @return \Illuminate\Http\Response
      */
@@ -175,7 +201,7 @@ class PagesController extends Controller
 
         $form = $this->form(PageForm::class, [
             'method'  => 'PATCH',
-            'url'     => route('backend.pages.update', [$record->id]),
+            'url'     => route('backend.pages.update', [ $record->id ]),
             'enctype' => 'multipart/form-data',
             'model'   => $record
         ]);
@@ -192,8 +218,8 @@ class PagesController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int                      $id
+     * @param \Illuminate\Http\Request $request
+     * @param int                      $id
      *
      * @return \Illuminate\Http\Response
      */
@@ -217,7 +243,7 @@ class PagesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
+     * @param int $id
      *
      * @return \Illuminate\Http\Response
      */
