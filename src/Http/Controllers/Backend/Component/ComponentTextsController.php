@@ -56,8 +56,7 @@ class ComponentTextsController extends ComponentController
     /**
      * Show the form for editing the specified resource.
      *
-     * @param int $id
-     *
+     * @param ComponentText $record
      * @return \Illuminate\Http\JsonResponse
      */
     public function edit(ComponentText $record)
@@ -73,9 +72,8 @@ class ComponentTextsController extends ComponentController
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param int                      $id
-     *
+     * @param Request       $request
+     * @param ComponentText $record
      * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, ComponentText $record)

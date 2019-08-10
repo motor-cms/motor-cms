@@ -88,6 +88,7 @@ trait Versionable
 
     /**
      * @return string
+     * @throws \ReflectionException
      */
     public function getVersionModel()
     {
@@ -223,8 +224,8 @@ trait Versionable
      * Sets the current version to a given version number
      *
      * @param $number
-     *
      * @return $this
+     * @throws \ReflectionException
      */
     public function setCurrentVersion($number)
     {
@@ -241,6 +242,7 @@ trait Versionable
      * Return latest version
      *
      * @return mixed
+     * @throws \ReflectionException
      */
     public function getLatestVersion()
     {
@@ -254,6 +256,7 @@ trait Versionable
      * Return the versionable_number of the currently used version
      *
      * @return int
+     * @throws \ReflectionException
      */
     public function getLatestVersionNumber()
     {
@@ -268,7 +271,8 @@ trait Versionable
 
 
     /**
-     * @return mixed
+     * @return Model
+     * @throws \ReflectionException
      */
     public function getLiveVersion(): Model
     {
@@ -282,6 +286,7 @@ trait Versionable
      * Return currently used version
      *
      * @return mixed
+     * @throws \ReflectionException
      */
     public function getCurrentVersion()
     {
@@ -302,6 +307,7 @@ trait Versionable
      * Return the versionable_number of the currently used version
      *
      * @return int
+     * @throws \ReflectionException
      */
     public function getCurrentVersionNumber()
     {
@@ -319,6 +325,7 @@ trait Versionable
      * Update a version and set the necessary attributes
      *
      * @param $version
+     * @throws \ReflectionException
      */
     public function updateVersion($version)
     {
@@ -348,6 +355,7 @@ trait Versionable
 
     /**
      * Create a new version
+     * @throws \ReflectionException
      */
     public function createVersion()
     {
@@ -363,6 +371,7 @@ trait Versionable
      * Get next available version number
      *
      * @return int
+     * @throws \ReflectionException
      */
     public function getNextVersionNumber()
     {

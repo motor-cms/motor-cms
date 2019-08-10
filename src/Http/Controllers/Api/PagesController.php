@@ -32,7 +32,7 @@ class PagesController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param PageRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(PageRequest $request)
@@ -47,8 +47,7 @@ class PagesController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param int $id
-     *
+     * @param Page $record
      * @return \Illuminate\Http\JsonResponse
      */
     public function show(Page $record)
@@ -63,9 +62,8 @@ class PagesController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param int                      $id
-     *
+     * @param PageRequest $request
+     * @param Page        $record
      * @return \Illuminate\Http\JsonResponse
      */
     public function update(PageRequest $request, Page $record)
@@ -80,8 +78,7 @@ class PagesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
-     *
+     * @param Page $record
      * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Page $record)

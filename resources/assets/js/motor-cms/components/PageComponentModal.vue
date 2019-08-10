@@ -166,7 +166,7 @@
         methods: {
             getComponents(group) {
                 let components = {};
-                for (var key in this.availableComponents.components) {
+                for (let key in this.availableComponents.components) {
                     if (this.availableComponents.components.hasOwnProperty(key)) {
                         if (this.availableComponents.components[key].group == group) {
                             components[key] = this.availableComponents.components[key];
@@ -176,7 +176,7 @@
                 return components;
             },
             hasComponents(group) {
-                for (var key in this.availableComponents.components) {
+                for (let key in this.availableComponents.components) {
                     if (this.availableComponents.components.hasOwnProperty(key)) {
                         if (this.availableComponents.components[key].group == group) {
                             return true;

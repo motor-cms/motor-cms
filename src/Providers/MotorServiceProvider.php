@@ -67,6 +67,9 @@ class MotorServiceProvider extends ServiceProvider
     }
 
 
+    /**
+     * Set assets to be published
+     */
     public function publishResourceAssets()
     {
         //$assets = [

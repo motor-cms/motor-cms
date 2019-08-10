@@ -36,7 +36,7 @@
 {{--    <script src="{{asset('plugins/jstree/jstree.min.js')}}"></script>--}}
     <script>
         $.jstree.defaults.dnd.is_draggable = function (node) {
-            var id = $(node).attr('id');
+            let id = $(node).attr('id');
             if (id != 'navigation-item') {
                 return false;
             }
@@ -60,8 +60,8 @@
             });
         });
 
-        var openNode = function (node) {
-            var parent = $('#navigation-tree').jstree().get_parent(node);
+        let openNode = function (node) {
+            let parent = $('#navigation-tree').jstree().get_parent(node);
             $('#navigation-tree').jstree().open_node(parent);
 
             if (parent) {
@@ -78,17 +78,17 @@
 //            e.preventDefault();
 
             // get item parent
-            var parent = $('#navigation-tree').jstree().get_parent('navigation-item');
+            let parent = $('#navigation-tree').jstree().get_parent('navigation-item');
 
             $('input[name="parent_id"]').val($('#' + parent).data('navigation-id'));
 
             // get previous sibling (if any)
-            var previousSibling = $('#navigation-tree').jstree().get_prev_dom('navigation-item', true);
+            let previousSibling = $('#navigation-tree').jstree().get_prev_dom('navigation-item', true);
             if (previousSibling !== false) {
                 $('input[name="previous_sibling_id"]').val(previousSibling.data('navigation-id'));
             }
 
-            var nextSibling = $('#navigation-tree').jstree().get_next_dom('navigation-item', true);
+            let nextSibling = $('#navigation-tree').jstree().get_next_dom('navigation-item', true);
             if (nextSibling !== false) {
                 $('input[name="next_sibling_id"]').val(nextSibling.data('navigation-id'));
             }
