@@ -19,7 +19,6 @@ class PagesController extends Controller
      * Get current live version of the given page
      *
      * @param $slug
-     *
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|View|object
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */

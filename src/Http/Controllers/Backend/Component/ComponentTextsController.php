@@ -37,7 +37,7 @@ class ComponentTextsController extends ComponentController
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
@@ -58,7 +58,7 @@ class ComponentTextsController extends ComponentController
      *
      * @param int $id
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function edit(ComponentText $record)
     {
@@ -76,7 +76,7 @@ class ComponentTextsController extends ComponentController
      * @param \Illuminate\Http\Request $request
      * @param int                      $id
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, ComponentText $record)
     {

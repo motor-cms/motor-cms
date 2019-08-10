@@ -3,6 +3,7 @@
 namespace Motor\CMS\Traits;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 /**
@@ -269,7 +270,7 @@ trait Versionable
     /**
      * @return mixed
      */
-    public function getLiveVersion()
+    public function getLiveVersion(): Model
     {
         $model = $this->getVersionModel();
 

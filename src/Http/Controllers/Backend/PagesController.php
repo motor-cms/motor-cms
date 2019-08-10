@@ -167,7 +167,7 @@ class PagesController extends Controller
      */
     public function destroyComponent(Page $page, PageVersionComponent $pageVersionComponent)
     {
-        if ( ! is_null($pageVersionComponent->component)) {
+        if ((int)$pageVersionComponent->component_id > 0) {
             $pageVersionComponent->component()->delete();
         }
         $componentName = $pageVersionComponent->component_name;

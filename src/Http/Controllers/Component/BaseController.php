@@ -17,9 +17,8 @@ class BaseController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Http\Response
+     * @param PageRequest $request
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(PageRequest $request)
     {

@@ -37,11 +37,13 @@ class MotorServiceProvider extends ServiceProvider
         $this->templates();
         $this->vueRoutes();
         $this->publishResourceAssets();
-        $this->blade();
         $this->registerCommands();
     }
 
 
+    /**
+     * Register artisan commands
+     */
     public function registerCommands()
     {
         if ($this->app->runningInConsole()) {
@@ -65,11 +67,6 @@ class MotorServiceProvider extends ServiceProvider
     }
 
 
-    public function blade()
-    {
-    }
-
-
     public function publishResourceAssets()
     {
         //$assets = [
@@ -83,12 +80,18 @@ class MotorServiceProvider extends ServiceProvider
     }
 
 
+    /**
+     * Set migration path
+     */
     public function migrations()
     {
         $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations');
     }
 
 
+    /**
+     * Merge permission config file
+     */
     public function permissions()
     {
         $config = $this->app['config']->get('motor-backend-permissions', []);
@@ -97,6 +100,9 @@ class MotorServiceProvider extends ServiceProvider
     }
 
 
+    /**
+     * Set routes for vue.js integration
+     */
     public function vueRoutes()
     {
         $config = $this->app['config']->get('ziggy', []);
@@ -105,6 +111,9 @@ class MotorServiceProvider extends ServiceProvider
     }
 
 
+    /**
+     * Register components from config file
+     */
     public function components()
     {
         $config = $this->app['config']->get('motor-cms-page-components', []);
@@ -113,6 +122,9 @@ class MotorServiceProvider extends ServiceProvider
     }
 
 
+    /**
+     * Register templates from config file
+     */
     public function templates()
     {
         $config = $this->app['config']->get('motor-cms-page-templates', []);
@@ -121,6 +133,9 @@ class MotorServiceProvider extends ServiceProvider
     }
 
 
+    /**
+     * Set routes
+     */
     public function routes()
     {
         if ( ! $this->app->routesAreCached()) {
@@ -130,6 +145,9 @@ class MotorServiceProvider extends ServiceProvider
     }
 
 
+    /**
+     * Set configuration files for publishing
+     */
     public function config()
     {
         //$this->publishes([
@@ -138,6 +156,9 @@ class MotorServiceProvider extends ServiceProvider
     }
 
 
+    /**
+     * Set translation path
+     */
     public function translations()
     {
         $this->loadTranslationsFrom(__DIR__ . '/../../resources/lang', 'motor-cms');
@@ -148,6 +169,9 @@ class MotorServiceProvider extends ServiceProvider
     }
 
 
+    /**
+     * Set view path
+     */
     public function views()
     {
         $this->loadViewsFrom(__DIR__ . '/../../resources/views', 'motor-cms');
@@ -158,6 +182,9 @@ class MotorServiceProvider extends ServiceProvider
     }
 
 
+    /**
+     * Add route model bindings
+     */
     public function routeModelBindings()
     {
         // Modules
@@ -180,6 +207,9 @@ class MotorServiceProvider extends ServiceProvider
     }
 
 
+    /**
+     * Merge backend navigation items from configuration file
+     */
     public function navigationItems()
     {
         $config = $this->app['config']->get('motor-backend-navigation', []);
