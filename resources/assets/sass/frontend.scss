@@ -1,0 +1,14 @@
+@include add-foundation-colors;
+
+.error-page {
+  margin-top: 5rem;
+}
+.error-content {
+  background-color: get-color('warning');
+  padding: 1rem;
+  margin-bottom: 0;
+  border: 1px solid get-color('alert');
+}
+.error-content p {
+  margin-bottom: 0;
+}

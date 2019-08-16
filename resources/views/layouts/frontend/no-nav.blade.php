@@ -6,8 +6,7 @@
 
     <title>PAGE TITLE</title>
 
-    <link href="{{ mix('/css/partymeister-frontend.css') }}" rel="stylesheet" type="text/css"/>
-    {{--<link href="{{ asset('/css/revision2018.css') }}" rel="stylesheet" type="text/css"/>--}}
+    <link href="{{ mix('/css/motor-frontend.css') }}" rel="stylesheet" type="text/css"/>
     <!-- Custom styles for this template -->
     @yield('view_styles')
     <style type="text/css">
@@ -18,7 +17,7 @@
     @include('motor-cms::layouts.frontend.partials.template-sections', ['rows' => $template['items']])
 </div>
 
-<script src="{{mix('js/partymeister-frontend.js')}}"></script>
+<script src="{{mix('js/motor-frontend.js')}}"></script>
 @yield('view_scripts')
 <script>
     $(document).foundation();

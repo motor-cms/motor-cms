@@ -50,6 +50,10 @@ class Navigation
 
         $activeNavigationSlugs = [ $activeNavigationSlug ];
 
+        if ($activeNavigationItem === null) {
+            return abort(404);
+        }
+
         foreach ($activeNavigationItem->ancestors->reverse() as $anchor) {
             if ($anchor->full_slug != '') {
                 $activeNavigationSlugs[] = $anchor->full_slug;
