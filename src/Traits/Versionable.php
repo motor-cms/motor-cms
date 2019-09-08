@@ -43,8 +43,8 @@ trait Versionable
      * Override getter so we can return versionable attributes
      *
      * @param $key
-     *
      * @return mixed
+     * @throws \ReflectionException
      */
     public function __get($key)
     {
@@ -168,8 +168,8 @@ trait Versionable
      * Override insert method
      *
      * @param Builder $query
-     *
-     * @return mixed
+     * @return bool
+     * @throws \ReflectionException
      */
     public function performInsert(Builder $query)
     {
@@ -186,8 +186,8 @@ trait Versionable
      * Override update method
      *
      * @param Builder $query
-     *
-     * @return mixed
+     * @return bool
+     * @throws \ReflectionException
      */
     public function performUpdate(Builder $query)
     {

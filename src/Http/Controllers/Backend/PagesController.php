@@ -122,6 +122,7 @@ class PagesController extends Controller
     /**
      * @param Page $record
      * @return \Illuminate\Http\JsonResponse
+     * @throws \ReflectionException
      */
     public function component_data(Page $record)
     {
@@ -190,6 +191,7 @@ class PagesController extends Controller
      * @param Page        $record
      * @param PageRequest $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \ReflectionException
      */
     public function edit(Page $record, PageRequest $request)
     {
