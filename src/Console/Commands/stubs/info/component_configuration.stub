@@ -3,7 +3,7 @@
 	'description'     => 'Show {{singularTitleWithoutPrefix}} component',
 	'view'            => '{{packageName}}frontend.components.{{pluralKebabWithoutPrefix}}',
 	'route'           => 'component.{{pluralKebabWithoutPrefix}}',
-	'component_class' => '{{namespace}}Components\{{pluralStudly}}',
+	'component_class' => '\{{namespace}}Components\{{pluralStudly}}',
 	'compatibility'   => [
 
 	],

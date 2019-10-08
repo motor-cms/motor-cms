@@ -38,7 +38,7 @@ class PageService extends BaseService
     {
         //
         if ((int) $this->request->get('publish') == 1) {
-            $this->record->getVersionState('LIVE');
+            $this->record->setVersionState('LIVE');
             $this->record->setVersionAttributes($this->data);
             $this->record->updateVersion($this->record->getCurrentVersion());
             //$previousVersion = $this->record->getCurrentVersion();

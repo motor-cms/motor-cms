@@ -1,1 +1,1 @@
-Component {{$component->component[0]->name}} stub
+{{$component->preview()['name']}} stub

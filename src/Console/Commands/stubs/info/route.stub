@@ -2,7 +2,7 @@
 Route::group([
     'as'         => 'component.',
     'prefix'     => 'component',
-    'namespace'  => '{{namespace}}Http\Controllers\Backend\Component',
+    'namespace'  => '\{{namespace}}Http\Controllers\Backend\Component',
     'middleware' => [
         'web',
     ]

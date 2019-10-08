@@ -75,7 +75,7 @@ class MotorMakeComponentCommand extends Command
             $extraoptions['--directory'] = 'frontend';
             unset($extraoptions['--prefix']);
             $this->call('motor:make:view',
-                array_merge([ 'name' => 'component', 'type' => Str::kebab($this->argument('name')) ], $extraoptions));
+                array_merge([ 'name' => 'component', 'type' => Str::kebab(Str::plural($this->argument('name'))) ], $extraoptions));
 
             // Create frontend class
             unset($extraoptions['--directory']);
@@ -90,7 +90,7 @@ class MotorMakeComponentCommand extends Command
             $extraoptions['--directory'] = 'frontend';
             unset($extraoptions['--prefix']);
             $this->call('motor:make:view',
-                array_merge([ 'name' => 'component', 'type' => Str::kebab($this->argument('name')) ], $extraoptions));
+                array_merge([ 'name' => 'component', 'type' => Str::kebab(Str::plural($this->argument('name'))) ], $extraoptions));
 
             // Create frontend class
             $extraoptions['--stub_path'] = __DIR__ . '/stubs/component_class_no_model.stub';

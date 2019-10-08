@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 
 /**
  * Trait Versionable
+ *
  * @package Motor\CMS\Traits
  */
 trait Versionable
@@ -142,7 +143,6 @@ trait Versionable
      * Set next version state
      *
      * @param $state
-     *
      * @return $this
      */
     public function setVersionState($state)
@@ -208,7 +208,6 @@ trait Versionable
      * Save model with new version (currently unused)
      *
      * @param array $options
-     *
      * @return mixed
      */
     //public function saveNewVersion(array $options = [])
@@ -294,9 +293,7 @@ trait Versionable
         if (is_null($this->currentVersion)) {
             $version = $model::where('versionable_id', $this->id)->orderBy('versionable_number', 'DESC')->first();
         } else {
-            $version = $model::where('versionable_id', $this->id)
-                             ->where('versionable_number', $this->currentVersion)
-                             ->first();
+            $version = $model::where('versionable_id', $this->id)->where('versionable_number', $this->currentVersion)->first();
         }
 
         return $version;
@@ -336,9 +333,7 @@ trait Versionable
         }
 
         if ($this->getVersionState() == 'LIVE') {
-            foreach ($model::where('versionable_id', $this->id)
-                           ->where('versionable_state', 'LIVE')
-                           ->get() as $oldVersion) {
+            foreach ($model::where('versionable_id', $this->id)->where('versionable_state', 'LIVE')->where('id', '!=', $version->id)->get() as $oldVersion) {
                 $oldVersion->versionable_state = 'CLEARED';
                 $oldVersion->save();
             }
@@ -355,6 +350,7 @@ trait Versionable
 
     /**
      * Create a new version
+     *
      * @throws \ReflectionException
      */
     public function createVersion()
