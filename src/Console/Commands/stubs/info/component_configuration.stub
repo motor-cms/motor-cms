@@ -12,3 +12,31 @@
 	],
 	'group'           => 'basic'
 ],
+
+
+// If you don't yet have a motor-cms-page-components.php in your /config folder, use this as a template:
+<?php
+
+return [
+    'groups'     => [
+        'new-group'      => [
+            'name' => 'New component group', // default groups are: basic, forms, media, navigation
+        ],
+    ],
+    'components' => [
+		'{{pluralKebabWithoutPrefix}}' => [
+			'name'            => '{{singularTitleWithoutPrefix}}',
+			'description'     => 'Show {{singularTitleWithoutPrefix}} component',
+			'view'            => '{{packageName}}frontend.components.{{pluralKebabWithoutPrefix}}',
+			'route'           => 'component.{{pluralKebabWithoutPrefix}}',
+			'component_class' => '\{{namespace}}Components\{{pluralStudly}}',
+			'compatibility'   => [
+
+			],
+			'permissions'     => [
+
+			],
+			'group'           => 'new-group'
+		],
+    ],
+];
