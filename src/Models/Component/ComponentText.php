@@ -31,7 +31,6 @@ use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
  */
 class ComponentText extends ComponentBaseModel implements HasMedia
 {
-
     use HasMediaTrait;
 
     /**
@@ -74,9 +73,8 @@ class ComponentText extends ComponentBaseModel implements HasMedia
     /**
      * @return \Illuminate\Database\Eloquent\Relations\MorphMany
      */
-    function file_associations()
+    public function file_associations()
     {
         return $this->morphMany(FileAssociation::class, 'model');
     }
-
 }

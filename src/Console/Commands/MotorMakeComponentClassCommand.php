@@ -56,5 +56,4 @@ class MotorMakeComponentClassCommand extends MotorMakeServiceCommand
 
         return __DIR__ . '/stubs/component_class.stub';
     }
-
 }

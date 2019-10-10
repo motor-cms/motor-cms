@@ -25,8 +25,10 @@ class BaseController extends Controller
         ComponentBaseService::createPageComponent($request);
 
         return response()->json([
-            'message' => trans('motor-cms::component/global.created',
-                [ 'name' => Str::ucfirst(str_replace('_', ' ', $request->get('name'))) ])
+            'message' => trans(
+                'motor-cms::component/global.created',
+                [ 'name' => Str::ucfirst(str_replace('_', ' ', $request->get('name'))) ]
+            )
         ]);
     }
 }

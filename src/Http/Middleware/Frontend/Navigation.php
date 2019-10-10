@@ -32,7 +32,7 @@ class Navigation
         $activeTopLevelNavigationItem = null;
 
         $traverse = static function ($nodes) use (&$traverse, &$activeNavigationItem, $activeNavigationSlug) {
-            if ( ! is_null($activeNavigationItem)) {
+            if (! is_null($activeNavigationItem)) {
                 return;
             }
             foreach ($nodes as $node) {

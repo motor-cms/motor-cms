@@ -49,8 +49,11 @@ class PageForm extends Form
                  'attr'  => [ 'name' => 'publish', 'value' => 1, 'class' => 'btn btn-primary' ],
                  'label' => trans('motor-cms::backend/pages.save_and_publish')
              ])
-             ->add('submit', 'submit',
-                 [ 'attr' => [ 'class' => 'btn btn-primary' ], 'label' => trans('motor-cms::backend/pages.save') ]);
+             ->add(
+                 'submit',
+                 'submit',
+                 [ 'attr' => [ 'class' => 'btn btn-primary' ], 'label' => trans('motor-cms::backend/pages.save') ]
+             );
 
         if (is_object($this->model)) {
             if ($this->model->getCurrentVersionNumber() != $this->model->getLatestVersionNumber()) {

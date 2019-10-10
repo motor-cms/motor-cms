@@ -39,7 +39,6 @@ use Motor\Core\Traits\Filterable;
  */
 class PageVersionComponent extends Model
 {
-
     use Searchable;
     use Filterable;
 

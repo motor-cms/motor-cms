@@ -10,7 +10,6 @@ use Motor\CMS\Models\Navigation;
  */
 class MotorCMSBackendNavigationTest extends TestCase
 {
-
     use DatabaseTransactions;
 
     protected $user;
@@ -79,7 +78,7 @@ class MotorCMSBackendNavigationTest extends TestCase
     {
         $record = create_test_navigation();
         $this->visit('/backend/navigations')
-            ->within('table', function(){
+            ->within('table', function () {
                 $this->click(trans('motor-backend::backend/global.edit'));
             })
             ->seePageIs('/backend/navigations/'.$record->id.'/edit')
@@ -95,7 +94,7 @@ class MotorCMSBackendNavigationTest extends TestCase
         $this->visit('/backend/navigations/'.$record->id.'/edit')
             ->see($record->name)
             ->type('Updated Navigation', 'name')
-            ->within('.box-footer', function(){
+            ->within('.box-footer', function () {
                 $this->press(trans('motor-cms::backend/navigations.save'));
             })
             ->see(trans('motor-cms::backend/navigations.updated'))
@@ -120,7 +119,7 @@ class MotorCMSBackendNavigationTest extends TestCase
         $this->visit('/backend/navigations/create')
             ->see(trans('motor-cms::backend/navigations.new'))
             ->type('Create Navigation Name', 'name')
-            ->within('.box-footer', function(){
+            ->within('.box-footer', function () {
                 $this->press(trans('motor-cms::backend/navigations.save'));
             })
             ->see(trans('motor-cms::backend/navigations.created'))
@@ -133,7 +132,7 @@ class MotorCMSBackendNavigationTest extends TestCase
     {
         $this->visit('/backend/navigations/create')
             ->see(trans('motor-cms::backend/navigations.new'))
-            ->within('.box-footer', function(){
+            ->within('.box-footer', function () {
                 $this->press(trans('motor-cms::backend/navigations.save'));
             })
             ->see('Data missing!')
@@ -147,7 +146,7 @@ class MotorCMSBackendNavigationTest extends TestCase
         $this->visit('/backend/navigations/'.$record->id.'/edit')
             ->see(trans('motor-cms::backend/navigations.edit'))
             ->type('Modified Navigation Name', 'name')
-            ->within('.box-footer', function(){
+            ->within('.box-footer', function () {
                 $this->press(trans('motor-cms::backend/navigations.save'));
             })
             ->see(trans('motor-cms::backend/navigations.updated'))
@@ -163,7 +162,7 @@ class MotorCMSBackendNavigationTest extends TestCase
         $this->assertCount(1, Navigation::all());
 
         $this->visit('/backend/navigations')
-            ->within('table', function(){
+            ->within('table', function () {
                 $this->press(trans('motor-backend::backend/global.delete'));
             })
             ->seePageIs('/backend/navigations')
@@ -177,7 +176,7 @@ class MotorCMSBackendNavigationTest extends TestCase
     {
         $records = create_test_navigation(100);
         $this->visit('/backend/navigations')
-            ->within('.pagination', function(){
+            ->within('.pagination', function () {
                 $this->click('3');
             })
             ->seePageIs('/backend/navigations?page=3');

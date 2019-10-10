@@ -15,7 +15,6 @@ use Kris\LaravelFormBuilder\FormBuilderTrait;
  */
 class ComponentTextsController extends ComponentController
 {
-
     use FormBuilderTrait;
 
 
@@ -43,7 +42,7 @@ class ComponentTextsController extends ComponentController
     {
         $this->form = $this->form(ComponentTextForm::class);
 
-        if ( ! $this->isValid()) {
+        if (! $this->isValid()) {
             return $this->respondWithValidationError();
         }
 
@@ -80,7 +79,7 @@ class ComponentTextsController extends ComponentController
     {
         $form = $this->form(ComponentTextForm::class);
 
-        if ( ! $this->isValid()) {
+        if (! $this->isValid()) {
             return $this->respondWithValidationError();
         }
 

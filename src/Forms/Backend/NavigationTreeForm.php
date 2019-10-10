@@ -29,8 +29,11 @@ class NavigationTreeForm extends Form
                  'empty_value' => trans('motor-backend::backend/global.please_choose')
              ])
              ->add('name', 'text', [ 'label' => trans('motor-cms::backend/navigations.name'), 'rules' => 'required' ])
-             ->add('scope', 'text',
-                 [ 'label' => trans('motor-cms::backend/navigation_trees.scope'), 'rules' => 'required' ])
+             ->add(
+                 'scope',
+                 'text',
+                 [ 'label' => trans('motor-cms::backend/navigation_trees.scope'), 'rules' => 'required' ]
+             )
              ->add('is_visible', 'checkbox', [ 'label' => trans('motor-cms::backend/navigations.is_visible') ])
              ->add('is_active', 'checkbox', [ 'label' => trans('motor-cms::backend/navigations.is_active') ])
              ->add('submit', 'submit', [

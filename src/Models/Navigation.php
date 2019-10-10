@@ -69,7 +69,6 @@ use Culpa\Traits\UpdatedBy;
  */
 class Navigation extends Model
 {
-
     use Filterable;
     use Blameable, CreatedBy, UpdatedBy, DeletedBy;
     use NodeTrait;
@@ -113,7 +112,7 @@ class Navigation extends Model
      */
     public function getSearchableColumns()
     {
-        return ( property_exists($this, 'searchableColumns') ) ? $this->searchableColumns : [];
+        return (property_exists($this, 'searchableColumns')) ? $this->searchableColumns : [];
     }
 
 

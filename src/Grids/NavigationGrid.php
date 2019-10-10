@@ -12,7 +12,6 @@ use Motor\Backend\Grid\Renderers\TreeRenderer;
  */
 class NavigationGrid extends Grid
 {
-
     protected function setup()
     {
         $this->addColumn('name', trans('motor-cms::backend/navigations.name'))->renderer(TreeRenderer::class);

@@ -12,7 +12,6 @@ use Motor\Backend\Services\BaseService;
  */
 class NavigationService extends BaseService
 {
-
     protected $model = Navigation::class;
 
 
@@ -20,7 +19,7 @@ class NavigationService extends BaseService
     {
         $searchFilter = $this->getFilter()->get('search');
         $model        = $this->model;
-        if ( ! is_object($this->model)) {
+        if (! is_object($this->model)) {
             $model = new $this->model();
         }
         $searchFilter->setSearchableColumns($model->getSearchableColumns());
@@ -57,13 +56,13 @@ class NavigationService extends BaseService
         $node = Navigation::find($this->request->get('previous_sibling_id'));
 
         // If it exists, append the item AFTER the node, but only if it has been changed
-        if ( ! is_null($node)) {
+        if (! is_null($node)) {
             $this->record->scope   = $node->scope;
             $formerPreviousSibling = null;
             if ($this->record->exists) {
                 $formerPreviousSibling = $this->record->getPrevSibling();
             }
-            if (( is_null($formerPreviousSibling) || ( ! is_null($formerPreviousSibling) && $formerPreviousSibling->id != $node->id ) )) {
+            if ((is_null($formerPreviousSibling) || (! is_null($formerPreviousSibling) && $formerPreviousSibling->id != $node->id))) {
                 $this->record->afterNode($node);
             }
         }
@@ -73,13 +72,13 @@ class NavigationService extends BaseService
             $node = Navigation::find($this->request->get('next_sibling_id'));
 
             // If it exists, append the item BEFORE the node, but only if it has been changed
-            if ( ! is_null($node)) {
+            if (! is_null($node)) {
                 $this->record->scope = $node->scope;
                 $formerNextSibling   = null;
                 if ($this->record->exists) {
                     $formerNextSibling = $this->record->getNextSibling();
                 }
-                if (( is_null($formerNextSibling) || ( ! is_null($formerNextSibling) && $formerNextSibling->id != $node->id ) )) {
+                if ((is_null($formerNextSibling) || (! is_null($formerNextSibling) && $formerNextSibling->id != $node->id))) {
                     $this->record->beforeNode($node);
                 }
             }
@@ -89,7 +88,7 @@ class NavigationService extends BaseService
         if (is_null($node)) {
             $node           = Navigation::find($this->request->get('parent_id'));
             $previousParent = $this->record->ancestors()->get()->last();
-            if ( ! is_null($node) && ! is_null($previousParent) && $previousParent->id != $node->id) {
+            if (! is_null($node) && ! is_null($previousParent) && $previousParent->id != $node->id) {
                 $this->record->scope = $node->scope;
                 $nextSibling         = $this->record->getNextSibling();
                 if (is_null($nextSibling)) {
@@ -97,13 +96,13 @@ class NavigationService extends BaseService
                 } else {
                     $this->record->prependToNode($node);
                 }
-            } elseif ( ! is_null($node) && is_null($previousParent)) {
+            } elseif (! is_null($node) && is_null($previousParent)) {
                 $this->record->scope = $node->scope;
                 $this->record->appendToNode($node);
             }
         }
 
-        if ( ! is_null($node)) {
+        if (! is_null($node)) {
             $this->record->client_id   = $node->client_id;
             $this->record->language_id = $node->language_id;
             $this->record->scope       = $node->scope;

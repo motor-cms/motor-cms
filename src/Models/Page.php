@@ -56,7 +56,6 @@ use Motor\Core\Traits\Searchable;
  */
 class Page extends Model
 {
-
     use Searchable;
     use Blameable, CreatedBy, UpdatedBy, DeletedBy;
     use Filterable;

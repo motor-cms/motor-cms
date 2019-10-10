@@ -11,7 +11,6 @@ use Motor\Backend\Services\BaseService;
  */
 class PageService extends BaseService
 {
-
     protected $model = Page::class;
 
 

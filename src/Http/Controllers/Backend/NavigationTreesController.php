@@ -17,7 +17,6 @@ use Motor\Core\Filter\Renderers\WhereRenderer;
  */
 class NavigationTreesController extends Controller
 {
-
     use FormBuilderTrait;
 
 
@@ -72,7 +71,7 @@ class NavigationTreesController extends Controller
         $form = $this->form(NavigationTreeForm::class);
 
         // It will automatically use current request, get the rules, and do the validation
-        if ( ! $form->isValid()) {
+        if (! $form->isValid()) {
             return redirect()->back()->withErrors($form->getErrors())->withInput();
         }
 
@@ -115,7 +114,7 @@ class NavigationTreesController extends Controller
         $form = $this->form(NavigationTreeForm::class);
 
         // It will automatically use current request, get the rules, and do the validation
-        if ( ! $form->isValid()) {
+        if (! $form->isValid()) {
             return redirect()->back()->withErrors($form->getErrors())->withInput();
         }
 

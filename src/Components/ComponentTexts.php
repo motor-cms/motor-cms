@@ -11,7 +11,6 @@ use Motor\CMS\Models\PageVersionComponent;
  */
 class ComponentTexts
 {
-
     protected $component;
 
     protected $pageVersionComponent;
@@ -47,8 +46,9 @@ class ComponentTexts
      */
     public function render()
     {
-        return view(config('motor-cms-page-components.components.' . $this->pageVersionComponent->component_name . '.view'),
-            [ 'component' => $this->component ]);
+        return view(
+            config('motor-cms-page-components.components.' . $this->pageVersionComponent->component_name . '.view'),
+            [ 'component' => $this->component ]
+        );
     }
-
 }

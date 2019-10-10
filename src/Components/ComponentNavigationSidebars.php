@@ -11,7 +11,6 @@ use Motor\CMS\Models\PageVersionComponent;
  */
 class ComponentNavigationSidebars
 {
-
     protected $pageVersionComponent;
 
 
@@ -40,8 +39,9 @@ class ComponentNavigationSidebars
      */
     public function render()
     {
-        return view(config('motor-cms-page-components.components.' . $this->pageVersionComponent->component_name . '.view'),
-            []);
+        return view(
+            config('motor-cms-page-components.components.' . $this->pageVersionComponent->component_name . '.view'),
+            []
+        );
     }
-
 }

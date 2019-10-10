@@ -18,7 +18,6 @@ use Kris\LaravelFormBuilder\FormBuilderTrait;
  */
 class PagesController extends Controller
 {
-
     use FormBuilderTrait;
 
 
@@ -71,7 +70,7 @@ class PagesController extends Controller
         $form = $this->form(PageForm::class);
 
         // It will automatically use current request, get the rules, and do the validation
-        if ( ! $form->isValid()) {
+        if (! $form->isValid()) {
             return redirect()->back()->withErrors($form->getErrors())->withInput();
         }
 
@@ -103,11 +102,13 @@ class PagesController extends Controller
     {
         foreach ($request->all() as $components) {
             foreach ($components as $component) {
-                $pageVersionComponent = PageVersionComponent::where('page_version_id',
-                    $component['page_component_data']['page_version_id'])
+                $pageVersionComponent = PageVersionComponent::where(
+                    'page_version_id',
+                    $component['page_component_data']['page_version_id']
+                )
                                                             ->where('id', $component['page_component_data']['id'])
                                                             ->first();
-                if ( ! is_null($pageVersionComponent)) {
+                if (! is_null($pageVersionComponent)) {
                     $pageVersionComponent->container     = $component['page_component_data']['container'];
                     $pageVersionComponent->sort_position = $component['page_component_data']['sort_position'];
                     $pageVersionComponent->save();
@@ -132,7 +133,7 @@ class PagesController extends Controller
                         ->orderBy('container')
                         ->orderBy('sort_position')
                         ->get() as $pageComponent) {
-            if ( ! isset($returnArray[$pageComponent->container])) {
+            if (! isset($returnArray[$pageComponent->container])) {
                 $returnArray[$pageComponent->container] = [];
             }
 
@@ -173,8 +174,10 @@ class PagesController extends Controller
         $pageVersionComponent->delete();
 
         return response()->json([
-            'message' => trans('motor-cms::component/global.deleted',
-                [ 'name' => Str::ucfirst(str_replace('_', ' ', $componentName)) ])
+            'message' => trans(
+                'motor-cms::component/global.deleted',
+                [ 'name' => Str::ucfirst(str_replace('_', ' ', $componentName)) ]
+            )
         ]);
     }
 
@@ -227,7 +230,7 @@ class PagesController extends Controller
         $form = $this->form(PageForm::class);
 
         // It will automatically use current request, get the rules, and do the validation
-        if ( ! $form->isValid()) {
+        if (! $form->isValid()) {
             return redirect()->back()->withErrors($form->getErrors())->withInput();
         }
 

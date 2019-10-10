@@ -13,7 +13,6 @@ use Illuminate\Support\Str;
  */
 trait Versionable
 {
-
     protected $versionState = 'DRAFT';
 
     protected $insertNewVersion = false;
@@ -51,7 +50,7 @@ trait Versionable
     {
         if (in_array($key, $this->versionableColumns)) {
             $version = $this->getCurrentVersion();
-            if ( ! is_null($version)) {
+            if (! is_null($version)) {
                 return $version->getAttribute($key);
             }
         }
@@ -113,7 +112,6 @@ trait Versionable
 
         // 2. clone PageVersionComponents
         foreach ($oldVersion->components()->get() as $component) {
-
             $clonedComponent = $component->replicate();
             if ($clonedComponent->push()) {
                 $newVersion->components()->save($clonedComponent);
@@ -229,7 +227,7 @@ trait Versionable
     public function setCurrentVersion($number)
     {
         $model = $this->getVersionModel();
-        if ( ! is_null($model::where('versionable_number', $number)->first())) {
+        if (! is_null($model::where('versionable_number', $number)->first())) {
             $this->currentVersion = $number;
         }
 

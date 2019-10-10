@@ -67,7 +67,6 @@ class MotorMakeComponentInfoCommand extends MotorAbstractCommand
      * @return string
      */
     protected function getRouteStub(): string
-
     {
         return __DIR__ . '/stubs/info/route.stub';
     }
@@ -92,7 +91,7 @@ class MotorMakeComponentInfoCommand extends MotorAbstractCommand
     protected function makeDirectory($directory): void
     {
         $filesystem = new Filesystem();
-        if ( ! $filesystem->isDirectory($directory)) {
+        if (! $filesystem->isDirectory($directory)) {
             $filesystem->makeDirectory($directory, 0755, true);
         }
     }

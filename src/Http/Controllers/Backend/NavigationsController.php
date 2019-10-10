@@ -18,7 +18,6 @@ use Motor\Core\Filter\Renderers\WhereRenderer;
  */
 class NavigationsController extends Controller
 {
-
     use FormBuilderTrait;
 
 
@@ -66,8 +65,10 @@ class NavigationsController extends Controller
         $newItem      = true;
         $selectedItem = null;
 
-        return view('motor-cms::backend.navigations.create',
-            compact('form', 'trees', 'newItem', 'selectedItem', 'root'));
+        return view(
+            'motor-cms::backend.navigations.create',
+            compact('form', 'trees', 'newItem', 'selectedItem', 'root')
+        );
     }
 
 
@@ -82,7 +83,7 @@ class NavigationsController extends Controller
         $form = $this->form(NavigationForm::class);
 
         // It will automatically use current request, get the rules, and do the validation
-        if ( ! $form->isValid()) {
+        if (! $form->isValid()) {
             return redirect()->back()->withErrors($form->getErrors())->withInput();
         }
 
@@ -143,7 +144,7 @@ class NavigationsController extends Controller
         $form = $this->form(NavigationForm::class);
 
         // It will automatically use current request, get the rules, and do the validation
-        if ( ! $form->isValid()) {
+        if (! $form->isValid()) {
             return redirect()->back()->withErrors($form->getErrors())->withInput();
         }
 

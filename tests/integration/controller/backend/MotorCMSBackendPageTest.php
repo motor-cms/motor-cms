@@ -10,7 +10,6 @@ use Motor\CMS\Models\Page;
  */
 class MotorCMSBackendPageTest extends TestCase
 {
-
     use DatabaseTransactions;
 
     protected $user;
@@ -79,7 +78,7 @@ class MotorCMSBackendPageTest extends TestCase
     {
         $record = create_test_page();
         $this->visit('/backend/pages')
-            ->within('table', function(){
+            ->within('table', function () {
                 $this->click(trans('motor-backend::backend/global.edit'));
             })
             ->seePageIs('/backend/pages/'.$record->id.'/edit')
@@ -95,7 +94,7 @@ class MotorCMSBackendPageTest extends TestCase
         $this->visit('/backend/pages/'.$record->id.'/edit')
             ->see($record->name)
             ->type('Updated Page', 'name')
-            ->within('.box-footer', function(){
+            ->within('.box-footer', function () {
                 $this->press(trans('motor-cms::backend/pages.save'));
             })
             ->see(trans('motor-cms::backend/pages.updated'))
@@ -120,7 +119,7 @@ class MotorCMSBackendPageTest extends TestCase
         $this->visit('/backend/pages/create')
             ->see(trans('motor-cms::backend/pages.new'))
             ->type('Create Page Name', 'name')
-            ->within('.box-footer', function(){
+            ->within('.box-footer', function () {
                 $this->press(trans('motor-cms::backend/pages.save'));
             })
             ->see(trans('motor-cms::backend/pages.created'))
@@ -133,7 +132,7 @@ class MotorCMSBackendPageTest extends TestCase
     {
         $this->visit('/backend/pages/create')
             ->see(trans('motor-cms::backend/pages.new'))
-            ->within('.box-footer', function(){
+            ->within('.box-footer', function () {
                 $this->press(trans('motor-cms::backend/pages.save'));
             })
             ->see('Data missing!')
@@ -147,7 +146,7 @@ class MotorCMSBackendPageTest extends TestCase
         $this->visit('/backend/pages/'.$record->id.'/edit')
             ->see(trans('motor-cms::backend/pages.edit'))
             ->type('Modified Page Name', 'name')
-            ->within('.box-footer', function(){
+            ->within('.box-footer', function () {
                 $this->press(trans('motor-cms::backend/pages.save'));
             })
             ->see(trans('motor-cms::backend/pages.updated'))
@@ -163,7 +162,7 @@ class MotorCMSBackendPageTest extends TestCase
         $this->assertCount(1, Page::all());
 
         $this->visit('/backend/pages')
-            ->within('table', function(){
+            ->within('table', function () {
                 $this->press(trans('motor-backend::backend/global.delete'));
             })
             ->seePageIs('/backend/pages')
@@ -177,7 +176,7 @@ class MotorCMSBackendPageTest extends TestCase
     {
         $records = create_test_page(100);
         $this->visit('/backend/pages')
-            ->within('.pagination', function(){
+            ->within('.pagination', function () {
                 $this->click('3');
             })
             ->seePageIs('/backend/pages?page=3');

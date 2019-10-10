@@ -46,13 +46,13 @@ class PagesController extends Controller
         $renderedOutput = [];
 
         foreach ($version->components()->orderBy('container')->orderBy('sort_position')->get() as $pageComponent) {
-            if ( ! isset($renderedOutput[$pageComponent->container])) {
+            if (! isset($renderedOutput[$pageComponent->container])) {
                 $renderedOutput[$pageComponent->container] = [];
             }
             $result = \Motor\CMS\Services\ComponentBaseService::render($pageComponent);
-            if ($result instanceOf View) {
+            if ($result instanceof View) {
                 $renderedOutput[$pageComponent->container][] = $result;
-            } elseif ($result instanceOf RedirectResponse) {
+            } elseif ($result instanceof RedirectResponse) {
                 return $result;
             }
         }
@@ -60,6 +60,5 @@ class PagesController extends Controller
         $template = config('motor-cms-page-templates.' . $version->template);
 
         return view('motor-cms::frontend.default', compact('template', 'version', 'renderedOutput'));
-
     }
 }

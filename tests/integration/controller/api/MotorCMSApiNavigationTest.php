@@ -9,7 +9,6 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
  */
 class MotorCMSApiNavigationTest extends TestCase
 {
-
     use DatabaseTransactions;
 
     protected $user;
@@ -108,8 +107,10 @@ class MotorCMSApiNavigationTest extends TestCase
     {
         $this->user->givePermissionTo($this->readPermission);
         $record = create_test_navigation();
-        $this->json('GET',
-            '/api/navigations/' . $record->id . '?api_token=' . $this->user->api_token)->seeStatusCode(200)->seeJson([
+        $this->json(
+            'GET',
+            '/api/navigations/' . $record->id . '?api_token=' . $this->user->api_token
+        )->seeStatusCode(200)->seeJson([
             'name' => $record->name
         ]);
     }
@@ -118,8 +119,10 @@ class MotorCMSApiNavigationTest extends TestCase
     public function fails_to_show_a_single_navigation_without_permission()
     {
         $record = create_test_navigation();
-        $this->json('GET',
-            '/api/navigations/' . $record->id . '?api_token=' . $this->user->api_token)->seeStatusCode(403)->seeJson([
+        $this->json(
+            'GET',
+            '/api/navigations/' . $record->id . '?api_token=' . $this->user->api_token
+        )->seeStatusCode(403)->seeJson([
             'error' => 'Access denied.'
         ]);
     }
@@ -150,8 +153,10 @@ class MotorCMSApiNavigationTest extends TestCase
     {
         $this->user->givePermissionTo($this->readPermission);
         $records = create_test_navigation(10);
-        $this->json('GET',
-            '/api/navigations?api_token=' . $this->user->api_token . '&search=' . $records[2]->name)->seeStatusCode(200)->seeJson([
+        $this->json(
+            'GET',
+            '/api/navigations?api_token=' . $this->user->api_token . '&search=' . $records[2]->name
+        )->seeStatusCode(200)->seeJson([
             'name' => $records[2]->name
         ]);
     }
@@ -162,8 +167,10 @@ class MotorCMSApiNavigationTest extends TestCase
     {
         $this->user->givePermissionTo($this->readPermission);
         create_test_navigation(50);
-        $this->json('GET',
-            '/api/navigations?api_token=' . $this->user->api_token . '&page=2')->seeStatusCode(200)->seeJson([
+        $this->json(
+            'GET',
+            '/api/navigations?api_token=' . $this->user->api_token . '&page=2'
+        )->seeStatusCode(200)->seeJson([
             'current_page' => 2
         ]);
     }
@@ -184,8 +191,10 @@ class MotorCMSApiNavigationTest extends TestCase
     {
         $this->user->givePermissionTo($this->writePermission);
         $record = create_test_navigation();
-        $this->json('PATCH',
-            '/api/navigations/' . $record->id . '?api_token=' . $this->user->api_token)->seeStatusCode(422)->seeJson([
+        $this->json(
+            'PATCH',
+            '/api/navigations/' . $record->id . '?api_token=' . $this->user->api_token
+        )->seeStatusCode(422)->seeJson([
             'name' => [ 'The name field is required.' ]
         ]);
     }
@@ -195,8 +204,10 @@ class MotorCMSApiNavigationTest extends TestCase
     public function fails_if_trying_to_modify_a_navigation_without_permission()
     {
         $record = create_test_navigation();
-        $this->json('PATCH',
-            '/api/navigations/' . $record->id . '?api_token=' . $this->user->api_token)->seeStatusCode(403)->seeJson([
+        $this->json(
+            'PATCH',
+            '/api/navigations/' . $record->id . '?api_token=' . $this->user->api_token
+        )->seeStatusCode(403)->seeJson([
             'error' => 'Access denied.'
         ]);
     }
@@ -228,8 +239,10 @@ class MotorCMSApiNavigationTest extends TestCase
     public function fails_to_delete_a_navigation_without_permission()
     {
         $record = create_test_navigation();
-        $this->json('DELETE',
-            '/api/navigations/' . $record->id . '?api_token=' . $this->user->api_token)->seeStatusCode(403)->seeJson([
+        $this->json(
+            'DELETE',
+            '/api/navigations/' . $record->id . '?api_token=' . $this->user->api_token
+        )->seeStatusCode(403)->seeJson([
             'error' => 'Access denied.'
         ]);
     }
@@ -239,8 +252,10 @@ class MotorCMSApiNavigationTest extends TestCase
     {
         $this->user->givePermissionTo($this->deletePermission);
         $record = create_test_navigation();
-        $this->json('DELETE',
-            '/api/navigations/' . $record->id . '?api_token=' . $this->user->api_token)->seeStatusCode(200)->seeJson([
+        $this->json(
+            'DELETE',
+            '/api/navigations/' . $record->id . '?api_token=' . $this->user->api_token
+        )->seeStatusCode(200)->seeJson([
             'success' => true
         ]);
     }

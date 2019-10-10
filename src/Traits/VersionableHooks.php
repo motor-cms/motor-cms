@@ -17,7 +17,6 @@ class VersionableHooks
     public function setAttribute()
     {
         return function ($next, $value, $args) {
-
             $key = $args->get('key');
 
             parent::setAttribute($key, $value);
@@ -51,5 +50,4 @@ class VersionableHooks
             return $next($attributes, $args);
         };
     }
-
 }

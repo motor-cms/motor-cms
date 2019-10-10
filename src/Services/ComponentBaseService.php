@@ -24,14 +24,15 @@ class ComponentBaseService extends BaseService
     {
         $container = app();
 
-        $controller = $container->make(config('motor-cms-page-components.components.' . $pageComponent->component_name . '.component_class'),
+        $controller = $container->make(
+            config('motor-cms-page-components.components.' . $pageComponent->component_name . '.component_class'),
             [
                 'pageVersionComponent' => $pageComponent,
-                'component'            => ( $pageComponent->component_id == null ? null : $pageComponent->component )
-            ]);
+                'component'            => ($pageComponent->component_id == null ? null : $pageComponent->component)
+            ]
+        );
 
         return $container->call([ $controller, 'index' ]);
-
     }
 
 
@@ -45,8 +46,10 @@ class ComponentBaseService extends BaseService
         $pageComponent->page_version_id = $request->get('page_version_id');
         $pageComponent->container       = $request->get('container');
         $pageComponent->component_name  = $request->get('component_name');
-        $pageComponent->sort_position   = PageVersionComponent::where('page_version_id',
-                $request->get('page_version_id'))->where('container', $request->get('container'))->count() + 1;
+        $pageComponent->sort_position   = PageVersionComponent::where(
+            'page_version_id',
+            $request->get('page_version_id')
+        )->where('container', $request->get('container'))->count() + 1;
         $pageComponent->save();
     }
 
@@ -63,8 +66,10 @@ class ComponentBaseService extends BaseService
         $pageComponent->page_version_id = $this->request->get('page_version_id');
         $pageComponent->container       = $this->request->get('container');
         $pageComponent->component_name  = $this->name;
-        $pageComponent->sort_position   = PageVersionComponent::where('page_version_id',
-                $this->request->get('page_version_id'))
+        $pageComponent->sort_position   = PageVersionComponent::where(
+            'page_version_id',
+            $this->request->get('page_version_id')
+        )
                                                               ->where('container', $this->request->get('container'))
                                                               ->count() + 1;
         $this->record->component()->save($pageComponent);

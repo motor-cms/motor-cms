@@ -98,8 +98,10 @@ class MotorServiceProvider extends ServiceProvider
     public function permissions()
     {
         $config = $this->app['config']->get('motor-backend-permissions', []);
-        $this->app['config']->set('motor-backend-permissions',
-            array_replace_recursive(require __DIR__ . '/../../config/motor-backend-permissions.php', $config));
+        $this->app['config']->set(
+            'motor-backend-permissions',
+            array_replace_recursive(require __DIR__ . '/../../config/motor-backend-permissions.php', $config)
+        );
     }
 
 
@@ -109,8 +111,10 @@ class MotorServiceProvider extends ServiceProvider
     public function vueRoutes()
     {
         $config = $this->app['config']->get('ziggy', []);
-        $this->app['config']->set('ziggy',
-            array_replace_recursive(require __DIR__ . '/../../config/ziggy.php', $config));
+        $this->app['config']->set(
+            'ziggy',
+            array_replace_recursive(require __DIR__ . '/../../config/ziggy.php', $config)
+        );
     }
 
 
@@ -120,8 +124,10 @@ class MotorServiceProvider extends ServiceProvider
     public function components()
     {
         $config = $this->app['config']->get('motor-cms-page-components', []);
-        $this->app['config']->set('motor-cms-page-components',
-            array_replace_recursive(require __DIR__ . '/../../config/motor-cms-page-components.php', $config));
+        $this->app['config']->set(
+            'motor-cms-page-components',
+            array_replace_recursive(require __DIR__ . '/../../config/motor-cms-page-components.php', $config)
+        );
     }
 
 
@@ -131,8 +137,10 @@ class MotorServiceProvider extends ServiceProvider
     public function templates()
     {
         $config = $this->app['config']->get('motor-cms-page-templates', []);
-        $this->app['config']->set('motor-cms-page-templates',
-            array_replace_recursive(require __DIR__ . '/../../config/motor-cms-page-templates.php', $config));
+        $this->app['config']->set(
+            'motor-cms-page-templates',
+            array_replace_recursive(require __DIR__ . '/../../config/motor-cms-page-templates.php', $config)
+        );
     }
 
 
@@ -141,7 +149,7 @@ class MotorServiceProvider extends ServiceProvider
      */
     public function routes()
     {
-        if ( ! $this->app->routesAreCached()) {
+        if (! $this->app->routesAreCached()) {
             require __DIR__ . '/../../routes/web.php';
             require __DIR__ . '/../../routes/api.php';
         }
@@ -216,7 +224,9 @@ class MotorServiceProvider extends ServiceProvider
     public function navigationItems()
     {
         $config = $this->app['config']->get('motor-backend-navigation', []);
-        $this->app['config']->set('motor-backend-navigation',
-            array_replace_recursive(require __DIR__ . '/../../config/motor-backend-navigation.php', $config));
+        $this->app['config']->set(
+            'motor-backend-navigation',
+            array_replace_recursive(require __DIR__ . '/../../config/motor-backend-navigation.php', $config)
+        );
     }
 }

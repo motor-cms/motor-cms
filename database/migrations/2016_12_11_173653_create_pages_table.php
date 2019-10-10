@@ -67,7 +67,6 @@ class CreatePagesTable extends Migration
 
             $table->foreign('page_version_id')->references('id')->on('page_versions')->onDelete('cascade');
         });
-
     }
 
 

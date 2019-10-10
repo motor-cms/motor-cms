@@ -11,7 +11,6 @@ use Motor\CMS\Services\ComponentBaseService;
  */
 class ComponentTextService extends ComponentBaseService
 {
-
     protected $model = ComponentText::class;
 
     protected $name = 'text';

@@ -52,7 +52,6 @@ use Culpa\Traits\UpdatedBy;
  */
 class PageVersion extends Model
 {
-
     use Searchable;
     use Blameable, CreatedBy, UpdatedBy, DeletedBy;
 
