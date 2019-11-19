@@ -15,8 +15,12 @@
     "motor-cms/motor-backend": "0.9.*"
   },
   "autoload": {
+    "classmap": [
+      "database"
+    ],
     "psr-4": {
-      "Motor\\CMS\\": "src"
+      "Motor\\CMS\\": "src",
+      "Tests\\Motor\\CMS\\": "tests"
     }
   },
   "extra": {

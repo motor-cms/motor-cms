@@ -3,7 +3,8 @@
 return [
     'default' => [
         'meta'  => [
-            'name' => 'Default template',
+            'namespace' => 'motor-cms',
+            'name'      => 'Default template',
         ],
         'items' => [
             [
@@ -71,7 +72,8 @@ return [
     ],
     'no-nav'  => [
         'meta'  => [
-            'name' => 'Default template without navigation',
+            'namespace' => 'motor-cms',
+            'name'      => 'Default template without navigation',
         ],
         "items" => [
             [
