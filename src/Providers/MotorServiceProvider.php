@@ -4,6 +4,8 @@ namespace Motor\CMS\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
+use Motor\CMS\Console\Commands\MotorCMSExportNavigationCommand;
+use Motor\CMS\Console\Commands\MotorCMSExportPagesCommand;
 use Motor\CMS\Console\Commands\MotorMakeComponentCommand;
 use Motor\CMS\Console\Commands\MotorMakeComponentClassCommand;
 use Motor\CMS\Console\Commands\MotorMakeComponentInfoCommand;
@@ -51,6 +53,8 @@ class MotorServiceProvider extends ServiceProvider
                 MotorMakeComponentCommand::class,
                 MotorMakeComponentClassCommand::class,
                 MotorMakeComponentInfoCommand::class,
+                MotorCMSExportNavigationCommand::class,
+                MotorCMSExportPagesCommand::class,
             ]);
         }
     }
