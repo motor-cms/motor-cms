@@ -40,6 +40,7 @@ class MotorServiceProvider extends ServiceProvider
         $this->vueRoutes();
         $this->publishResourceAssets();
         $this->registerCommands();
+        merge_local_config_with_db_configuration_variables('motor-cms');
     }
 
 
