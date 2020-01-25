@@ -41,7 +41,6 @@
                                             <option v-for="(name, value) in field.options.choices" :value="value">
                                                 {{name}}
                                             </option>
-
                                         </select>
                                     </div>
 
@@ -53,6 +52,17 @@
                                             field.options.label
                                             }}</label>
                                         <input :id="field.options.real_name" class="form-control" type="text"
+                                               v-model="field.options.value" :name="field.options.real_name">
+                                    </div>
+
+                                </template>
+                                <template v-if="field.type == 'checkbox'">
+
+                                    <div class="form-group">
+                                        <label :for="field.options.real_name" class="control-label">{{
+                                            field.options.label
+                                            }}</label>
+                                        <input :id="field.options.real_name" class="form-control" type="checkbox"
                                                v-model="field.options.value" :name="field.options.real_name">
                                     </div>
 
@@ -277,13 +287,13 @@
                 });
             },
             post: function () {
-
                 let that = this;
                 let data = {};
 
                 for (let field of that.form.fields) {
-                    if (field.type == 'select') {
-                        data[field.options.real_name] = parseInt(field.options.selected);
+                    if (field.type === 'select') {
+                        data[field.options.real_name] = field.options.selected;
+                        // data[field.options.real_name] = parseInt(field.options.selected);
                     } else {
                         data[field.options.real_name] = field.options.value;
                     }
@@ -309,8 +319,14 @@
                 let data = {};
 
                 for (let field of that.form.fields) {
-                    if (field.type == 'select') {
-                        data[field.options.real_name] = parseInt(field.options.selected);
+                    if (field.type === 'select') {
+                        data[field.options.real_name] = field.options.selected;
+                        // data[field.options.real_name] = parseInt(field.options.selected);
+                    } else if (field.type === 'file_association') {
+                        data[field.options.real_name] = field.options.value;
+                        data[field.options.real_name+'_position'] = field.options.position;
+                        data[field.options.real_name+'_enlarge'] = field.options.enlarge;
+                        data[field.options.real_name+'_description'] = field.options.description;
                     } else {
                         data[field.options.real_name] = field.options.value;
                     }

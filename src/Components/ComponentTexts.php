@@ -3,6 +3,7 @@
 namespace Motor\CMS\Components;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Motor\CMS\Models\PageVersionComponent;
 
 /**
@@ -46,9 +47,25 @@ class ComponentTexts
      */
     public function render()
     {
+        $thumb = $file = $position = $enlarge = $description = null;
+        $image = $this->component->file_associations()->where('identifier', 'image')->first();
+        if ($image) {
+            $thumb = $image->file->getFirstMedia('file')->getUrl('thumb');
+            $file = $image->file->getFirstMedia('file')->getUrl();
+            $position = Arr::get($image->custom_properties, 'position', 'right');
+            $enlarge = Arr::get($image->custom_properties, 'enlarge', false);
+            $description = Arr::get($image->custom_properties, 'description', '');
+        }
         return view(
-            config('motor-cms-page-components.components.' . $this->pageVersionComponent->component_name . '.view'),
-            [ 'component' => $this->component ]
+            config('motor-cms-page-components.components.'.$this->pageVersionComponent->component_name.'.view'),
+            [
+                'component'   => $this->component,
+                'thumb'       => $thumb,
+                'file'        => $file,
+                'position'    => $position,
+                'enlarge'     => $enlarge,
+                'description' => $description
+            ]
         );
     }
 }

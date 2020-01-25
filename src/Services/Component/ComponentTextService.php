@@ -19,13 +19,21 @@ class ComponentTextService extends ComponentBaseService
     public function afterCreate(): void
     {
         parent::afterCreate();
-        $this->addFileAssociation('image');
+        $this->addFileAssociation('image', [
+            'position'    => $this->request->get('image_position'),
+            'enlarge'     => $this->request->get('image_enlarge'),
+            'description' => $this->request->get('image_description')
+        ]);
     }
 
 
     public function afterUpdate(): void
     {
         parent::afterUpdate();
-        $this->addFileAssociation('image');
+        $this->addFileAssociation('image', [
+            'position'    => $this->request->get('image_position'),
+            'enlarge'     => $this->request->get('image_enlarge'),
+            'description' => $this->request->get('image_description')
+        ]);
     }
 }

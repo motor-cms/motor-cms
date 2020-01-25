@@ -1,7 +1,21 @@
 <h1>{{$component->headline}}</h1>
-<p>
+@if (is_null($file))
     {!! $component->body !!}
-{{--    @if ($component->getFirstMedia('image'))--}}
-{{--        <a href="{{$component->getFirstMedia('image')->getUrl()}}" class="thumbnail"><img src="{{$component->getFirstMedia('image')->getUrl('thumb')}}" alt=""></a>--}}
-{{--    @endif--}}
-</p>
+@else
+    @if ($position === 'top')
+        <div class="thumbnail">
+            <a href="{{$file}}"><img src="{{$thumb}}" alt="{{$description}}"></a>
+        </div>
+        {!! $component->body !!}
+    @elseif($position === 'bottom')
+        {!! $component->body !!}
+        <div class="thumbnail">
+            <a href="{{$file}}"><img src="{{$thumb}}" alt="{{$description}}"></a>
+        </div>
+    @else
+        <div class="thumbnail float-{{$position}}">
+            <a href="{{$file}}"><img src="{{$thumb}}" alt="{{$description}}"></a>
+        </div>
+        {!! $component->body !!}
+    @endif
+@endif

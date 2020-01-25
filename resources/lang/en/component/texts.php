@@ -6,6 +6,6 @@ return [
     'updated'   => 'Text component updated',
     'deleted'   => 'Text component deleted',
 
-    'headline' => 'Headline',
-    'body'     => 'Body',
+    'headline'          => 'Headline',
+    'body'              => 'Body',
 ];
