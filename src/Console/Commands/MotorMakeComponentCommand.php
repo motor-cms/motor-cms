@@ -49,9 +49,12 @@ class MotorMakeComponentCommand extends Command
 
         if ((int) $this->argument('create_model') == 1) {
             // Create migration
+            // Strip namespace from migration command
+            $migrationOptions = $extraoptions;
+            unset($migrationOptions['--namespace']);
             $this->call(
                 'motor:make:migration',
-                array_merge([ 'name' => "create_{$table}_table", '--create' => $table ], $extraoptions)
+                array_merge([ 'name' => "create_{$table}_table", '--create' => $table ], $migrationOptions)
             );
 
             // Create model
