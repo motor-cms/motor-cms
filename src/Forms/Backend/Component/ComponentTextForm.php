@@ -21,7 +21,12 @@ class ComponentTextForm extends Form
             'text',
             [ 'label' => trans('motor-cms::component/texts.headline'), 'rules' => 'required' ]
         )
-             ->add('body', 'htmleditor', [ 'label' => trans('motor-cms::component/texts.body') ])
-             ->add('image', 'file_association', [ 'label' => trans('motor-backend::backend/global.image') ]);
+            ->add(
+                'anchor',
+                'text',
+                [ 'label' => trans('motor-cms::component/texts.anchor') ]
+            )
+            ->add('body', 'htmleditor', [ 'label' => trans('motor-cms::component/texts.body') ])
+            ->add('image', 'file_association', [ 'label' => trans('motor-backend::backend/global.image') ]);
     }
 }

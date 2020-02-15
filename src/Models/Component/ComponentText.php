@@ -40,6 +40,7 @@ class ComponentText extends ComponentBaseModel implements HasMedia
      */
     protected $fillable = [
         'headline',
+        'anchor',
         'body'
     ];
 

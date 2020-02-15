@@ -15,7 +15,6 @@ class ComponentTextService extends ComponentBaseService
 
     protected $name = 'text';
 
-
     public function afterCreate(): void
     {
         parent::afterCreate();
@@ -29,6 +28,7 @@ class ComponentTextService extends ComponentBaseService
 
     public function afterUpdate(): void
     {
+        var_dump($this->request->all());
         parent::afterUpdate();
         $this->addFileAssociation('image', [
             'position'    => $this->request->get('image_position'),
