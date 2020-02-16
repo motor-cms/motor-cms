@@ -111,6 +111,8 @@ class ComponentBaseService extends BaseService
 
                         $image = Image::load(public_path().$media->getUrl());
 
+                        $hash = Arr::get($customProperties, 'crop.x1').Arr::get($customProperties, 'crop.x2').Arr::get($customProperties, 'crop.y1').Arr::get($customProperties, 'crop.y2');
+
                         $image->manualCrop(
                             $image->getWidth() * Arr::get($customProperties, 'crop.x2'),
                             $image->getHeight() * Arr::get($customProperties, 'crop.y2'),
@@ -119,7 +121,7 @@ class ComponentBaseService extends BaseService
                             ->width(1280)
                             ->height(720)
                             ->format('jpg')
-                            ->save($pathinfo[ 'dirname' ].'/conversions/'.$pathinfo[ 'filename' ].'-'.md5('component_texts_'.$this->record->id).'.jpg');
+                            ->save($pathinfo[ 'dirname' ].'/conversions/'.$pathinfo[ 'filename' ].'-'.md5($hash).'.jpg');
                     }
                 }
             }
