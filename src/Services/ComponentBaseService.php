@@ -2,10 +2,12 @@
 
 namespace Motor\CMS\Services;
 
+use Illuminate\Support\Arr;
 use Motor\Backend\Http\Requests\Request;
 use Motor\Backend\Services\BaseService;
 use Motor\CMS\Models\PageVersionComponent;
 use Motor\Media\Models\FileAssociation;
+use Spatie\Image\Image;
 
 /**
  * Class ComponentBaseService
@@ -100,6 +102,25 @@ class ComponentBaseService extends BaseService
                 foreach ($this->record->file_associations()->where('identifier', $field)->get() as $fileAssociation) {
                     $fileAssociation->custom_properties = $customProperties;
                     $fileAssociation->save();
+
+                    // Check if we need to crop
+                    if (Arr::get($customProperties, 'crop')) {
+                        $media = $fileAssociation->file->getFirstMedia('file');
+
+                        $pathinfo = pathinfo(public_path().$media->getUrl());
+
+                        $image = Image::load(public_path().$media->getUrl());
+
+                        $image->manualCrop(
+                            $image->getWidth() * Arr::get($customProperties, 'crop.x2'),
+                            $image->getHeight() * Arr::get($customProperties, 'crop.y2'),
+                            $image->getWidth() * Arr::get($customProperties, 'crop.x1'),
+                            $image->getHeight() * Arr::get($customProperties, 'crop.y1'))
+                            ->width(1280)
+                            ->height(720)
+                            ->format('jpg')
+                            ->save($pathinfo[ 'dirname' ].'/conversions/'.$pathinfo[ 'filename' ].'-'.md5('component_texts_'.$this->record->id).'.jpg');
+                    }
                 }
             }
             return;

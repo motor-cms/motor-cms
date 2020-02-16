@@ -294,6 +294,12 @@
                     if (field.type === 'select') {
                         data[field.options.real_name] = field.options.selected;
                         // data[field.options.real_name] = parseInt(field.options.selected);
+                    } else if (field.type === 'file_association') {
+                        data[field.options.real_name] = field.options.value;
+                        data[field.options.real_name+'_position'] = field.options.position;
+                        data[field.options.real_name+'_enlarge'] = field.options.enlarge;
+                        data[field.options.real_name+'_description'] = field.options.description;
+                        data[field.options.real_name+'_crop'] = field.options.crop;
                     } else {
                         data[field.options.real_name] = field.options.value;
                     }
@@ -327,6 +333,7 @@
                         data[field.options.real_name+'_position'] = field.options.position;
                         data[field.options.real_name+'_enlarge'] = field.options.enlarge;
                         data[field.options.real_name+'_description'] = field.options.description;
+                        data[field.options.real_name+'_crop'] = field.options.crop;
                     } else {
                         data[field.options.real_name] = field.options.value;
                     }

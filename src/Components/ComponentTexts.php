@@ -49,9 +49,18 @@ class ComponentTexts
     {
         $thumb = $file = $position = $enlarge = $description = null;
         $image = $this->component->file_associations()->where('identifier', 'image')->first();
+
         if ($image) {
-            $thumb = $image->file->getFirstMedia('file')->getUrl('thumb');
-            $file = $image->file->getFirstMedia('file')->getUrl();
+            // If we have a cropped image, load that one from the disk
+            if (Arr::get($image->custom_properties, 'crop')) {
+                $pathinfo = pathinfo(public_path().$image->file->getFirstMedia('file')->getUrl());
+                $thumb = str_replace(public_path(), '', $pathinfo[ 'dirname' ]).'/conversions/'.$pathinfo[ 'filename' ].'-'.md5('component_texts_'.$this->component->id).'.jpg';
+                $file = $thumb;
+            } else {
+                $thumb = $image->file->getFirstMedia('file')->getUrl('thumb');
+                $file = $image->file->getFirstMedia('file')->getUrl();
+            }
+
             $position = Arr::get($image->custom_properties, 'position', 'right');
             $enlarge = Arr::get($image->custom_properties, 'enlarge', false);
             $description = Arr::get($image->custom_properties, 'description', '');

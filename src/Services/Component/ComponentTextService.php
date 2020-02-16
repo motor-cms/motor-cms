@@ -21,19 +21,20 @@ class ComponentTextService extends ComponentBaseService
         $this->addFileAssociation('image', [
             'position'    => $this->request->get('image_position'),
             'enlarge'     => $this->request->get('image_enlarge'),
-            'description' => $this->request->get('image_description')
+            'description' => $this->request->get('image_description'),
+            'crop'        => $this->request->get('image_crop')
         ]);
     }
 
 
     public function afterUpdate(): void
     {
-        var_dump($this->request->all());
         parent::afterUpdate();
         $this->addFileAssociation('image', [
             'position'    => $this->request->get('image_position'),
             'enlarge'     => $this->request->get('image_enlarge'),
-            'description' => $this->request->get('image_description')
+            'description' => $this->request->get('image_description'),
+            'crop'        => $this->request->get('image_crop')
         ]);
     }
 }

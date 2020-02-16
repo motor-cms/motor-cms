@@ -1,4 +1,5 @@
 <h1>{{$component->headline}}</h1>
+<div id="{{$component->anchor}}"></div>
 @if (is_null($file))
     {!! $component->body !!}
 @else
