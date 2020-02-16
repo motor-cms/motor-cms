@@ -27,7 +27,6 @@ class ComponentTexts
         \Motor\CMS\Models\Component\ComponentText $component
     ) {
         $this->component = $component;
-        //dd($this->component->getMedia('image'));
         $this->pageVersionComponent = $pageVersionComponent;
     }
 

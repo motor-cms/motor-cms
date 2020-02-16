@@ -197,6 +197,11 @@
             },
             closeModal() {
                 // Send clear event to all components to remove data in case the component gets reused
+                this.form.fields = [];
+                this.form.options = [];
+                this.form.route = false;
+                this.form.method = false;
+                this.form.componentId = null;
                 this.$eventHub.$emit('motor-cms:clear-data');
                 $('#motor-component-modal').modal('hide');
             },
@@ -272,9 +277,9 @@
 
                 axios.get(route(routeString, componentId)).then((response) => {
 
-                    this.form.options = response.data.options;
-                    this.form.fields = response.data.fields;
-                    this.form.route = response.data.route;
+                    this.form.options = JSON.parse(JSON.stringify(response.data.options));
+                    this.form.fields = JSON.parse(JSON.stringify(response.data.fields));
+                    this.form.route = JSON.parse(JSON.stringify(response.data.route));
                     this.form.componentId = componentId;
 
                     $('.motor-cms-components').addClass('d-none');
@@ -310,8 +315,9 @@
 
                 axios.post(route(this.form.route), data)
                     .then((response) => {
-                        $('#motor-component-modal').modal('hide');
-                        this.$eventHub.$emit('motor-cms:update-components');
+                        this.closeModal();
+                        // $('#motor-component-modal').modal('hide');
+                        // this.$eventHub.$emit('motor-cms:update-components');
                         $('.motor-cms-component-flash').html(response.data.message).removeClass('d-none').css('display', '').delay(3000).fadeOut(350);
 
                     })
@@ -344,8 +350,11 @@
 
                 axios.patch(route(this.form.route, this.form.componentId), data)
                     .then((response) => {
-                        $('#motor-component-modal').modal('hide');
-                        this.$eventHub.$emit('motor-cms:update-components');
+                        this.closeModal();
+                        // $('#motor-component-modal').modal('hide');
+                        // this.$eventHub.$emit('motor-cms:update-components');
+                        // $('#motor-component-modal').modal('hide');
+                        // this.$eventHub.$emit('motor-cms:update-components');
                         $('.motor-cms-component-flash').html(response.data.message).removeClass('d-none').css('display', '').delay(3000).fadeOut(350);
 
                     })
