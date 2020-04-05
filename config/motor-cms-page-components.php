@@ -29,19 +29,20 @@ return [
             ],
             'group'           => 'navigation'
         ],
-        'text' => [
-            'name'            => 'Text',
-            'description'     => 'Show Text component',
-            'view'            => 'motor-cms::frontend.components.text',
-            'route'           => 'component.texts',
-            'component_class' => 'Motor\CMS\Components\ComponentTexts',
-            'compatibility'   => [
+        'text'               => [
+            'name'              => 'Text',
+            'description'       => 'Show Text component',
+            'view'              => 'motor-cms::frontend.components.text',
+            'route'             => 'component.texts',
+            'component_class'   => 'Motor\CMS\Components\ComponentTexts',
+            'transformer_class' => 'Motor\CMS\Transformers\Components\TextTransformer',
+            'compatibility'     => [
 
             ],
-            'permissions'     => [
+            'permissions'       => [
 
             ],
-            'group'           => 'basic'
+            'group'             => 'basic'
         ],
     ],
 ];

@@ -3,6 +3,7 @@
 namespace Motor\CMS\Http\Controllers\Api;
 
 use Motor\Backend\Http\Controllers\Controller;
+use Motor\CMS\Models\Navigation;
 use Motor\CMS\Models\Page;
 use Motor\CMS\Http\Requests\Backend\PageRequest;
 use Motor\CMS\Services\PageService;
