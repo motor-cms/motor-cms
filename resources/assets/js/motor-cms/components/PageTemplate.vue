@@ -4,8 +4,8 @@
 
 <script>
     import draggable from 'vuedraggable';
-    import {Ziggy} from 'ziggy';
-    import route from 'ziggy/src/js/route';
+    import {Ziggy} from 'ziggy-js';
+    import route from 'ziggy-js/src/js/route';
 
     window.Ziggy = Ziggy;
 
