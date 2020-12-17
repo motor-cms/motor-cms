@@ -1,7 +1,10 @@
 <?php
 
+namespace Motor\CMS\Database\Seeders;
+
 use Illuminate\Database\Seeder;
 use Motor\CMS\Models\Page;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class MotorMediaDefaultCategorySeeder

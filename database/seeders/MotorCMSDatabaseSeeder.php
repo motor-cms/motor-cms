@@ -1,5 +1,7 @@
 <?php
 
+namespace Motor\CMS\Database\Seeders;
+
 use Illuminate\Database\Seeder;
 
 class MotorCMSDatabaseSeeder extends Seeder

@@ -1,5 +1,7 @@
 <?php
 
+namespace Motor\CMS\Database\Seeders;
+
 use Illuminate\Database\Seeder;
 use Motor\Backend\Models\Client;
 use Motor\CMS\Models\Page;
