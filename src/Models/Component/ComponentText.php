@@ -4,9 +4,9 @@ namespace Motor\CMS\Models\Component;
 
 use Motor\CMS\Models\ComponentBaseModel;
 use Motor\Media\Models\FileAssociation;
-use Spatie\MediaLibrary\Models\Media;
-use Spatie\MediaLibrary\HasMedia\HasMedia;
-use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 /**
  * Motor\CMS\Models\Component\ComponentText
@@ -31,7 +31,7 @@ use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
  */
 class ComponentText extends ComponentBaseModel implements HasMedia
 {
-    use HasMediaTrait;
+    use InteractsWithMedia;
 
     /**
      * The attributes that are mass assignable.
@@ -49,7 +49,7 @@ class ComponentText extends ComponentBaseModel implements HasMedia
      * @param Media|null $media
      * @throws \Spatie\Image\Exceptions\InvalidManipulation
      */
-    public function registerMediaConversions(Media $media = null)
+    public function registerMediaConversions(Media $media = null): void
     {
         $this->addMediaConversion('thumb')->width(320)->height(240)->nonQueued();
 
