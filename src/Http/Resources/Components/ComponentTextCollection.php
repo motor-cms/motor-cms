@@ -1,6 +1,6 @@
 <?php
 
-namespace Motor\CMS\Http\Resources;
+namespace Motor\CMS\Http\Resources\Components;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 

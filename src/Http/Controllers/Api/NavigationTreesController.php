@@ -1,11 +1,11 @@
 <?php
 
-namespace Motor\Backend\Http\Controllers\Api;
+namespace Motor\CMS\Http\Controllers\Api;
 
 use Motor\Backend\Http\Controllers\ApiController;
 use Motor\CMS\Http\Requests\Backend\NavigationRequest;
-use Motor\CMS\Http\Resources\NavigationCollection;
-use Motor\CMS\Http\Resources\NavigationResource;
+use Motor\CMS\Http\Resources\NavigationTreeCollection;
+use Motor\CMS\Http\Resources\NavigationTreeResource;
 use Motor\CMS\Models\Navigation;
 use Motor\CMS\Services\NavigationService;
 use Motor\Core\Filter\Renderers\WhereRenderer;
@@ -13,17 +13,17 @@ use Motor\Core\Filter\Renderers\WhereRenderer;
 /**
  * Class NavigationsController
  *
- * @package Motor\Backend\Http\Controllers\Api
+ * @package Motor\CMS\Http\Controllers\Api
  */
-class NavigationsController extends ApiController
+class NavigationTreesController extends ApiController
 {
     protected string $modelResource = 'navigation';
 
     /**
      * @OA\Get (
-     *   tags={"NavigationsController"},
-     *   path="/api/navigation_trees/{navigation_tree}/navigations",
-     *   summary="Get navigations collection",
+     *   tags={"NavigationTreesController"},
+     *   path="/api/navigation_trees",
+     *   summary="Get navigation tree collection",
      *   @OA\Parameter(
      *     @OA\Schema(type="string"),
      *     in="query",
@@ -32,13 +32,6 @@ class NavigationsController extends ApiController
      *     parameter="api_token",
      *     description="Personal api_token of the user"
      *   ),
-     *   @OA\Parameter(
-     *     @OA\Schema(type="integer"),
-     *     in="path",
-     *     name="navigation_tree",
-     *     parameter="navigation_tree",
-     *     description="Navigation tree id"
-     *   ),
      *   @OA\Response(
      *     response=200,
      *     description="Success",
@@ -46,7 +39,7 @@ class NavigationsController extends ApiController
      *       @OA\Property(
      *         property="data",
      *         type="array",
-     *         @OA\Items(ref="#/components/schemas/NavigationResource")
+     *         @OA\Items(ref="#/components/schemas/NavigationTreeResource")
      *       ),
      *       @OA\Property(
      *         property="meta",
@@ -67,47 +60,34 @@ class NavigationsController extends ApiController
      *     response="403",
      *     description="Access denied",
      *     @OA\JsonContent(ref="#/components/schemas/AccessDenied"),
-     *   ),
-     *   @OA\Response(
-     *     response="404",
-     *     description="Navigation tree not found",
-     *     @OA\JsonContent(ref="#/components/schemas/NotFound"),
      *   )
      * )
      *
      * Display a listing of the resource.
      *
-     * @param \Motor\CMS\Models\Navigation $navigationTree
-     * @return \Illuminate\Http\JsonResponse|\Motor\CMS\Http\Resources\NavigationCollection
+     * @return \Motor\CMS\Http\Resources\NavigationTreeCollection
      */
-    public function index(Navigation $navigationTree)
+    public function index()
     {
         $service = NavigationService::collection();
 
-        if (! is_null($navigationTree->parent_id)) {
-            return response()->json(['message' => ' Navigation tree not found'], 404);
-        }
-
         $filter = $service->getFilter();
-        $filter->add(new WhereRenderer('scope'))
-               ->setValue($navigationTree->scope);
         $filter->add(new WhereRenderer('parent_id'))
-               ->setOperator('!=')
-               ->setAllowNull(true)
-               ->setValue(null);
+               ->setDefaultValue(null)
+               ->setAllowNull(true);
 
         $paginator = $service->getPaginator();
 
-        return (new NavigationCollection($paginator))->additional(['message' => 'Navigation collection read']);
+        return (new NavigationTreeCollection($paginator))->additional(['message' => 'Navigation tree collection read']);
     }
 
     /**
      * @OA\Post (
-     *   tags={"NavigationsController"},
-     *   path="/api/navigation_trees/{navigation_tree}/navigations",
-     *   summary="Create new navigation",
+     *   tags={"NavigationTreesController"},
+     *   path="/api/navigation_trees",
+     *   summary="Create new navigation tree",
      *   @OA\RequestBody(
-     *     @OA\JsonContent(ref="#/components/schemas/NavigationRequest")
+     *     @OA\JsonContent(ref="#/components/schemas/NavigationTreeRequest")
      *   ),
      *   @OA\Parameter(
      *     @OA\Schema(type="string"),
@@ -117,13 +97,6 @@ class NavigationsController extends ApiController
      *     parameter="api_token",
      *     description="Personal api_token of the user"
      *   ),
-     *   @OA\Parameter(
-     *     @OA\Schema(type="integer"),
-     *     in="path",
-     *     name="navigation_tree",
-     *     parameter="navigation_tree",
-     *     description="Navigation tree id"
-     *   ),
      *   @OA\Response(
      *     response=200,
      *     description="Success",
@@ -131,12 +104,12 @@ class NavigationsController extends ApiController
      *       @OA\Property(
      *         property="data",
      *         type="object",
-     *         ref="#/components/schemas/NavigationResource"
+     *         ref="#/components/schemas/NavigationTreeResource"
      *       ),
      *       @OA\Property(
      *         property="message",
      *         type="string",
-     *         example="Navigation created"
+     *         example="Navigation tree created"
      *       )
      *     )
      *   ),
@@ -154,24 +127,24 @@ class NavigationsController extends ApiController
      *
      * Store a newly created resource in storage.
      *
-     * @param \Motor\CMS\Http\Requests\Backend\NavigationRequest $request
-     * @return \Illuminate\Http\JsonResponse|object
+     * @param NavigationRequest $request
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(NavigationRequest $request)
     {
         $result = NavigationService::create($request)
                                    ->getResult();
 
-        return (new NavigationResource($result))->additional(['message' => 'Navigation created'])
-                                                ->response()
-                                                ->setStatusCode(201);
+        return (new NavigationTreeResource($result))->additional(['message' => 'Navigation tree created'])
+                                                    ->response()
+                                                    ->setStatusCode(201);
     }
 
     /**
      * @OA\Get (
-     *   tags={"NavigationsController"},
-     *   path="/api/navigation_trees/{navigation_tree}/navigations/{navigation}",
-     *   summary="Get single navigation",
+     *   tags={"NavigationTreesController"},
+     *   path="/api/navigation_trees/{navigation}",
+     *   summary="Get single navigation tree",
      *   @OA\Parameter(
      *     @OA\Schema(type="string"),
      *     in="query",
@@ -183,16 +156,9 @@ class NavigationsController extends ApiController
      *   @OA\Parameter(
      *     @OA\Schema(type="integer"),
      *     in="path",
-     *     name="navigation_tree",
-     *     parameter="navigation_tree",
-     *     description="Navigation tree id"
-     *   ),
-     *   @OA\Parameter(
-     *     @OA\Schema(type="integer"),
-     *     in="path",
      *     name="navigation",
      *     parameter="navigation",
-     *     description="Navigation id"
+     *     description="Navigation tree id"
      *   ),
      *   @OA\Response(
      *     response=200,
@@ -201,12 +167,12 @@ class NavigationsController extends ApiController
      *       @OA\Property(
      *         property="data",
      *         type="object",
-     *         ref="#/components/schemas/NavigationResource"
+     *         ref="#/components/schemas/NavigationTreeResource"
      *       ),
      *       @OA\Property(
      *         property="message",
      *         type="string",
-     *         example="Navigation read"
+     *         example="Navigation tree read"
      *       )
      *     )
      *   ),
@@ -225,23 +191,23 @@ class NavigationsController extends ApiController
      * Display the specified resource.
      *
      * @param \Motor\CMS\Models\Navigation $record
-     * @return \Motor\CMS\Http\Resources\NavigationResource
+     * @return \Motor\CMS\Http\Resources\NavigationTreeResource
      */
     public function show(Navigation $record)
     {
         $result = NavigationService::show($record)
                                    ->getResult();
 
-        return (new NavigationResource($result))->additional(['message' => 'Navigation read']);
+        return (new NavigationTreeResource($result))->additional(['message' => 'Navigation tree read']);
     }
 
     /**
      * @OA\Put (
-     *   tags={"NavigationsController"},
-     *   path="/api/navigation_trees/{navigation_tree}/navigations/{navigation}",
-     *   summary="Update an existing navigation",
+     *   tags={"NavigationTreesController"},
+     *   path="/api/navigation_trees/{navigation}",
+     *   summary="Update an existing navigation tree",
      *   @OA\RequestBody(
-     *     @OA\JsonContent(ref="#/components/schemas/NavigationRequest")
+     *     @OA\JsonContent(ref="#/components/schemas/NavigationTreeRequest")
      *   ),
      *   @OA\Parameter(
      *     @OA\Schema(type="string"),
@@ -254,16 +220,9 @@ class NavigationsController extends ApiController
      *   @OA\Parameter(
      *     @OA\Schema(type="integer"),
      *     in="path",
-     *     name="navigation_tree",
-     *     parameter="navigation_tree",
-     *     description="Navigation tree id"
-     *   ),
-     *   @OA\Parameter(
-     *     @OA\Schema(type="integer"),
-     *     in="path",
      *     name="navigation",
      *     parameter="navigation",
-     *     description="Navigation id"
+     *     description="Navigation tree id"
      *   ),
      *   @OA\Response(
      *     response=200,
@@ -272,12 +231,12 @@ class NavigationsController extends ApiController
      *       @OA\Property(
      *         property="data",
      *         type="object",
-     *         ref="#/components/schemas/NavigationResource"
+     *         ref="#/components/schemas/NavigationTreeResource"
      *       ),
      *       @OA\Property(
      *         property="message",
      *         type="string",
-     *         example="Navigation updated"
+     *         example="Navigation tree updated"
      *       )
      *     )
      *   ),
@@ -297,21 +256,21 @@ class NavigationsController extends ApiController
      *
      * @param \Motor\CMS\Http\Requests\Backend\NavigationRequest $request
      * @param \Motor\CMS\Models\Navigation $record
-     * @return \Motor\CMS\Http\Resources\NavigationResource
+     * @return \Motor\CMS\Http\Resources\NavigationTreeResource
      */
     public function update(NavigationRequest $request, Navigation $record)
     {
         $result = NavigationService::update($record, $request)
                                    ->getResult();
 
-        return (new NavigationResource($result))->additional(['message' => 'Navigation updated']);
+        return (new NavigationTreeResource($result))->additional(['message' => 'Navigation tree updated']);
     }
 
     /**
      * @OA\Delete (
-     *   tags={"NavigationsController"},
-     *   path="/api/navigation_trees/{navigation_tree}/navigations/{navigation}",
-     *   summary="Delete a navigation",
+     *   tags={"NavigationTreesController"},
+     *   path="/api/navigation_trees/{navigation}",
+     *   summary="Delete a navigation tree",
      *   @OA\Parameter(
      *     @OA\Schema(type="string"),
      *     in="query",
@@ -323,16 +282,9 @@ class NavigationsController extends ApiController
      *   @OA\Parameter(
      *     @OA\Schema(type="integer"),
      *     in="path",
-     *     name="navigation_tree",
-     *     parameter="navigation_tree",
-     *     description="Navigation tree id"
-     *   ),
-     *   @OA\Parameter(
-     *     @OA\Schema(type="integer"),
-     *     in="path",
      *     name="navigation",
      *     parameter="navigation",
-     *     description="Navigation id"
+     *     description="Navigation tree id"
      *   ),
      *   @OA\Response(
      *     response=200,
@@ -341,7 +293,7 @@ class NavigationsController extends ApiController
      *       @OA\Property(
      *         property="message",
      *         type="string",
-     *         example="Navigation deleted"
+     *         example="Navigation tree deleted"
      *       )
      *     )
      *   ),
@@ -362,7 +314,7 @@ class NavigationsController extends ApiController
      *       @OA\Property(
      *         property="message",
      *         type="string",
-     *         example="Problem deleting navigation"
+     *         example="Problem deleting navigation tree"
      *       )
      *     )
      *   )
@@ -370,7 +322,7 @@ class NavigationsController extends ApiController
      *
      * Remove the specified resource from storage.
      *
-     * @param \Motor\CMS\Models\Navigation $record
+     * @param Navigation $record
      * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Navigation $record)
@@ -379,9 +331,9 @@ class NavigationsController extends ApiController
                                    ->getResult();
 
         if ($result) {
-            return response()->json(['message' => 'Navigation deleted']);
+            return response()->json(['message' => 'Navigation tree deleted']);
         }
 
-        return response()->json(['message' => 'Problem deleting navigation'], 400);
+        return response()->json(['message' => 'Problem deleting navigation tree'], 400);
     }
 }

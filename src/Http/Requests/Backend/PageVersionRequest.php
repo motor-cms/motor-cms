@@ -5,29 +5,19 @@ namespace Motor\CMS\Http\Requests\Backend;
 use Motor\Backend\Http\Requests\Request;
 
 /**
- * Class PageRequest
+ * Class PageVersionRequest
  *
  * @package Motor\CMS\Http\Requests\Backend
  */
-class PageRequest extends Request
+class PageVersionRequest extends Request
 {
     /**
      * @OA\Schema(
-     *   schema="PageRequest",
+     *   schema="PageVersionRequest",
      *   @OA\Property(
      *     property="name",
      *     type="string",
      *     example="New page name"
-     *   ),
-     *   @OA\Property(
-     *     property="client_id",
-     *     type="integer",
-     *     example="1"
-     *   ),
-     *   @OA\Property(
-     *     property="language_id",
-     *     type="integer",
-     *     example="2"
      *   ),
      *   @OA\Property(
      *     property="is_active",
@@ -50,19 +40,7 @@ class PageRequest extends Request
      *     type="string",
      *     example="MyPage,MotorCMS,Sustainability,Growth,Profit"
      *   ),
-     *   @OA\Property(
-     *     property="publish",
-     *     type="boolean",
-     *     example="false",
-     *     description="If true, the page will go live"
-     *   ),
-     *   @OA\Property(
-     *     property="duplicate",
-     *     type="boolean",
-     *     example="false",
-     *     description="If true, a new draft will be created"
-     *   ),
-     *   required={"name", "client_id", "language_id", "template", "publish", "is_active"},
+     *   required={"name", "template"},
      * )
      */
 
@@ -85,13 +63,10 @@ class PageRequest extends Request
     {
         return [
             'name'             => 'required',
-            'client_id'        => 'required|integer',
-            'language_id'      => 'required|integer',
             'template'         => 'required',
             'meta_description' => 'nullable',
             'meta_keywords'    => 'nullable',
             'is_active'        => 'required|boolean',
-            'publish'          => 'required|boolean',
         ];
     }
 }

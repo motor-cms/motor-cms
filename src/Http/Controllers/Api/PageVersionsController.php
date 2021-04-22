@@ -3,26 +3,28 @@
 namespace Motor\CMS\Http\Controllers\Api;
 
 use Motor\Backend\Http\Controllers\ApiController;
-use Motor\CMS\Http\Requests\Backend\PageRequest;
-use Motor\CMS\Http\Resources\PageCollection;
-use Motor\CMS\Http\Resources\PageResource;
+use Motor\CMS\Http\Requests\Backend\PageVersionRequest;
+use Motor\CMS\Http\Resources\PageVersionCollection;
+use Motor\CMS\Http\Resources\PageVersionResource;
 use Motor\CMS\Models\Page;
-use Motor\CMS\Services\PageService;
+use Motor\CMS\Models\PageVersion;
+use Motor\CMS\Services\PageVersionService;
+use Motor\Core\Filter\Renderers\WhereRenderer;
 
 /**
  * Class PagesController
  *
  * @package Motor\CMS\Http\Controllers\Api
  */
-class PagesController extends ApiController
+class PageVersionsController extends ApiController
 {
     protected string $modelResource = 'page';
 
     /**
      * @OA\Get (
-     *   tags={"PagesController"},
-     *   path="/api/pages",
-     *   summary="Get pages collection",
+     *   tags={"PageVersionsController"},
+     *   path="/api/pages/{page}/page_versions",
+     *   summary="Get page versions collection",
      *   @OA\Parameter(
      *     @OA\Schema(type="string"),
      *     in="query",
@@ -31,6 +33,13 @@ class PagesController extends ApiController
      *     parameter="api_token",
      *     description="Personal api_token of the user"
      *   ),
+     *   @OA\Parameter(
+     *     @OA\Schema(type="integer"),
+     *     in="path",
+     *     name="page",
+     *     parameter="page",
+     *     description="Page id"
+     *   ),
      *   @OA\Response(
      *     response=200,
      *     description="Success",
@@ -38,7 +47,7 @@ class PagesController extends ApiController
      *       @OA\Property(
      *         property="data",
      *         type="array",
-     *         @OA\Items(ref="#/components/schemas/PageResource")
+     *         @OA\Items(ref="#/components/schemas/PageVersionResource")
      *       ),
      *       @OA\Property(
      *         property="meta",
@@ -64,79 +73,26 @@ class PagesController extends ApiController
      *
      * Display a listing of the resource.
      *
-     * @return \Motor\CMS\Http\Resources\PageCollection
+     * @param \Motor\CMS\Models\Page $page
+     * @return \Motor\CMS\Http\Resources\PageVersionCollection
      */
-    public function index()
+    public function index(Page $page)
     {
-        $paginator = PageService::collection()
-                                ->getPaginator();
+        $service = PageVersionService::collection();
 
-        return (new PageCollection($paginator))->additional(['message' => 'Page collection read']);
-    }
+        $filter = $service->getFilter();
+        $filter->add(new WhereRenderer('page_id'))
+               ->setValue($page->id);
 
-    /**
-     * @OA\Post (
-     *   tags={"PagesController"},
-     *   path="/api/pages",
-     *   summary="Create new page",
-     *   @OA\RequestBody(
-     *     @OA\JsonContent(ref="#/components/schemas/PageRequest")
-     *   ),
-     *   @OA\Parameter(
-     *     @OA\Schema(type="string"),
-     *     in="query",
-     *     allowReserved=true,
-     *     name="api_token",
-     *     parameter="api_token",
-     *     description="Personal api_token of the user"
-     *   ),
-     *   @OA\Response(
-     *     response=200,
-     *     description="Success",
-     *     @OA\JsonContent(
-     *       @OA\Property(
-     *         property="data",
-     *         type="object",
-     *         ref="#/components/schemas/PageResource"
-     *       ),
-     *       @OA\Property(
-     *         property="message",
-     *         type="string",
-     *         example="Page created"
-     *       )
-     *     )
-     *   ),
-     *   @OA\Response(
-     *     response="403",
-     *     description="Access denied",
-     *     @OA\JsonContent(ref="#/components/schemas/AccessDenied"),
-     *   ),
-     *   @OA\Response(
-     *     response="404",
-     *     description="Not found",
-     *     @OA\JsonContent(ref="#/components/schemas/NotFound"),
-     *   )
-     * )
-     *
-     * Store a newly created resource in storage.
-     *
-     * @param \Motor\CMS\Http\Requests\Backend\PageRequest $request
-     * @return \Illuminate\Http\JsonResponse|object
-     */
-    public function store(PageRequest $request)
-    {
-        $result = PageService::create($request)
-                             ->getResult();
+        $paginator = $service->getPaginator();
 
-        return (new PageResource($result))->additional(['message' => 'Pgae created'])
-                                          ->response()
-                                          ->setStatusCode(201);
+        return (new PageVersionCollection($paginator))->additional(['message' => 'Page version collection read']);
     }
 
     /**
      * @OA\Get (
-     *   tags={"PagesController"},
-     *   path="/api/pages/{page}",
+     *   tags={"PageVersionsController"},
+     *   path="/api/pages/{page}/page_versions/{page_version}",
      *   summary="Get single page",
      *   @OA\Parameter(
      *     @OA\Schema(type="string"),
@@ -153,6 +109,13 @@ class PagesController extends ApiController
      *     parameter="page",
      *     description="Page id"
      *   ),
+     *   @OA\Parameter(
+     *     @OA\Schema(type="integer"),
+     *     in="path",
+     *     name="page_version",
+     *     parameter="page_version",
+     *     description="Page version id"
+     *   ),
      *   @OA\Response(
      *     response=200,
      *     description="Success",
@@ -160,7 +123,7 @@ class PagesController extends ApiController
      *       @OA\Property(
      *         property="data",
      *         type="object",
-     *         ref="#/components/schemas/PageResource"
+     *         ref="#/components/schemas/PageVersionResource"
      *       ),
      *       @OA\Property(
      *         property="message",
@@ -183,24 +146,25 @@ class PagesController extends ApiController
      *
      * Display the specified resource.
      *
-     * @param \Motor\CMS\Models\Page $record
-     * @return \Motor\CMS\Http\Resources\PageResource
+     * @param \Motor\CMS\Models\Page $page
+     * @param \Motor\CMS\Models\PageVersion $record
+     * @return \Motor\CMS\Http\Resources\PageVersionResource
      */
-    public function show(Page $record)
+    public function show(Page $page, PageVersion $record)
     {
-        $result = PageService::show($record)
-                             ->getResult();
+        $result = PageVersionService::show($record)
+                                    ->getResult();
 
-        return (new PageResource($result))->additional(['message' => 'Page read']);
+        return (new PageVersionResource($result))->additional(['message' => 'Page version read']);
     }
 
     /**
      * @OA\Put (
-     *   tags={"PagesController"},
-     *   path="/api/pages/{page}",
-     *   summary="Update an existing page",
+     *   tags={"PageVersionsController"},
+     *   path="/api/pages/{page}/page_versions/{page_version}",
+     *   summary="Update an existing page version",
      *   @OA\RequestBody(
-     *     @OA\JsonContent(ref="#/components/schemas/PageRequest")
+     *     @OA\JsonContent(ref="#/components/schemas/PageVersionRequest")
      *   ),
      *   @OA\Parameter(
      *     @OA\Schema(type="string"),
@@ -217,6 +181,13 @@ class PagesController extends ApiController
      *     parameter="page",
      *     description="Page id"
      *   ),
+     *   @OA\Parameter(
+     *     @OA\Schema(type="integer"),
+     *     in="path",
+     *     name="page_version",
+     *     parameter="page_version",
+     *     description="Page version id"
+     *   ),
      *   @OA\Response(
      *     response=200,
      *     description="Success",
@@ -224,12 +195,12 @@ class PagesController extends ApiController
      *       @OA\Property(
      *         property="data",
      *         type="object",
-     *         ref="#/components/schemas/PageResource"
+     *         ref="#/components/schemas/PageVersionResource"
      *       ),
      *       @OA\Property(
      *         property="message",
      *         type="string",
-     *         example="Page updated"
+     *         example="Page version updated"
      *       )
      *     )
      *   ),
@@ -247,23 +218,24 @@ class PagesController extends ApiController
      *
      * Update the specified resource in storage.
      *
-     * @param \Motor\CMS\Http\Requests\Backend\PageRequest $request
-     * @param \Motor\CMS\Models\Page $record
-     * @return \Motor\CMS\Http\Resources\PageResource
+     * @param \Motor\CMS\Http\Requests\Backend\PageVersionRequest $request
+     * @param \Motor\CMS\Models\Page $page
+     * @param \Motor\CMS\Models\PageVersion $record
+     * @return \Motor\CMS\Http\Resources\PageVersionResource
      */
-    public function update(PageRequest $request, Page $record)
+    public function update(PageVersionRequest $request, Page $page, PageVersion $record)
     {
-        $result = PageService::update($record, $request)
-                             ->getResult();
+        $result = PageVersionService::update($record, $request)
+                                    ->getResult();
 
-        return (new PageResource($result))->additional(['message' => 'Page updated']);
+        return (new PageVersionResource($result))->additional(['message' => 'Page version updated']);
     }
 
     /**
      * @OA\Delete (
-     *   tags={"PagesController"},
-     *   path="/api/pages/{page}",
-     *   summary="Delete a page",
+     *   tags={"PageVersionsController"},
+     *   path="/api/pages/{page}/page_versions/{page_version}",
+     *   summary="Delete a page version",
      *   @OA\Parameter(
      *     @OA\Schema(type="string"),
      *     in="query",
@@ -279,6 +251,13 @@ class PagesController extends ApiController
      *     parameter="page",
      *     description="Page id"
      *   ),
+     *   @OA\Parameter(
+     *     @OA\Schema(type="integer"),
+     *     in="path",
+     *     name="page_version",
+     *     parameter="page_version",
+     *     description="Page version id"
+     *   ),
      *   @OA\Response(
      *     response=200,
      *     description="Success",
@@ -286,7 +265,7 @@ class PagesController extends ApiController
      *       @OA\Property(
      *         property="message",
      *         type="string",
-     *         example="Page deleted"
+     *         example="Page version deleted"
      *       )
      *     )
      *   ),
@@ -307,7 +286,7 @@ class PagesController extends ApiController
      *       @OA\Property(
      *         property="message",
      *         type="string",
-     *         example="Problem deleting page"
+     *         example="Problem deleting page version"
      *       )
      *     )
      *   )
@@ -315,18 +294,19 @@ class PagesController extends ApiController
      *
      * Remove the specified resource from storage.
      *
-     * @param Page $record
+     * @param \Motor\CMS\Models\Page $page
+     * @param \Motor\CMS\Models\PageVersion $record
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(Page $record)
+    public function destroy(Page $page, PageVersion $record)
     {
-        $result = PageService::delete($record)
-                             ->getResult();
+        $result = PageVersionService::delete($record)
+                                    ->getResult();
 
         if ($result) {
-            return response()->json(['message' => 'Page deleted']);
+            return response()->json(['message' => 'Page version deleted']);
         }
 
-        return response()->json(['message' => 'Problem deleting page'], 400);
+        return response()->json(['message' => 'Problem deleting page version'], 400);
     }
 }
