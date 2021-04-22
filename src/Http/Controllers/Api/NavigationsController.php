@@ -2,9 +2,9 @@
 
 namespace Motor\CMS\Http\Controllers\Api;
 
-use Motor\Backend\Http\Controllers\Controller;
-use Motor\CMS\Models\Navigation;
+use Motor\Backend\Http\Controllers\ApiController;
 use Motor\CMS\Http\Requests\Backend\NavigationRequest;
+use Motor\CMS\Models\Navigation;
 use Motor\CMS\Services\NavigationService;
 use Motor\CMS\Transformers\NavigationTransformer;
 
@@ -12,7 +12,7 @@ use Motor\CMS\Transformers\NavigationTransformer;
  * Class NavigationsController
  * @package Motor\CMS\Http\Controllers\Api
  */
-class NavigationsController extends Controller
+class NavigationsController extends ApiController
 {
 
     /**

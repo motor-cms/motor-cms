@@ -2,10 +2,9 @@
 
 namespace Motor\CMS\Http\Controllers\Api;
 
-use Motor\Backend\Http\Controllers\Controller;
-use Motor\CMS\Models\Navigation;
-use Motor\CMS\Models\Page;
+use Motor\Backend\Http\Controllers\ApiController;
 use Motor\CMS\Http\Requests\Backend\PageRequest;
+use Motor\CMS\Models\Page;
 use Motor\CMS\Services\PageService;
 use Motor\CMS\Transformers\PageTransformer;
 
@@ -13,7 +12,7 @@ use Motor\CMS\Transformers\PageTransformer;
  * Class PagesController
  * @package Motor\CMS\Http\Controllers\Api
  */
-class PagesController extends Controller
+class PagesController extends ApiController
 {
 
     /**
