@@ -1,6 +1,6 @@
 <?php
 
-namespace Motor\Backend\Http\Controllers\Api;
+namespace Motor\CMS\Http\Controllers\Api;
 
 use Motor\Backend\Http\Controllers\ApiController;
 use Motor\CMS\Http\Requests\Backend\NavigationRequest;

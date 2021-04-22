@@ -15,11 +15,20 @@ class ComponentTextResource extends JsonResource
      */
     public function toArray($request)
     {
+        $media = null;
+        $fileAssociation = $this->file_associations()
+                                ->where('identifier', 'image')
+                                ->first();
+
+        if (! is_null($fileAssociation)) {
+            $media = $fileAssociation->file->getFirstMedia('file');
+        }
+
         return [
             'headline' => $this->headline,
             'body'     => $this->body,
             'anchor'   => $this->anchor,
-            'image'    => new MediaResource($this->getFirstMedia('image')),
+            'image'    => $this->when($media, new MediaResource($media)),
         ];
     }
 }
