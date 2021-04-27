@@ -198,7 +198,7 @@ class NavigationTreesController extends ApiController
         $result = NavigationService::show($record)
                                    ->getResult();
 
-        return (new NavigationTreeResource($result))->additional(['message' => 'Navigation tree read']);
+        return (new NavigationTreeResource($result->load('children')))->additional(['message' => 'Navigation tree read']);
     }
 
     /**

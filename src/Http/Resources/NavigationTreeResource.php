@@ -52,6 +52,7 @@ class NavigationTreeResource extends JsonResource
             'scope'    => $this->scope,
             'client'   => new ClientResource($this->client),
             'language' => new LanguageResource($this->language),
+            'children' => NavigationResource::collection($this->whenLoaded('children')),
         ];
     }
 }
