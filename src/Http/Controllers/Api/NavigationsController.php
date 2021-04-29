@@ -17,6 +17,7 @@ use Motor\Core\Filter\Renderers\WhereRenderer;
  */
 class NavigationsController extends ApiController
 {
+    protected string $model = 'Motor\CMS\Models\Navigation';
     protected string $modelResource = 'navigation';
 
     /**

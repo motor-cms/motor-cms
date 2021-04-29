@@ -83,6 +83,9 @@ class PageRequest extends Request
      */
     public function rules()
     {
+        if ($this->method() == 'GET') {
+            return [];
+        }
         return [
             'name'             => 'required',
             'client_id'        => 'required|integer',
@@ -90,8 +93,8 @@ class PageRequest extends Request
             'template'         => 'required',
             'meta_description' => 'nullable',
             'meta_keywords'    => 'nullable',
-            'is_active'        => 'required|boolean',
-            'publish'          => 'required|boolean',
+            'is_active'        => 'nullable|boolean',
+            'publish'          => 'nullable|boolean',
         ];
     }
 }

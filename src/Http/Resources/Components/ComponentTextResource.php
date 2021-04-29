@@ -2,10 +2,10 @@
 
 namespace Motor\CMS\Http\Resources\Components;
 
-use Illuminate\Http\Resources\Json\JsonResource;
+use Motor\Backend\Http\Resources\BaseResource;
 use Motor\Backend\Http\Resources\MediaResource;
 
-class ComponentTextResource extends JsonResource
+class ComponentTextResource extends BaseResource
 {
     /**
      * Transform the resource into an array.

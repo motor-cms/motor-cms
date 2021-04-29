@@ -2,9 +2,9 @@
 
 namespace Motor\CMS\Http\Resources;
 
-use Illuminate\Http\Resources\Json\ResourceCollection;
+use Motor\Backend\Http\Resources\BaseCollection;
 
-class NavigationCollection extends ResourceCollection
+class NavigationCollection extends BaseCollection
 {
     /**
      * Transform the resource collection into an array.

@@ -2,7 +2,7 @@
 
 namespace Motor\CMS\Http\Resources;
 
-use Illuminate\Http\Resources\Json\JsonResource;
+use Motor\Backend\Http\Resources\BaseResource;
 use Motor\Backend\Http\Resources\ClientResource;
 use Motor\Backend\Http\Resources\LanguageResource;
 
@@ -76,7 +76,7 @@ use Motor\Backend\Http\Resources\LanguageResource;
  *   ),
  * )
  */
-class NavigationResource extends JsonResource
+class NavigationResource extends BaseResource
 {
     /**
      * Transform the resource into an array.

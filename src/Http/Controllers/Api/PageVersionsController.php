@@ -18,7 +18,8 @@ use Motor\Core\Filter\Renderers\WhereRenderer;
  */
 class PageVersionsController extends ApiController
 {
-    protected string $modelResource = 'page';
+    protected string $model = 'Motor\CMS\Models\PageVersion';
+    protected string $modelResource = 'page_version';
 
     /**
      * @OA\Get (

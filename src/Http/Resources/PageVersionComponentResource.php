@@ -2,9 +2,9 @@
 
 namespace Motor\CMS\Http\Resources;
 
-use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
+use Motor\Backend\Http\Resources\BaseResource;
 use ReflectionClass;
 
 /**
@@ -47,7 +47,7 @@ use ReflectionClass;
  *   )
  * )
  */
-class PageVersionComponentResource extends JsonResource
+class PageVersionComponentResource extends BaseResource
 {
     /**
      * Transform the resource into an array.

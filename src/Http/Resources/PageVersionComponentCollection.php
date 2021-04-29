@@ -2,9 +2,9 @@
 
 namespace Motor\CMS\Http\Resources;
 
-use Illuminate\Http\Resources\Json\ResourceCollection;
+use Motor\Backend\Http\Resources\BaseCollection;
 
-class PageVersionComponentCollection extends ResourceCollection
+class PageVersionComponentCollection extends BaseCollection
 {
     /**
      * Transform the resource collection into an array.

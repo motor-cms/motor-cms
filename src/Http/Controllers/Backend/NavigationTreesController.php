@@ -4,6 +4,7 @@ namespace Motor\CMS\Http\Controllers\Backend;
 
 use Motor\Backend\Http\Controllers\Controller;
 use Motor\CMS\Grids\NavigationTreeGrid;
+use Motor\CMS\Http\Requests\Backend\NavigationTreeRequest;
 use Motor\CMS\Models\Navigation;
 use Motor\CMS\Http\Requests\Backend\NavigationRequest;
 use Motor\CMS\Services\NavigationService;
@@ -66,7 +67,7 @@ class NavigationTreesController extends Controller
      * @param NavigationRequest $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function store(NavigationRequest $request)
+    public function store(NavigationTreeRequest $request)
     {
         $form = $this->form(NavigationTreeForm::class);
 
@@ -109,7 +110,7 @@ class NavigationTreesController extends Controller
      * @param Navigation        $record
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(NavigationRequest $request, Navigation $record)
+    public function update(NavigationTreeRequest $request, Navigation $record)
     {
         $form = $this->form(NavigationTreeForm::class);
 

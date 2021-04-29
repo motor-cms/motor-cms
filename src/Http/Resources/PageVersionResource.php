@@ -2,7 +2,7 @@
 
 namespace Motor\CMS\Http\Resources;
 
-use Illuminate\Http\Resources\Json\JsonResource;
+use Motor\Backend\Http\Resources\BaseResource;
 
 /**
  * @OA\Schema(
@@ -61,7 +61,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  *   ),
  * )
  */
-class PageVersionResource extends JsonResource
+class PageVersionResource extends BaseResource
 {
     /**
      * Transform the resource into an array.

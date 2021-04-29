@@ -16,6 +16,7 @@ use Motor\CMS\Services\PageService;
  */
 class PagesController extends ApiController
 {
+    protected string $model = 'Motor\CMS\Models\Page';
     protected string $modelResource = 'page';
 
     /**
