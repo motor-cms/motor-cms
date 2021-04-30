@@ -12,8 +12,8 @@ return [
             'name' => 'Media',
         ],
         'navigation' => [
-            'name' => 'Navigation'
-        ]
+            'name' => 'Navigation',
+        ],
     ],
     'components' => [
         'navigation-sidebar' => [
@@ -27,22 +27,22 @@ return [
             'permissions'     => [
 
             ],
-            'group'           => 'navigation'
+            'group'           => 'navigation',
         ],
         'text'               => [
-            'name'              => 'Text',
-            'description'       => 'Show Text component',
-            'view'              => 'motor-cms::frontend.components.text',
-            'route'             => 'component.texts',
-            'component_class'   => 'Motor\CMS\Components\ComponentTexts',
-            'transformer_class' => 'Motor\CMS\Transformers\Components\TextTransformer',
-            'compatibility'     => [
+            'name'            => 'Text',
+            'description'     => 'Show Text component',
+            'view'            => 'motor-cms::frontend.components.text',
+            'route'           => 'component.texts',
+            'component_class' => 'Motor\CMS\Components\ComponentTexts',
+            'resource_class'  => 'Motor\CMS\Http\Resources\Components\TextResource',
+            'compatibility'   => [
 
             ],
-            'permissions'       => [
+            'permissions'     => [
 
             ],
-            'group'             => 'basic'
+            'group'           => 'basic',
         ],
     ],
 ];
