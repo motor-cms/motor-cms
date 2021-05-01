@@ -22,6 +22,8 @@ class PageService extends BaseService
 
     public function beforeUpdate()
     {
+        $this->record->setVersionAttributes($this->data);
+
         if ((int) $this->request->get('duplicate') > 0) {
             $this->record->setCurrentVersion((int) $this->request->get('duplicate'));
             $this->record->addVersion();

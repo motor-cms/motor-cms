@@ -4,6 +4,7 @@ namespace Motor\CMS\Http\Controllers\Backend;
 
 use Illuminate\Support\Str;
 use Motor\Backend\Http\Controllers\Controller;
+use Motor\CMS\Http\Requests\Backend\PageComponentRequest;
 use Motor\CMS\Models\Page;
 use Motor\CMS\Http\Requests\Backend\PageRequest;
 use Motor\CMS\Models\PageVersionComponent;
@@ -98,7 +99,7 @@ class PagesController extends Controller
      * @param PageRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function patch_component_data(Page $record, PageRequest $request)
+    public function patch_component_data(Page $record, PageComponentRequest $request)
     {
         foreach ($request->all() as $components) {
             foreach ($components as $component) {

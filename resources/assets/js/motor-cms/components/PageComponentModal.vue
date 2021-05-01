@@ -305,7 +305,7 @@
                     .then((response) => {
                         this.closeModal();
                         // $('#motor-component-modal').modal('hide');
-                        // this.$eventHub.$emit('motor-cms:update-components');
+                        this.$eventHub.$emit('motor-cms:update-components');
                         $('.motor-cms-component-flash').html(response.data.message).removeClass('d-none').css('display', '').delay(3000).fadeOut(350);
 
                     })
@@ -342,7 +342,7 @@
                         // $('#motor-component-modal').modal('hide');
                         // this.$eventHub.$emit('motor-cms:update-components');
                         // $('#motor-component-modal').modal('hide');
-                        // this.$eventHub.$emit('motor-cms:update-components');
+                        this.$eventHub.$emit('motor-cms:update-components');
                         $('.motor-cms-component-flash').html(response.data.message).removeClass('d-none').css('display', '').delay(3000).fadeOut(350);
 
                     })

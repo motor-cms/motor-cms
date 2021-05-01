@@ -76,8 +76,8 @@ class NavigationRequest extends Request
             'previous_sibling_id' => 'nullable|integer',
             'next_sibling_id'     => 'nullable|integer',
             'page_id'             => 'nullable|integer',
-            'is_visible'          => 'required|boolean',
-            'is_active'           => 'required|boolean',
+            'is_visible'          => 'nullable|boolean',
+            'is_active'           => 'nullable|boolean',
         ];
     }
 }
