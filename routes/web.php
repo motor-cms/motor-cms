@@ -7,22 +7,22 @@ Route::group([
     'middleware' => [
         'web',
         'web_auth',
-        'navigation'
-    ]
+        'navigation',
+    ],
 ], static function () {
     Route::resource('navigations', 'NavigationsController', [
         'except' => [
             'index',
-            'create'
-        ]
+            'create',
+        ],
     ]);
     Route::get('navigations/{navigation}', 'NavigationsController@index')->name('navigations.index');
     Route::get('navigations/{navigation}/create', 'NavigationsController@create')->name('navigations.create');
 
     Route::resource('navigation_trees', 'NavigationTreesController', [
         'parameters' => [
-            'navigation_trees' => 'navigation'
-        ]
+            'navigation_trees' => 'navigation',
+        ],
     ]);
 
     Route::resource('pages', 'PagesController');
@@ -43,7 +43,7 @@ Route::group([
     'middleware' => [
         'web',
         //'web_auth'
-    ]
+    ],
 ], static function () {
     // You only need this part if you already have a component group for the given namespace
     Route::get('texts', 'ComponentTextsController@create')->name('texts.create');
@@ -58,9 +58,9 @@ Route::group([
     'middleware' => [
         'web',
         //'web_auth'
-    ]
+    ],
 ], static function () {
-    Route::resource('base', 'BaseController')->only([ 'store', 'destroy' ]);
+    Route::resource('base', 'BaseController')->only(['store', 'destroy']);
 });
 
 Route::group([
@@ -69,7 +69,7 @@ Route::group([
     'middleware' => [
         'web',
         'frontend',
-    ]
+    ],
 ], static function () {
     Route::get('{slug}', 'PagesController@index')->name('pages.index')->where('slug', '[0-9a-zA-Z\/\-]+');
     Route::post('{slug}', 'PagesController@index')->name('pages.index')->where('slug', '[0-9a-zA-Z\/\-]+');

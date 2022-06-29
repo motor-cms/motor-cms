@@ -19,6 +19,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  * @property-read \Illuminate\Database\Eloquent\Collection|\Motor\CMS\Models\PageVersionComponent[] $component
  * @property-read \Illuminate\Database\Eloquent\Collection|\Motor\Media\Models\FileAssociation[]    $file_associations
  * @property-read \Illuminate\Database\Eloquent\Collection|\Spatie\MediaLibrary\Models\Media[]      $media
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\Motor\CMS\Models\Component\ComponentText newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\Motor\CMS\Models\Component\ComponentText newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\Motor\CMS\Models\Component\ComponentText query()
@@ -41,12 +42,12 @@ class ComponentText extends ComponentBaseModel implements HasMedia
     protected $fillable = [
         'headline',
         'anchor',
-        'body'
+        'body',
     ];
 
-
     /**
-     * @param Media|null $media
+     * @param  Media|null  $media
+     *
      * @throws \Spatie\Image\Exceptions\InvalidManipulation
      */
     public function registerMediaConversions(Media $media = null): void
@@ -55,7 +56,6 @@ class ComponentText extends ComponentBaseModel implements HasMedia
 
         $this->addMediaConversion('preview')->width(1280)->height(1024)->nonQueued();
     }
-
 
     /**
      * Preview function for the page editor
@@ -66,10 +66,9 @@ class ComponentText extends ComponentBaseModel implements HasMedia
     {
         return [
             'name'    => trans('motor-cms::component/texts.component'),
-            'preview' => $this->headline
+            'preview' => $this->headline,
         ];
     }
-
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\MorphMany

@@ -7,8 +7,6 @@ use Motor\Backend\Http\Requests\Request;
 
 /**
  * Class NavigationRequest
- *
- * @package Motor\CMS\Http\Requests\Backend
  */
 class NavigationTreeRequest extends Request
 {

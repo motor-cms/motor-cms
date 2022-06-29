@@ -11,7 +11,6 @@ use Motor\CMS\Models\Page;
  */
 class MotorCMSDefaultPageNavigationTreeSeeder extends Seeder
 {
-
     /**
      * Run the database seeds.
      *

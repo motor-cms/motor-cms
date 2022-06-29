@@ -3,15 +3,14 @@
 namespace Motor\CMS\Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Motor\CMS\Models\Page;
 use Illuminate\Support\Facades\DB;
+use Motor\CMS\Models\Page;
 
 /**
  * Class MotorMediaDefaultCategorySeeder
  */
 class MotorCMSDefaultPageSeeder extends Seeder
 {
-
     /**
      * Run the database seeds.
      *
@@ -45,7 +44,6 @@ class MotorCMSDefaultPageSeeder extends Seeder
             'body'     => '<p>This is my first page made with Motor-CMS!</p>',
         ]);
 
-
         DB::table('page_version_components')->insert([
             'page_version_id' => \Motor\CMS\Models\PageVersion::first()->id,
             'container'       => 'first-row-content',
@@ -54,6 +52,5 @@ class MotorCMSDefaultPageSeeder extends Seeder
             'component_type'  => 'Motor\CMS\Models\Component\ComponentText',
             'component_id'    => \Motor\CMS\Models\Component\ComponentText::first()->id,
         ]);
-
     }
 }

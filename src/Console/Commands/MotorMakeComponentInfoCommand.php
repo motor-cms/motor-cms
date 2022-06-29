@@ -7,11 +7,9 @@ use Motor\Core\Console\Commands\MotorAbstractCommand;
 
 /**
  * Class MotorMakeComponentInfoCommand
- * @package Motor\CMS\Console\Commands
  */
 class MotorMakeComponentInfoCommand extends MotorAbstractCommand
 {
-
     /**
      * The name and signature of the console command.
      *
@@ -26,7 +24,6 @@ class MotorMakeComponentInfoCommand extends MotorAbstractCommand
      */
     protected $description = 'Display config information according to the given name';
 
-
     /**
      * @return string
      */
@@ -34,7 +31,6 @@ class MotorMakeComponentInfoCommand extends MotorAbstractCommand
     {
         return '';
     }
-
 
     /**
      * @return string
@@ -44,40 +40,36 @@ class MotorMakeComponentInfoCommand extends MotorAbstractCommand
         return '';
     }
 
-
     /**
      * @return string
      */
     protected function getComponentConfigurationStub(): string
     {
-        return __DIR__ . '/stubs/info/component_configuration.stub';
+        return __DIR__.'/stubs/info/component_configuration.stub';
     }
-
 
     /**
      * @return string
      */
     protected function getComponentConfigurationNoModelStub(): string
     {
-        return __DIR__ . '/stubs/info/component_configuration_no_model.stub';
+        return __DIR__.'/stubs/info/component_configuration_no_model.stub';
     }
-
 
     /**
      * @return string
      */
     protected function getRouteStub(): string
     {
-        return __DIR__ . '/stubs/info/route.stub';
+        return __DIR__.'/stubs/info/route.stub';
     }
-
 
     /**
      * @return string
      */
     protected function getRouteModelBindingStub(): string
     {
-        return __DIR__ . '/stubs/info/routemodelbinding.stub';
+        return __DIR__.'/stubs/info/routemodelbinding.stub';
     }
 
     //protected function getPermissionStub()
@@ -96,7 +88,6 @@ class MotorMakeComponentInfoCommand extends MotorAbstractCommand
         }
     }
 
-
     /**
      * Execute the console command.
      *
@@ -109,19 +100,19 @@ class MotorMakeComponentInfoCommand extends MotorAbstractCommand
             $componentConfiguration = $this->replaceTemplateVars($componentConfiguration);
 
             $this->info('Add this to the components array in your app/config/motor-cms-page-components.php');
-            echo $componentConfiguration . "\n";
+            echo $componentConfiguration."\n";
 
             $route = file_get_contents($this->getRouteStub());
             $route = $this->replaceTemplateVars($route);
 
             $this->info('Add this to the component route groups in your routes/web.php');
-            echo $route . "\n";
+            echo $route."\n";
 
             $routeModelBinding = file_get_contents($this->getRouteModelBindingStub());
             $routeModelBinding = $this->replaceTemplateVars($routeModelBinding);
 
             $this->info('Add this to the boot method in your app/Providers/RouteServiceProvider.php (or your own service provider)');
-            echo $routeModelBinding . "\n";
+            echo $routeModelBinding."\n";
 
             $this->info('In order to make your routes and translations available for the page manager please, execute \'php artisan ziggy:generate\' and \'php artisan vue-i18n:generate\'. If you are using the development environment please also run \'./update-dev.sh\' before running your migrations');
         } else {
@@ -129,7 +120,7 @@ class MotorMakeComponentInfoCommand extends MotorAbstractCommand
             $componentConfiguration = $this->replaceTemplateVars($componentConfiguration);
 
             $this->info('Add this to the components array in your app/config/motor-cms-page-components.php');
-            echo $componentConfiguration . "\n";
+            echo $componentConfiguration."\n";
 
             $this->info('In order to make your translations available for the page manager please, execute \'php artisan motor:vue-i18n:generate\'');
         }

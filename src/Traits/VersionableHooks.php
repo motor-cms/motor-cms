@@ -4,11 +4,9 @@ namespace Motor\CMS\Traits;
 
 /**
  * Class VersionableHooks
- * @package Motor\CMS\Traits
  */
 class VersionableHooks
 {
-
     /**
      * Register hook on setAttribute method.
      *
@@ -29,7 +27,6 @@ class VersionableHooks
             return $next($value, $args);
         };
     }
-
 
     /**
      * Register hook on isDirty method

@@ -6,29 +6,26 @@ use Closure;
 
 /**
  * Class Navigation
- * @package Motor\CMS\Http\Middleware\Frontend
  */
 class Navigation
 {
-
     /**
      * Handle an incoming request.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \Closure                 $next
-     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
      * @return mixed
      */
     public function handle($request, Closure $next)
     {
         $activeNavigationSlug = $request->route()->parameter('slug');
-        $navigationItems      = \Motor\CMS\Models\Navigation::where('scope', 'main')
+        $navigationItems = \Motor\CMS\Models\Navigation::where('scope', 'main')
                                                             ->where('parent_id', '!=', null)
                                                             ->defaultOrder()
                                                             ->get()
                                                             ->toTree();
 
-        $activeNavigationItem         = null;
+        $activeNavigationItem = null;
         $activeTopLevelNavigationItem = null;
 
         $traverse = static function ($nodes) use (&$traverse, &$activeNavigationItem, $activeNavigationSlug) {
@@ -48,7 +45,7 @@ class Navigation
 
         $traverse($navigationItems);
 
-        $activeNavigationSlugs = [ $activeNavigationSlug ];
+        $activeNavigationSlugs = [$activeNavigationSlug];
 
         if ($activeNavigationItem === null) {
             return abort(404);

@@ -49,8 +49,8 @@ return [
                                 'container' => 'third-row-content-2',
                                 'width'     => 6,
                             ],
-                        ]
-                    ]
+                        ],
+                    ],
                 ],
                 [
                     'alias'     => 'content-third',
@@ -64,10 +64,10 @@ return [
                     'alias'     => 'content-full',
                     'class'     => 'full-content',
                     'container' => 'fourth-row-content',
-                    'width'     => 12
+                    'width'     => 12,
                 ],
             ],
-        ]
+        ],
 
     ],
     'no-nav'  => [
@@ -75,7 +75,7 @@ return [
             'namespace' => 'motor-cms',
             'name'      => 'Default template without navigation',
         ],
-        "items" => [
+        'items' => [
             [
 
                 [
@@ -118,8 +118,8 @@ return [
                                 'container' => 'third-row-content-2',
                                 'width'     => 6,
                             ],
-                        ]
-                    ]
+                        ],
+                    ],
                 ],
                 [
                     'alias'     => 'content-third',
@@ -133,9 +133,9 @@ return [
                     'alias'     => 'content-full',
                     'class'     => 'full-content',
                     'container' => 'fourth-row-content',
-                    'width'     => 12
+                    'width'     => 12,
                 ],
             ],
         ],
-    ]
+    ],
 ];

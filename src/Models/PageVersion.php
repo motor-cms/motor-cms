@@ -2,12 +2,12 @@
 
 namespace Motor\CMS\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Motor\Core\Traits\Searchable;
 use Culpa\Traits\Blameable;
 use Culpa\Traits\CreatedBy;
 use Culpa\Traits\DeletedBy;
 use Culpa\Traits\UpdatedBy;
+use Illuminate\Database\Eloquent\Model;
+use Motor\Core\Traits\Searchable;
 
 /**
  * Motor\CMS\Models\PageVersion
@@ -30,6 +30,7 @@ use Culpa\Traits\UpdatedBy;
  * @property-read \Motor\Backend\Models\User                                                        $creator
  * @property-read \Motor\Backend\Models\User|null                                                   $eraser
  * @property-read \Motor\Backend\Models\User                                                        $updater
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\Motor\CMS\Models\PageVersion newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\Motor\CMS\Models\PageVersion newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\Motor\CMS\Models\PageVersion query()
@@ -55,14 +56,14 @@ class PageVersion extends Model
     use Searchable;
     use Blameable, CreatedBy, UpdatedBy, DeletedBy;
 
-    protected $blameable = [ 'created', 'updated', 'deleted' ];
+    protected $blameable = ['created', 'updated', 'deleted'];
 
     /**
      * Searchable columns for the searchable trait
      *
      * @var array
      */
-    protected $searchableColumns = [ 'name' ];
+    protected $searchableColumns = ['name'];
 
     /**
      * The attributes that are mass assignable.
@@ -75,9 +76,8 @@ class PageVersion extends Model
         'name',
         'meta_keywords',
         'meta_description',
-        'state'
+        'state',
     ];
-
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

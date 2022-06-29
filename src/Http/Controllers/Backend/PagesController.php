@@ -3,29 +3,28 @@
 namespace Motor\CMS\Http\Controllers\Backend;
 
 use Illuminate\Support\Str;
+use Kris\LaravelFormBuilder\FormBuilderTrait;
 use Motor\Backend\Http\Controllers\Controller;
+use Motor\CMS\Forms\Backend\PageForm;
+use Motor\CMS\Grids\PageGrid;
 use Motor\CMS\Http\Requests\Backend\PageComponentRequest;
-use Motor\CMS\Models\Page;
 use Motor\CMS\Http\Requests\Backend\PageRequest;
+use Motor\CMS\Models\Page;
 use Motor\CMS\Models\PageVersionComponent;
 use Motor\CMS\Services\PageService;
-use Motor\CMS\Grids\PageGrid;
-use Motor\CMS\Forms\Backend\PageForm;
-use Kris\LaravelFormBuilder\FormBuilderTrait;
 
 /**
  * Class PagesController
- * @package Motor\CMS\Http\Controllers\Backend
  */
 class PagesController extends Controller
 {
     use FormBuilderTrait;
 
-
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     *
      * @throws \ReflectionException
      */
     public function index()
@@ -39,7 +38,6 @@ class PagesController extends Controller
         return view('motor-cms::backend.pages.index', compact('paginator', 'grid'));
     }
 
-
     /**
      * Show the form for creating a new resource.
      *
@@ -50,20 +48,19 @@ class PagesController extends Controller
         $form = $this->form(PageForm::class, [
             'method'  => 'POST',
             'route'   => 'backend.pages.store',
-            'enctype' => 'multipart/form-data'
+            'enctype' => 'multipart/form-data',
         ]);
 
-        $templates  = config('motor-cms-page-templates');
+        $templates = config('motor-cms-page-templates');
         $components = json_encode(config('motor-cms-page-components'));
 
         return view('motor-cms::backend.pages.create', compact('form', 'templates', 'components'));
     }
 
-
     /**
      * Store a newly created resource in storage.
      *
-     * @param PageRequest $request
+     * @param  PageRequest  $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function store(PageRequest $request)
@@ -82,7 +79,6 @@ class PagesController extends Controller
         return redirect('backend/pages');
     }
 
-
     /**
      * Display the specified resource.
      *
@@ -93,10 +89,9 @@ class PagesController extends Controller
         //
     }
 
-
     /**
-     * @param Page        $record
-     * @param PageRequest $request
+     * @param  Page  $record
+     * @param  PageRequest  $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function patch_component_data(Page $record, PageComponentRequest $request)
@@ -110,20 +105,20 @@ class PagesController extends Controller
                                                             ->where('id', $component['page_component_data']['id'])
                                                             ->first();
                 if (! is_null($pageVersionComponent)) {
-                    $pageVersionComponent->container     = $component['page_component_data']['container'];
+                    $pageVersionComponent->container = $component['page_component_data']['container'];
                     $pageVersionComponent->sort_position = $component['page_component_data']['sort_position'];
                     $pageVersionComponent->save();
                 }
             }
         }
 
-        return response()->json([ 'message' => 'Success' ]);
+        return response()->json(['message' => 'Success']);
     }
 
-
     /**
-     * @param Page $record
+     * @param  Page  $record
      * @return \Illuminate\Http\JsonResponse
+     *
      * @throws \ReflectionException
      */
     public function component_data(Page $record)
@@ -143,15 +138,15 @@ class PagesController extends Controller
                     'component_slug'      => $pageComponent->component_name,
                     'page_component_data' => $pageComponent->toArray(),
                     'preview'             => '',
-                    'component_name'      => config('motor-cms-page-components.components.' . $pageComponent->component_name . '.name'),
+                    'component_name'      => config('motor-cms-page-components.components.'.$pageComponent->component_name.'.name'),
                 ];
             } else {
-                $preview                                  = $pageComponent->component->preview();
+                $preview = $pageComponent->component->preview();
                 $returnArray[$pageComponent->container][] = [
                     'component_slug'      => $pageComponent->component_name,
                     'page_component_data' => $pageComponent->toArray(),
                     'component_name'      => $preview['name'],
-                    'preview'             => $preview['preview']
+                    'preview'             => $preview['preview'],
                 ];
             }
         }
@@ -159,16 +154,16 @@ class PagesController extends Controller
         return response()->json($returnArray);
     }
 
-
     /**
-     * @param Page                 $page
-     * @param PageVersionComponent $pageVersionComponent
+     * @param  Page  $page
+     * @param  PageVersionComponent  $pageVersionComponent
      * @return \Illuminate\Http\JsonResponse
+     *
      * @throws \Exception
      */
     public function destroyComponent(Page $page, PageVersionComponent $pageVersionComponent)
     {
-        if ((int)$pageVersionComponent->component_id > 0) {
+        if ((int) $pageVersionComponent->component_id > 0) {
             $pageVersionComponent->component()->delete();
         }
         $componentName = $pageVersionComponent->component_name;
@@ -177,8 +172,8 @@ class PagesController extends Controller
         return response()->json([
             'message' => trans(
                 'motor-cms::component/global.deleted',
-                [ 'name' => Str::ucfirst(str_replace('_', ' ', $componentName)) ]
-            )
+                ['name' => Str::ucfirst(str_replace('_', ' ', $componentName))]
+            ),
         ]);
     }
 
@@ -192,9 +187,10 @@ class PagesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Page        $record
-     * @param PageRequest $request
+     * @param  Page  $record
+     * @param  PageRequest  $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     *
      * @throws \ReflectionException
      */
     public function edit(Page $record, PageRequest $request)
@@ -205,12 +201,12 @@ class PagesController extends Controller
 
         $form = $this->form(PageForm::class, [
             'method'  => 'PATCH',
-            'url'     => route('backend.pages.update', [ $record->id ]),
+            'url'     => route('backend.pages.update', [$record->id]),
             'enctype' => 'multipart/form-data',
-            'model'   => $record
+            'model'   => $record,
         ]);
 
-        $templates  = config('motor-cms-page-templates');
+        $templates = config('motor-cms-page-templates');
         $components = json_encode(config('motor-cms-page-components'));
 
         $template = json_encode($templates[$record->getCurrentVersion()->template]['items']);
@@ -218,12 +214,11 @@ class PagesController extends Controller
         return view('motor-cms::backend.pages.edit', compact('form', 'templates', 'template', 'components', 'record'));
     }
 
-
     /**
      * Update the specified resource in storage.
      *
-     * @param PageRequest $request
-     * @param Page        $record
+     * @param  PageRequest  $request
+     * @param  Page  $record
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function update(PageRequest $request, Page $record)
@@ -242,11 +237,10 @@ class PagesController extends Controller
         return redirect('backend/pages');
     }
 
-
     /**
      * Remove the specified resource from storage.
      *
-     * @param Page $record
+     * @param  Page  $record
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function destroy(Page $record)

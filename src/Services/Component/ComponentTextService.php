@@ -7,7 +7,6 @@ use Motor\CMS\Services\ComponentBaseService;
 
 /**
  * Class ComponentTextService
- * @package Motor\CMS\Services\Component
  */
 class ComponentTextService extends ComponentBaseService
 {
@@ -22,10 +21,9 @@ class ComponentTextService extends ComponentBaseService
             'position'    => $this->request->get('image_position'),
             'enlarge'     => $this->request->get('image_enlarge'),
             'description' => $this->request->get('image_description'),
-            'crop'        => $this->request->get('image_crop')
+            'crop'        => $this->request->get('image_crop'),
         ]);
     }
-
 
     public function afterUpdate(): void
     {
@@ -34,7 +32,7 @@ class ComponentTextService extends ComponentBaseService
             'position'    => $this->request->get('image_position'),
             'enlarge'     => $this->request->get('image_enlarge'),
             'description' => $this->request->get('image_description'),
-            'crop'        => $this->request->get('image_crop')
+            'crop'        => $this->request->get('image_crop'),
         ]);
     }
 }

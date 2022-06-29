@@ -6,8 +6,6 @@ use Motor\Backend\Http\Requests\Request;
 
 /**
  * Class PageRequest
- *
- * @package Motor\CMS\Http\Requests\Backend
  */
 class PageRequest extends Request
 {
@@ -86,6 +84,7 @@ class PageRequest extends Request
         if ($this->method() == 'GET') {
             return [];
         }
+
         return [
             'name'             => 'required',
             'client_id'        => 'required|integer',

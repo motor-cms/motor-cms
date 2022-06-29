@@ -2,15 +2,15 @@
 
 namespace Motor\CMS\Models;
 
+use Culpa\Traits\Blameable;
+use Culpa\Traits\CreatedBy;
+use Culpa\Traits\DeletedBy;
+use Culpa\Traits\UpdatedBy;
 use Illuminate\Database\Eloquent\Model;
 use Kalnoy\Nestedset\NodeTrait;
 use Motor\Backend\Models\Client;
 use Motor\Backend\Models\Language;
 use Motor\Core\Traits\Filterable;
-use Culpa\Traits\Blameable;
-use Culpa\Traits\CreatedBy;
-use Culpa\Traits\DeletedBy;
-use Culpa\Traits\UpdatedBy;
 
 /**
  * Motor\CMS\Models\Navigation
@@ -41,6 +41,7 @@ use Culpa\Traits\UpdatedBy;
  * @property-read \Motor\CMS\Models\Page|null                                 $page
  * @property-read \Motor\CMS\Models\Navigation|null                           $parent
  * @property-read \Motor\Backend\Models\User                                  $updater
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\Motor\CMS\Models\Navigation d()
  * @method static \Illuminate\Database\Eloquent\Builder|\Motor\CMS\Models\Navigation filteredBy(\Motor\Core\Filter\Filter $filter, $column )
  * @method static \Illuminate\Database\Eloquent\Builder|\Motor\CMS\Models\Navigation filteredByMultiple(\Motor\Core\Filter\Filter $filter )
@@ -78,7 +79,7 @@ class Navigation extends Model
      *
      * @var array
      */
-    protected $blameable = [ 'created', 'updated', 'deleted' ];
+    protected $blameable = ['created', 'updated', 'deleted'];
 
     /**
      * Searchable columns for the searchable trait
@@ -86,7 +87,7 @@ class Navigation extends Model
      * @var array
      */
     protected $searchableColumns = [
-        'name'
+        'name',
     ];
 
     /**
@@ -101,9 +102,8 @@ class Navigation extends Model
         'scope',
         'page_id',
         'is_visible',
-        'is_active'
+        'is_active',
     ];
-
 
     /**
      * Get searchable columns defined on the model.
@@ -115,15 +115,13 @@ class Navigation extends Model
         return (property_exists($this, 'searchableColumns')) ? $this->searchableColumns : [];
     }
 
-
     /**
      * @return array
      */
     protected function getScopeAttributes()
     {
-        return [ 'scope' ];
+        return ['scope'];
     }
-
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -133,7 +131,6 @@ class Navigation extends Model
         return $this->belongsTo(Client::class);
     }
 
-
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -141,7 +138,6 @@ class Navigation extends Model
     {
         return $this->belongsTo(Language::class);
     }
-
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

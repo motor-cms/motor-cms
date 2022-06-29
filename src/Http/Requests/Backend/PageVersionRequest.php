@@ -6,8 +6,6 @@ use Motor\Backend\Http\Requests\Request;
 
 /**
  * Class PageVersionRequest
- *
- * @package Motor\CMS\Http\Requests\Backend
  */
 class PageVersionRequest extends Request
 {

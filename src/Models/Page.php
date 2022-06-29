@@ -2,13 +2,13 @@
 
 namespace Motor\CMS\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Motor\CMS\Traits\Versionable;
-use Motor\Core\Traits\Filterable;
 use Culpa\Traits\Blameable;
 use Culpa\Traits\CreatedBy;
 use Culpa\Traits\DeletedBy;
 use Culpa\Traits\UpdatedBy;
+use Illuminate\Database\Eloquent\Model;
+use Motor\CMS\Traits\Versionable;
+use Motor\Core\Traits\Filterable;
 use Motor\Core\Traits\Searchable;
 
 /**
@@ -32,6 +32,7 @@ use Motor\Core\Traits\Searchable;
  * @property-read \Motor\Backend\Models\User|null                                          $eraser
  * @property-read \Motor\Backend\Models\User                                               $updater
  * @property-read \Illuminate\Database\Eloquent\Collection|\Motor\CMS\Models\PageVersion[] $versions
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\Motor\CMS\Models\Page filteredBy( \Motor\Core\Filter\Filter $filter, $column )
  * @method static \Illuminate\Database\Eloquent\Builder|\Motor\CMS\Models\Page filteredByMultiple(\Motor\Core\Filter\Filter $filter )
  * @method static \Illuminate\Database\Eloquent\Builder|\Motor\CMS\Models\Page newModelQuery()
@@ -61,14 +62,14 @@ class Page extends Model
     use Filterable;
     use Versionable;
 
-    protected $blameable = [ 'created', 'updated', 'deleted' ];
+    protected $blameable = ['created', 'updated', 'deleted'];
 
     /**
      * Searchable columns for the searchable trait
      *
      * @var array
      */
-    protected $searchableColumns = [ 'name' ];
+    protected $searchableColumns = ['name'];
 
     /**
      * The attributes that are mass assignable.
@@ -96,7 +97,6 @@ class Page extends Model
         'meta_keywords',
         'meta_description',
     ];
-
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

@@ -7,8 +7,6 @@ use Motor\CMS\Models\PageVersion;
 
 /**
  * Class PageVersionService
- *
- * @package Motor\CMS\Services
  */
 class PageVersionService extends BaseService
 {

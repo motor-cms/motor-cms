@@ -52,7 +52,7 @@ class PageVersionComponentResource extends BaseResource
     /**
      * Transform the resource into an array.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function toArray($request)
@@ -61,7 +61,7 @@ class PageVersionComponentResource extends BaseResource
         $componentResource = false;
         if (class_exists($componentResourceClass)) {
             $ref = new ReflectionClass($componentResourceClass);
-            $componentResource = $ref->newInstanceArgs(array($this->component));
+            $componentResource = $ref->newInstanceArgs([$this->component]);
         } else {
             Log::warning('ComponentResourceClass does not exist', [$componentResourceClass]);
         }

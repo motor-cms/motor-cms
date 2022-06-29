@@ -3,29 +3,28 @@
 namespace Motor\CMS\Http\Controllers\Backend;
 
 use Kalnoy\Nestedset\NestedSet;
-use Motor\Backend\Http\Controllers\Controller;
-use Motor\CMS\Models\Navigation;
-use Motor\CMS\Http\Requests\Backend\NavigationRequest;
-use Motor\CMS\Services\NavigationService;
-use Motor\CMS\Grids\NavigationGrid;
-use Motor\CMS\Forms\Backend\NavigationForm;
 use Kris\LaravelFormBuilder\FormBuilderTrait;
+use Motor\Backend\Http\Controllers\Controller;
+use Motor\CMS\Forms\Backend\NavigationForm;
+use Motor\CMS\Grids\NavigationGrid;
+use Motor\CMS\Http\Requests\Backend\NavigationRequest;
+use Motor\CMS\Models\Navigation;
+use Motor\CMS\Services\NavigationService;
 use Motor\Core\Filter\Renderers\WhereRenderer;
 
 /**
  * Class NavigationsController
- * @package Motor\CMS\Http\Controllers\Backend
  */
 class NavigationsController extends Controller
 {
     use FormBuilderTrait;
 
-
     /**
      * Display a listing of the resource.
      *
-     * @param Navigation $record
+     * @param  Navigation  $record
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     *
      * @throws \ReflectionException
      */
     public function index(Navigation $record)
@@ -46,11 +45,10 @@ class NavigationsController extends Controller
         return view('motor-cms::backend.navigations.index', compact('paginator', 'grid', 'record'));
     }
 
-
     /**
      * Show the form for creating a new resource.
      *
-     * @param Navigation $root
+     * @param  Navigation  $root
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create(Navigation $root)
@@ -58,11 +56,11 @@ class NavigationsController extends Controller
         $form = $this->form(NavigationForm::class, [
             'method'  => 'POST',
             'route'   => 'backend.navigations.store',
-            'enctype' => 'multipart/form-data'
+            'enctype' => 'multipart/form-data',
         ]);
 
-        $trees        = Navigation::where('scope', $root->scope)->defaultOrder()->get()->toTree();
-        $newItem      = true;
+        $trees = Navigation::where('scope', $root->scope)->defaultOrder()->get()->toTree();
+        $newItem = true;
         $selectedItem = null;
 
         return view(
@@ -71,11 +69,10 @@ class NavigationsController extends Controller
         );
     }
 
-
     /**
      * Store a newly created resource in storage.
      *
-     * @param NavigationRequest $request
+     * @param  NavigationRequest  $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function store(NavigationRequest $request)
@@ -93,9 +90,8 @@ class NavigationsController extends Controller
 
         flash()->success(trans('motor-cms::backend/navigations.created'));
 
-        return redirect('backend/navigations/' . $root->id);
+        return redirect('backend/navigations/'.$root->id);
     }
-
 
     /**
      * @param $id
@@ -105,11 +101,10 @@ class NavigationsController extends Controller
         //
     }
 
-
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Navigation $record
+     * @param  Navigation  $record
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit(Navigation $record)
@@ -120,23 +115,22 @@ class NavigationsController extends Controller
 
         $form = $this->form(NavigationForm::class, [
             'method'  => 'PATCH',
-            'url'     => route('backend.navigations.update', [ $record->id ]),
+            'url'     => route('backend.navigations.update', [$record->id]),
             'enctype' => 'multipart/form-data',
-            'model'   => $record
+            'model'   => $record,
         ]);
 
-        $newItem      = false;
+        $newItem = false;
         $selectedItem = $record->id;
 
         return view('motor-cms::backend.navigations.edit', compact('form', 'trees', 'root', 'newItem', 'selectedItem'));
     }
 
-
     /**
      * Update the specified resource in storage.
      *
-     * @param NavigationRequest $request
-     * @param Navigation        $record
+     * @param  NavigationRequest  $request
+     * @param  Navigation  $record
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function update(NavigationRequest $request, Navigation $record)
@@ -154,14 +148,13 @@ class NavigationsController extends Controller
 
         flash()->success(trans('motor-cms::backend/navigations.updated'));
 
-        return redirect('backend/navigations/' . $root->id);
+        return redirect('backend/navigations/'.$root->id);
     }
-
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param Navigation $record
+     * @param  Navigation  $record
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function destroy(Navigation $record)
@@ -172,6 +165,6 @@ class NavigationsController extends Controller
 
         flash()->success(trans('motor-cms::backend/navigations.deleted'));
 
-        return redirect('backend/navigations/' . $root->id);
+        return redirect('backend/navigations/'.$root->id);
     }
 }
