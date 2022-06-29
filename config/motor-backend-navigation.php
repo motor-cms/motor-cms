@@ -4,7 +4,7 @@ return [
     'items' => [
         800 => [
             'slug'        => 'cms',
-            'name'        => 'motor-cms.global.cms',
+            'name'        => 'motor-cms::backend/global.cms',
             'icon'        => "font",
             'route'       => null,
             'roles'       => [ 'SuperAdmin' ],
@@ -12,7 +12,7 @@ return [
             'items'       => [
                 100 => [ // <-- !!! replace 542 with your own sort position !!!
                     'slug'        => 'navigation_trees',
-                    'name'        => 'motor-cms.navigation_trees.navigation_trees',
+                    'name'        => 'motor-cms::backend/navigation_trees.navigation_trees',
                     'icon'        => 'fa fa-plus',
                     'route'       => 'backend.navigation_trees.index',
                     'roles'       => [ 'SuperAdmin' ],
@@ -21,7 +21,7 @@ return [
                 ],
                 110 => [ // <-- !!! replace 895 with your own sort position !!!
                     'slug' => 'pages',
-                    'name'  => 'motor-cms.pages.pages',
+                    'name'  => 'motor-cms::backend/pages.pages',
                     'icon'  => 'fa fa-plus',
                     'route' => 'backend.pages.index',
                     'roles'       => [ 'SuperAdmin' ],
