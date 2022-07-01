@@ -7,29 +7,25 @@ use Motor\Backend\Http\Controllers\Controller;
 
 /**
  * Class ComponentController
- * @package Motor\CMS\Http\Controllers\Component
  */
 class ComponentController extends Controller
 {
-
     /**
      * @var
      */
     protected $form;
 
-
     /**
-     * @param       $route
-     * @param array $options
-     *
+     * @param    $route
+     * @param  array  $options
      * @return object
      */
     protected function getFormData($route, $options = []): object
     {
-        $object          = new \stdClass();
-        $object->route   = $route;
+        $object = new \stdClass();
+        $object->route = $route;
         $object->options = $options;
-        $object->fields  = [];
+        $object->fields = [];
         foreach ($this->form->getFields() as $field) {
             $fieldConfig = new \stdClass();
             if (method_exists($field, 'getData')) {
@@ -38,12 +34,11 @@ class ComponentController extends Controller
                 $fieldConfig->options = $field->getOptions();
             }
             $fieldConfig->type = $field->getType();
-            $object->fields[]  = $fieldConfig;
+            $object->fields[] = $fieldConfig;
         }
 
         return $object;
     }
-
 
     /**
      * @return bool
@@ -53,12 +48,11 @@ class ComponentController extends Controller
         return true;
     }
 
-
     /**
      * @return \Illuminate\Http\JsonResponse
      */
     protected function respondWithValidationError(): JsonResponse
     {
-        return response()->json([ 'error' ], 406);
+        return response()->json(['error'], 406);
     }
 }

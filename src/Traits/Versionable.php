@@ -8,8 +8,6 @@ use Illuminate\Support\Str;
 
 /**
  * Trait Versionable
- *
- * @package Motor\CMS\Traits
  */
 trait Versionable
 {
@@ -20,7 +18,6 @@ trait Versionable
     protected $versionAttributes = [];
 
     protected $currentVersion = null;
-
 
     /**
      * Boot trait
@@ -38,12 +35,12 @@ trait Versionable
         //}
     }
 
-
     /**
      * Override getter so we can return versionable attributes
      *
      * @param $key
      * @return mixed
+     *
      * @throws \ReflectionException
      */
     public function __get($key)
@@ -58,15 +55,13 @@ trait Versionable
         return parent::__get($key);
     }
 
-
     /**
      * @return string
      */
     public function getVersionTable()
     {
-        return Str::singular($this->getTable()) . '_versions';
+        return Str::singular($this->getTable()).'_versions';
     }
-
 
     /**
      * @return array
@@ -76,7 +71,6 @@ trait Versionable
         return $this->versionAttributes;
     }
 
-
     /**
      * @param $attributes
      */
@@ -85,18 +79,17 @@ trait Versionable
         $this->versionAttributes = $attributes;
     }
 
-
     /**
      * @return string
+     *
      * @throws \ReflectionException
      */
     public function getVersionModel()
     {
         $class = new \ReflectionClass($this);
 
-        return $class->getNamespaceName() . '\\' . Str::studly(Str::singular($this->getVersionTable()));
+        return $class->getNamespaceName().'\\'.Str::studly(Str::singular($this->getVersionTable()));
     }
-
 
     /**
      * Add new version and set as draft
@@ -104,9 +97,9 @@ trait Versionable
     public function addVersion()
     {
         // 1. clone version and save as new
-        $oldVersion                     = $this->getCurrentVersion();
-        $newVersion                     = $oldVersion->replicate();
-        $newVersion->versionable_state  = 'DRAFT';
+        $oldVersion = $this->getCurrentVersion();
+        $newVersion = $oldVersion->replicate();
+        $newVersion->versionable_state = 'DRAFT';
         $newVersion->versionable_number = $this->getNextVersionNumber();
         $newVersion->save();
 
@@ -126,7 +119,7 @@ trait Versionable
                     // 4. clone file associations
                     if (isset($clonedComponent->component->file_associations)) {
                         foreach ($clonedComponent->component->file_associations as $fileAssociation) {
-                            $clonedFileAssociation           = $fileAssociation->replicate();
+                            $clonedFileAssociation = $fileAssociation->replicate();
                             $clonedFileAssociation->model_id = $clonedComponentCopy->id;
                             $clonedFileAssociation->save();
                         }
@@ -135,7 +128,6 @@ trait Versionable
             }
         }
     }
-
 
     /**
      * Set next version state
@@ -150,7 +142,6 @@ trait Versionable
         return $this;
     }
 
-
     /**
      * Get current version state
      *
@@ -161,12 +152,12 @@ trait Versionable
         return $this->versionState;
     }
 
-
     /**
      * Override insert method
      *
-     * @param Builder $query
+     * @param  Builder  $query
      * @return bool
+     *
      * @throws \ReflectionException
      */
     public function performInsert(Builder $query)
@@ -179,12 +170,12 @@ trait Versionable
         return $result;
     }
 
-
     /**
      * Override update method
      *
-     * @param Builder $query
+     * @param  Builder  $query
      * @return bool
+     *
      * @throws \ReflectionException
      */
     public function performUpdate(Builder $query)
@@ -201,11 +192,10 @@ trait Versionable
         return $result;
     }
 
-
     /**
      * Save model with new version (currently unused)
      *
-     * @param array $options
+     * @param  array  $options
      * @return mixed
      */
     //public function saveNewVersion(array $options = [])
@@ -222,6 +212,7 @@ trait Versionable
      *
      * @param $number
      * @return $this
+     *
      * @throws \ReflectionException
      */
     public function setCurrentVersion($number)
@@ -234,11 +225,11 @@ trait Versionable
         return $this;
     }
 
-
     /**
      * Return latest version
      *
      * @return mixed
+     *
      * @throws \ReflectionException
      */
     public function getLatestVersion()
@@ -248,11 +239,11 @@ trait Versionable
         return $model::where('versionable_id', $this->id)->orderBy('versionable_number', 'DESC')->first();
     }
 
-
     /**
      * Return the versionable_number of the currently used version
      *
      * @return int
+     *
      * @throws \ReflectionException
      */
     public function getLatestVersionNumber()
@@ -266,9 +257,9 @@ trait Versionable
         return $version->versionable_number;
     }
 
-
     /**
      * @return Model
+     *
      * @throws \ReflectionException
      */
     public function getLiveVersion(): Model
@@ -278,11 +269,11 @@ trait Versionable
         return $model::where('versionable_id', $this->id)->where('versionable_state', 'LIVE')->first();
     }
 
-
     /**
      * Return currently used version
      *
      * @return mixed
+     *
      * @throws \ReflectionException
      */
     public function getCurrentVersion()
@@ -297,11 +288,11 @@ trait Versionable
         return $version;
     }
 
-
     /**
      * Return the versionable_number of the currently used version
      *
      * @return int
+     *
      * @throws \ReflectionException
      */
     public function getCurrentVersionNumber()
@@ -315,18 +306,18 @@ trait Versionable
         return $version->versionable_number;
     }
 
-
     /**
      * Update a version and set the necessary attributes
      *
      * @param $version
+     *
      * @throws \ReflectionException
      */
     public function updateVersion($version)
     {
         $model = $this->getVersionModel();
         if (is_null($version)) {
-            $version                     = new $model();
+            $version = new $model();
             $version->versionable_number = $this->getNextVersionNumber();
         }
 
@@ -338,13 +329,12 @@ trait Versionable
         }
 
         $version->fill($this->getVersionAttributes());
-        $version->versionable_id    = $this->id;
+        $version->versionable_id = $this->id;
         $version->versionable_state = $this->getVersionState();
-        $version->created_by        = $this->created_by;
-        $version->updated_by        = $this->updated_by;
+        $version->created_by = $this->created_by;
+        $version->updated_by = $this->updated_by;
         $version->save();
     }
-
 
     /**
      * Create a new version
@@ -353,23 +343,23 @@ trait Versionable
      */
     public function createVersion()
     {
-        $model                       = $this->getVersionModel();
-        $version                     = new $model($this->getVersionAttributes());
+        $model = $this->getVersionModel();
+        $version = new $model($this->getVersionAttributes());
         $version->versionable_number = $this->getNextVersionNumber();
 
         $this->updateVersion($version);
     }
 
-
     /**
      * Get next available version number
      *
      * @return int
+     *
      * @throws \ReflectionException
      */
     public function getNextVersionNumber()
     {
-        $model         = $this->getVersionModel();
+        $model = $this->getVersionModel();
         $latestVersion = $model::where('versionable_id', $this->id)->orderBy('versionable_number', 'DESC')->first();
         if (is_null($latestVersion)) {
             return 1;

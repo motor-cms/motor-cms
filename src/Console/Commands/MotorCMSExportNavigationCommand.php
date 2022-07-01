@@ -7,11 +7,9 @@ use Motor\CMS\Models\Navigation;
 
 /**
  * Class MotorCMSExportNavigationCommand
- * @package Motor\CMS\Console\Commands
  */
 class MotorCMSExportNavigationCommand extends Command
 {
-
     /**
      * The console command name.
      *
@@ -37,7 +35,6 @@ class MotorCMSExportNavigationCommand extends Command
     {
         $root = Navigation::where('scope', $this->argument('scope'))->whereIsRoot()->first();
 
-
         $export = $root->toArray();
         $export['children'] = [];
 
@@ -47,6 +44,7 @@ class MotorCMSExportNavigationCommand extends Command
                 $export[$node->id]['children'] = [];
                 $export[$node->id]['children'] = $traverse($node->children, $export[$node->id]['children']);
             }
+
             return $export;
         };
 
@@ -55,6 +53,6 @@ class MotorCMSExportNavigationCommand extends Command
         $filename = storage_path('navigation_export_').$this->argument('scope').'_'.date('Y-m-d_his').'.json';
         file_put_contents($filename, json_encode($export, JSON_PRETTY_PRINT));
 
-        $this->info('Exported navigation scope ' . $this->argument('scope'). ' to '.$filename);
+        $this->info('Exported navigation scope '.$this->argument('scope').' to '.$filename);
     }
 }

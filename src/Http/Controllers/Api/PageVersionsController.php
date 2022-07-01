@@ -13,12 +13,11 @@ use Motor\Core\Filter\Renderers\WhereRenderer;
 
 /**
  * Class PagesController
- *
- * @package Motor\CMS\Http\Controllers\Api
  */
 class PageVersionsController extends ApiController
 {
     protected string $model = 'Motor\CMS\Models\PageVersion';
+
     protected string $modelResource = 'page_version';
 
     /**
@@ -74,7 +73,7 @@ class PageVersionsController extends ApiController
      *
      * Display a listing of the resource.
      *
-     * @param \Motor\CMS\Models\Page $page
+     * @param  \Motor\CMS\Models\Page  $page
      * @return \Motor\CMS\Http\Resources\PageVersionCollection
      */
     public function index(Page $page)
@@ -147,8 +146,8 @@ class PageVersionsController extends ApiController
      *
      * Display the specified resource.
      *
-     * @param \Motor\CMS\Models\Page $page
-     * @param \Motor\CMS\Models\PageVersion $record
+     * @param  \Motor\CMS\Models\Page  $page
+     * @param  \Motor\CMS\Models\PageVersion  $record
      * @return \Motor\CMS\Http\Resources\PageVersionResource
      */
     public function show(Page $page, PageVersion $record)
@@ -219,9 +218,9 @@ class PageVersionsController extends ApiController
      *
      * Update the specified resource in storage.
      *
-     * @param \Motor\CMS\Http\Requests\Backend\PageVersionRequest $request
-     * @param \Motor\CMS\Models\Page $page
-     * @param \Motor\CMS\Models\PageVersion $record
+     * @param  \Motor\CMS\Http\Requests\Backend\PageVersionRequest  $request
+     * @param  \Motor\CMS\Models\Page  $page
+     * @param  \Motor\CMS\Models\PageVersion  $record
      * @return \Motor\CMS\Http\Resources\PageVersionResource
      */
     public function update(PageVersionRequest $request, Page $page, PageVersion $record)
@@ -295,8 +294,8 @@ class PageVersionsController extends ApiController
      *
      * Remove the specified resource from storage.
      *
-     * @param \Motor\CMS\Models\Page $page
-     * @param \Motor\CMS\Models\PageVersion $record
+     * @param  \Motor\CMS\Models\Page  $page
+     * @param  \Motor\CMS\Models\PageVersion  $record
      * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Page $page, PageVersion $record)

@@ -10,6 +10,6 @@ return [
         'top'    => 'Top',
         'right'  => 'Right',
         'bottom' => 'Bottom',
-        'left'   => 'Left'
-    ]
+        'left'   => 'Left',
+    ],
 ];

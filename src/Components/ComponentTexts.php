@@ -8,7 +8,6 @@ use Motor\CMS\Models\PageVersionComponent;
 
 /**
  * Class ComponentTexts
- * @package Motor\CMS\Components
  */
 class ComponentTexts
 {
@@ -16,11 +15,11 @@ class ComponentTexts
 
     protected $pageVersionComponent;
 
-
     /**
      * ComponentTexts constructor.
-     * @param PageVersionComponent                      $pageVersionComponent
-     * @param \Motor\CMS\Models\Component\ComponentText $component
+     *
+     * @param  PageVersionComponent  $pageVersionComponent
+     * @param  \Motor\CMS\Models\Component\ComponentText  $component
      */
     public function __construct(
         PageVersionComponent $pageVersionComponent,
@@ -30,16 +29,14 @@ class ComponentTexts
         $this->pageVersionComponent = $pageVersionComponent;
     }
 
-
     /**
-     * @param Request $request
+     * @param  Request  $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(Request $request)
     {
         return $this->render();
     }
-
 
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -55,7 +52,7 @@ class ComponentTexts
                 $hash = Arr::get($image->custom_properties, 'crop.x1').Arr::get($image->custom_properties, 'crop.x2').Arr::get($image->custom_properties, 'crop.y1').Arr::get($image->custom_properties, 'crop.y2');
 
                 $pathinfo = pathinfo(public_path().$image->file->getFirstMedia('file')->getUrl());
-                $thumb = str_replace(public_path(), '', $pathinfo[ 'dirname' ]).'/conversions/'.$pathinfo[ 'filename' ].'-'.md5($hash).'.jpg';
+                $thumb = str_replace(public_path(), '', $pathinfo['dirname']).'/conversions/'.$pathinfo['filename'].'-'.md5($hash).'.jpg';
                 $file = $thumb;
             } else {
                 $thumb = $image->file->getFirstMedia('file')->getUrl('thumb');
@@ -66,6 +63,7 @@ class ComponentTexts
             $enlarge = Arr::get($image->custom_properties, 'enlarge', false);
             $description = Arr::get($image->custom_properties, 'description', '');
         }
+
         return view(
             config('motor-cms-page-components.components.'.$this->pageVersionComponent->component_name.'.view'),
             [
@@ -74,7 +72,7 @@ class ComponentTexts
                 'file'        => $file,
                 'position'    => $position,
                 'enlarge'     => $enlarge,
-                'description' => $description
+                'description' => $description,
             ]
         );
     }

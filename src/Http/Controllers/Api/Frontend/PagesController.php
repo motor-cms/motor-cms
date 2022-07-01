@@ -9,15 +9,13 @@ use Motor\CMS\Models\Page;
 
 /**
  * Class PagesController
- *
- * @package Motor\CMS\Http\Controllers\Api
  */
 class PagesController extends Controller
 {
     /**
      * Display the specified resource.
      *
-     * @param Page $record
+     * @param  Page  $record
      * @return \Illuminate\Http\JsonResponse
      */
     public function index($slug)

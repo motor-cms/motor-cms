@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @param int $count
+ * @param  int  $count
  * @return mixed
  */
 function create_test_navigation($count = 1)
@@ -10,7 +10,7 @@ function create_test_navigation($count = 1)
 }
 
 /**
- * @param int $count
+ * @param  int  $count
  * @return mixed
  */
 function create_test_page($count = 1)

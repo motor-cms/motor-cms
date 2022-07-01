@@ -11,15 +11,13 @@ use Spatie\Image\Image;
 
 /**
  * Class ComponentBaseService
- *
- * @package Motor\CMS\Services
  */
 class ComponentBaseService extends BaseService
 {
     /**
-     * @param PageVersionComponent $pageComponent
-     *
+     * @param  PageVersionComponent  $pageComponent
      * @return object
+     *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public static function render(PageVersionComponent $pageComponent)
@@ -27,15 +25,15 @@ class ComponentBaseService extends BaseService
         $container = app();
 
         $controller = $container->make(config('motor-cms-page-components.components.'.$pageComponent->component_name.'.component_class'), [
-                'pageVersionComponent' => $pageComponent,
-                'component'            => ($pageComponent->component_id == null ? null : $pageComponent->component),
-            ]);
+            'pageVersionComponent' => $pageComponent,
+            'component'            => ($pageComponent->component_id == null ? null : $pageComponent->component),
+        ]);
 
         return $container->call([$controller, 'index']);
     }
 
     /**
-     * @param Request $request
+     * @param  Request  $request
      */
     public static function createPageComponent(Request $request): void
     {

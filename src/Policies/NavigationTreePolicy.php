@@ -13,8 +13,8 @@ class NavigationTreePolicy
     /**
      * Perform pre-authorization checks.
      *
-     * @param \Motor\Backend\Models\User $user
-     * @param string $ability
+     * @param  \Motor\Backend\Models\User  $user
+     * @param  string  $ability
      * @return void|bool
      */
     public function before(User $user, $ability)

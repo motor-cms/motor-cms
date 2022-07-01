@@ -10,15 +10,13 @@ use Motor\CMS\Services\ComponentBaseService;
 
 /**
  * Class BaseController
- *
- * @package Motor\CMS\Http\Controllers\Component
  */
 class BaseController extends Controller
 {
     /**
      * Store a newly created resource in storage.
      *
-     * @param PageRequest $request
+     * @param  PageRequest  $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(ComponentBaseRequest $request)

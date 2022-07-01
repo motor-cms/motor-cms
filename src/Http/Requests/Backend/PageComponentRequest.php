@@ -6,8 +6,6 @@ use Motor\Backend\Http\Requests\Request;
 
 /**
  * Class PageComponentRequest
- *
- * @package Motor\CMS\Http\Requests\Backend
  */
 class PageComponentRequest extends Request
 {

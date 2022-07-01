@@ -3,17 +3,13 @@
 namespace Motor\CMS\Console\Commands;
 
 use Illuminate\Console\Command;
-use Mockery\Exception;
-use Motor\CMS\Models\Navigation;
 use Motor\CMS\Models\Page;
 
 /**
  * Class MotorCMSExportNavigationCommand
- * @package Motor\CMS\Console\Commands
  */
 class MotorCMSExportPagesCommand extends Command
 {
-
     /**
      * The console command name.
      *
@@ -45,14 +41,14 @@ class MotorCMSExportPagesCommand extends Command
                 continue;
             }
             $newPage = $page->toArray();
-            $newPage[ 'versions' ] = [ $liveVersion->toArray() ];
-            $newPage[ 'versions' ][ 0 ][ 'components' ] = [];
+            $newPage['versions'] = [$liveVersion->toArray()];
+            $newPage['versions'][0]['components'] = [];
             foreach ($liveVersion->components as $component) {
                 $newComponent = $component->toArray();
                 if ($component['component_type'] != '') {
                     $newComponent['component'] = $component->component->toArray();
                 }
-                $newPage[ 'versions' ][ 0 ][ 'components' ][] = $newComponent;
+                $newPage['versions'][0]['components'][] = $newComponent;
             }
             $pages[] = $newPage;
         }

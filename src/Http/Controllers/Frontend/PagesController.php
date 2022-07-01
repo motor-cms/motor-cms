@@ -5,21 +5,19 @@ namespace Motor\CMS\Http\Controllers\Frontend;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use Motor\Backend\Http\Controllers\Controller;
-
 use Motor\CMS\Models\Navigation;
 
 /**
  * Class PagesController
- * @package Motor\CMS\Http\Controllers\Frontend
  */
 class PagesController extends Controller
 {
-
     /**
      * Get current live version of the given page
      *
      * @param $slug
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|View|object
+     *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function index($slug)
@@ -28,19 +26,19 @@ class PagesController extends Controller
         $navigation = Navigation::where('scope', 'main')->where('full_slug', $slug)->first();
 
         if (is_null($navigation)) {
-            return response('Navigation ' . $slug . ' not found', 404);
+            return response('Navigation '.$slug.' not found', 404);
         }
 
         $page = $navigation->page;
 
         if (is_null($page)) {
-            return response('Page for navigation item ' . $slug . ' not found', 404);
+            return response('Page for navigation item '.$slug.' not found', 404);
         }
 
         $version = $page->getLiveVersion();
 
         if (is_null($version)) {
-            return response('No live version found for navigation item ' . $slug, 404);
+            return response('No live version found for navigation item '.$slug, 404);
         }
 
         $renderedOutput = [];
@@ -57,7 +55,7 @@ class PagesController extends Controller
             }
         }
 
-        $template = config('motor-cms-page-templates.' . $version->template);
+        $template = config('motor-cms-page-templates.'.$version->template);
 
         return view('motor-cms::frontend.default', compact('template', 'version', 'renderedOutput'));
     }

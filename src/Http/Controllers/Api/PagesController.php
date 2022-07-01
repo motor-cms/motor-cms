@@ -11,12 +11,11 @@ use Motor\CMS\Services\PageService;
 
 /**
  * Class PagesController
- *
- * @package Motor\CMS\Http\Controllers\Api
  */
 class PagesController extends ApiController
 {
     protected string $model = 'Motor\CMS\Models\Page';
+
     protected string $modelResource = 'page';
 
     /**
@@ -121,7 +120,7 @@ class PagesController extends ApiController
      *
      * Store a newly created resource in storage.
      *
-     * @param \Motor\CMS\Http\Requests\Backend\PageRequest $request
+     * @param  \Motor\CMS\Http\Requests\Backend\PageRequest  $request
      * @return \Illuminate\Http\JsonResponse|object
      */
     public function store(PageRequest $request)
@@ -184,7 +183,7 @@ class PagesController extends ApiController
      *
      * Display the specified resource.
      *
-     * @param \Motor\CMS\Models\Page $record
+     * @param  \Motor\CMS\Models\Page  $record
      * @return \Motor\CMS\Http\Resources\PageResource
      */
     public function show(Page $record)
@@ -248,8 +247,8 @@ class PagesController extends ApiController
      *
      * Update the specified resource in storage.
      *
-     * @param \Motor\CMS\Http\Requests\Backend\PageRequest $request
-     * @param \Motor\CMS\Models\Page $record
+     * @param  \Motor\CMS\Http\Requests\Backend\PageRequest  $request
+     * @param  \Motor\CMS\Models\Page  $record
      * @return \Motor\CMS\Http\Resources\PageResource
      */
     public function update(PageRequest $request, Page $record)
@@ -316,7 +315,7 @@ class PagesController extends ApiController
      *
      * Remove the specified resource from storage.
      *
-     * @param Page $record
+     * @param  Page  $record
      * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Page $record)

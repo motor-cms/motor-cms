@@ -66,7 +66,7 @@ class PageVersionResource extends BaseResource
     /**
      * Transform the resource into an array.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function toArray($request)
@@ -75,7 +75,7 @@ class PageVersionResource extends BaseResource
             'id'                 => (int) $this->id,
             'name'               => $this->name,
             'template'           => $this->template,
-            'is_active'          => (boolean) $this->is_active,
+            'is_active'          => (bool) $this->is_active,
             'meta_description'   => $this->meta_description,
             'meta_keywords'      => $this->meta_keywords,
             'versionable_state'  => $this->versionable_state,

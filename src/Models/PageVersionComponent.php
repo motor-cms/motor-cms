@@ -3,8 +3,8 @@
 namespace Motor\CMS\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Motor\Core\Traits\Searchable;
 use Motor\Core\Traits\Filterable;
+use Motor\Core\Traits\Searchable;
 
 /**
  * Motor\CMS\Models\PageVersionComponent
@@ -20,6 +20,7 @@ use Motor\Core\Traits\Filterable;
  * @property \Illuminate\Support\Carbon|null                    $updated_at
  * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $component
  * @property-read \Motor\CMS\Models\PageVersion                 $version
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\Motor\CMS\Models\PageVersionComponent filteredBy(\Motor\Core\Filter\Filter $filter, $column )
  * @method static \Illuminate\Database\Eloquent\Builder|\Motor\CMS\Models\PageVersionComponent filteredByMultiple(\Motor\Core\Filter\Filter $filter )
  * @method static \Illuminate\Database\Eloquent\Builder|\Motor\CMS\Models\PageVersionComponent newModelQuery()
@@ -62,7 +63,6 @@ class PageVersionComponent extends Model
         'component_id',
     ];
 
-
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -70,7 +70,6 @@ class PageVersionComponent extends Model
     {
         return $this->belongsTo(PageVersion::class);
     }
-
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\MorphTo

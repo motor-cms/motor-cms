@@ -8,7 +8,6 @@ use Motor\Backend\Grid\Renderers\TreeRenderer;
 
 /**
  * Class NavigationGrid
- * @package Motor\CMS\Grids
  */
 class NavigationGrid extends Grid
 {

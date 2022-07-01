@@ -2,23 +2,20 @@
 
 namespace Motor\CMS\Services;
 
-use Motor\CMS\Models\Page;
 use Motor\Backend\Services\BaseService;
+use Motor\CMS\Models\Page;
 
 /**
  * Class PageService
- * @package Motor\CMS\Services
  */
 class PageService extends BaseService
 {
     protected $model = Page::class;
 
-
     public function beforeCreate()
     {
         $this->record->setVersionAttributes($this->data);
     }
-
 
     public function beforeUpdate()
     {
@@ -33,7 +30,6 @@ class PageService extends BaseService
             $this->record->setVersionState('LIVE');
         }
     }
-
 
     public function afterUpdate()
     {

@@ -12,12 +12,11 @@ use Motor\Core\Filter\Renderers\WhereRenderer;
 
 /**
  * Class NavigationsController
- *
- * @package Motor\Backend\Http\Controllers\Api
  */
 class NavigationsController extends ApiController
 {
     protected string $model = 'Motor\CMS\Models\Navigation';
+
     protected string $modelResource = 'navigation';
 
     /**
@@ -78,7 +77,7 @@ class NavigationsController extends ApiController
      *
      * Display a listing of the resource.
      *
-     * @param \Motor\CMS\Models\Navigation $navigationTree
+     * @param  \Motor\CMS\Models\Navigation  $navigationTree
      * @return \Illuminate\Http\JsonResponse|\Motor\CMS\Http\Resources\NavigationCollection
      */
     public function index(Navigation $navigationTree)
@@ -155,7 +154,7 @@ class NavigationsController extends ApiController
      *
      * Store a newly created resource in storage.
      *
-     * @param \Motor\CMS\Http\Requests\Backend\NavigationRequest $request
+     * @param  \Motor\CMS\Http\Requests\Backend\NavigationRequest  $request
      * @return \Illuminate\Http\JsonResponse|object
      */
     public function store(NavigationRequest $request)
@@ -225,7 +224,7 @@ class NavigationsController extends ApiController
      *
      * Display the specified resource.
      *
-     * @param \Motor\CMS\Models\Navigation $record
+     * @param  \Motor\CMS\Models\Navigation  $record
      * @return \Motor\CMS\Http\Resources\NavigationResource
      */
     public function show(Navigation $record)
@@ -296,8 +295,8 @@ class NavigationsController extends ApiController
      *
      * Update the specified resource in storage.
      *
-     * @param \Motor\CMS\Http\Requests\Backend\NavigationRequest $request
-     * @param \Motor\CMS\Models\Navigation $record
+     * @param  \Motor\CMS\Http\Requests\Backend\NavigationRequest  $request
+     * @param  \Motor\CMS\Models\Navigation  $record
      * @return \Motor\CMS\Http\Resources\NavigationResource
      */
     public function update(NavigationRequest $request, Navigation $record)
@@ -371,7 +370,7 @@ class NavigationsController extends ApiController
      *
      * Remove the specified resource from storage.
      *
-     * @param \Motor\CMS\Models\Navigation $record
+     * @param  \Motor\CMS\Models\Navigation  $record
      * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Navigation $record)

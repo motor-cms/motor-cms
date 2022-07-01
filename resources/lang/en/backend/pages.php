@@ -16,5 +16,5 @@ return [
     'meta_keywords'             => 'Meta keywords',
     'template'                  => 'Template',
     'is_active'                 => 'Active',
-    'delete_component_question' => 'Really delete component?'
+    'delete_component_question' => 'Really delete component?',
 ];

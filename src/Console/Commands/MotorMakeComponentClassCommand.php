@@ -6,11 +6,9 @@ use Motor\Core\Console\Commands\MotorMakeServiceCommand;
 
 /**
  * Class MotorMakeComponentClassCommand
- * @package Motor\CMS\Console\Commands
  */
 class MotorMakeComponentClassCommand extends MotorMakeServiceCommand
 {
-
     /**
      * The console command name.
      *
@@ -29,19 +27,16 @@ class MotorMakeComponentClassCommand extends MotorMakeServiceCommand
 
     protected $type = 'Component class';
 
-
     /**
      * Get the default namespace for the class.
      *
-     * @param string $rootNamespace
-     *
+     * @param  string  $rootNamespace
      * @return string
      */
     protected function getDefaultNamespace($rootNamespace): string
     {
-        return $rootNamespace . '\Components';
+        return $rootNamespace.'\Components';
     }
-
 
     /**
      * Get the stub file for the generator.
@@ -54,6 +49,6 @@ class MotorMakeComponentClassCommand extends MotorMakeServiceCommand
             return $this->option('stub_path');
         }
 
-        return __DIR__ . '/stubs/component_class.stub';
+        return __DIR__.'/stubs/component_class.stub';
     }
 }

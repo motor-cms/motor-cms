@@ -7,7 +7,6 @@ use Motor\Backend\Grid\Renderers\BooleanRenderer;
 
 /**
  * Class NavigationTreeGrid
- * @package Motor\CMS\Grids
  */
 class NavigationTreeGrid extends Grid
 {
@@ -23,7 +22,7 @@ class NavigationTreeGrid extends Grid
         $this->addAction(
             trans('motor-cms::backend/navigation_trees.show_nodes'),
             'backend.navigations.index',
-            [ 'class' => 'btn-primary' ]
+            ['class' => 'btn-primary']
         );
         $this->addEditAction(trans('motor-backend::backend/global.edit'), 'backend.navigation_trees.edit')
              ->onCondition('parent_id', null);
