@@ -2,7 +2,7 @@
 
 namespace Motor\CMS\Http\Resources;
 
-use Motor\Backend\Http\Resources\BaseCollection;
+use Motor\Admin\Http\Resources\BaseCollection;
 
 class NavigationTreeCollection extends BaseCollection
 {

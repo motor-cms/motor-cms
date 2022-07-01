@@ -8,8 +8,8 @@ use Culpa\Traits\DeletedBy;
 use Culpa\Traits\UpdatedBy;
 use Illuminate\Database\Eloquent\Model;
 use Kalnoy\Nestedset\NodeTrait;
-use Motor\Backend\Models\Client;
-use Motor\Backend\Models\Language;
+use Motor\Admin\Models\Client;
+use Motor\Admin\Models\Language;
 use Motor\Core\Traits\Filterable;
 
 /**

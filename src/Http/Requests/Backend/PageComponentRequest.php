@@ -2,18 +2,17 @@
 
 namespace Motor\CMS\Http\Requests\Backend;
 
-use Motor\Backend\Http\Requests\Request;
+use Motor\Admin\Http\Requests\Request;
 
 /**
  * Class PageComponentRequest
+ *
+ * @OA\Schema(
+ *   schema="PageComponentRequest",
+ * )
  */
 class PageComponentRequest extends Request
 {
-    /**
-     * @OA\Schema(
-     *   schema="PageComponentRequest",
-     * )
-     */
 
     /**
      * Determine if the user is authorized to make this request.

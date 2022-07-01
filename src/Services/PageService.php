@@ -2,7 +2,7 @@
 
 namespace Motor\CMS\Services;
 
-use Motor\Backend\Services\BaseService;
+use Motor\Admin\Services\BaseService;
 use Motor\CMS\Models\Page;
 
 /**

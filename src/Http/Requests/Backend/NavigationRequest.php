@@ -2,54 +2,53 @@
 
 namespace Motor\CMS\Http\Requests\Backend;
 
-use Motor\Backend\Http\Requests\Request;
+use Motor\Admin\Http\Requests\Request;
 
 /**
  * Class NavigationRequest
+ *
+ * @OA\Schema(
+ *   schema="NavigationRequest",
+ *   @OA\Property(
+ *     property="name",
+ *     type="string",
+ *     example="New category name"
+ *   ),
+ *   @OA\Property(
+ *     property="parent_id",
+ *     type="integer",
+ *     example="1"
+ *   ),
+ *   @OA\Property(
+ *     property="previous_sibling_id",
+ *     type="integer",
+ *     example="2"
+ *   ),
+ *   @OA\Property(
+ *     property="next_sibling_id",
+ *     type="integer",
+ *     example="4"
+ *   ),
+ *   @OA\Property(
+ *     property="page_id",
+ *     type="integer",
+ *     example="288"
+ *   ),
+ *   @OA\Property(
+ *     property="is_visible",
+ *     type="boolean",
+ *     example="true"
+ *   ),
+ *   @OA\Property(
+ *     property="is_active",
+ *     type="boolean",
+ *     example="true"
+ *   ),
+ *   required={"name", "parent_id"},
+ * )
  */
 class NavigationRequest extends Request
 {
-    /**
-     * @OA\Schema(
-     *   schema="NavigationRequest",
-     *   @OA\Property(
-     *     property="name",
-     *     type="string",
-     *     example="New category name"
-     *   ),
-     *   @OA\Property(
-     *     property="parent_id",
-     *     type="integer",
-     *     example="1"
-     *   ),
-     *   @OA\Property(
-     *     property="previous_sibling_id",
-     *     type="integer",
-     *     example="2"
-     *   ),
-     *   @OA\Property(
-     *     property="next_sibling_id",
-     *     type="integer",
-     *     example="4"
-     *   ),
-     *   @OA\Property(
-     *     property="page_id",
-     *     type="integer",
-     *     example="288"
-     *   ),
-     *   @OA\Property(
-     *     property="is_visible",
-     *     type="boolean",
-     *     example="true"
-     *   ),
-     *   @OA\Property(
-     *     property="is_active",
-     *     type="boolean",
-     *     example="true"
-     *   ),
-     *   required={"name", "parent_id"},
-     * )
-     */
 
     /**
      * Determine if the user is authorized to make this request.

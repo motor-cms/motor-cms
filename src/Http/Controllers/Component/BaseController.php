@@ -3,7 +3,7 @@
 namespace Motor\CMS\Http\Controllers\Component;
 
 use Illuminate\Support\Str;
-use Motor\Backend\Http\Controllers\Controller;
+use Motor\Admin\Http\Controllers\Controller;
 use Motor\CMS\Http\Requests\Backend\PageRequest;
 use Motor\CMS\Http\Requests\Components\ComponentBaseRequest;
 use Motor\CMS\Services\ComponentBaseService;

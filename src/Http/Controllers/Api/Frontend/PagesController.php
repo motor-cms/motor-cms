@@ -2,7 +2,7 @@
 
 namespace Motor\CMS\Http\Controllers\Api\Frontend;
 
-use Motor\Backend\Http\Controllers\Controller;
+use Motor\Admin\Http\Controllers\Controller;
 use Motor\CMS\Http\Resources\PageVersionResource;
 use Motor\CMS\Models\Navigation;
 use Motor\CMS\Models\Page;

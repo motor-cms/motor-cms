@@ -3,7 +3,7 @@
 namespace Motor\CMS\Http\Controllers\Component;
 
 use Illuminate\Http\JsonResponse;
-use Motor\Backend\Http\Controllers\Controller;
+use Motor\Admin\Http\Controllers\Controller;
 
 /**
  * Class ComponentController

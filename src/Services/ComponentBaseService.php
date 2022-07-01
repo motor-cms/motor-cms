@@ -3,8 +3,8 @@
 namespace Motor\CMS\Services;
 
 use Illuminate\Support\Arr;
-use Motor\Backend\Http\Requests\Request;
-use Motor\Backend\Services\BaseService;
+use Motor\Admin\Http\Requests\Request;
+use Motor\Admin\Services\BaseService;
 use Motor\CMS\Models\PageVersionComponent;
 use Motor\Media\Models\FileAssociation;
 use Spatie\Image\Image;

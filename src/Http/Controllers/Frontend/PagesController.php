@@ -4,7 +4,7 @@ namespace Motor\CMS\Http\Controllers\Frontend;
 
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
-use Motor\Backend\Http\Controllers\Controller;
+use Motor\Admin\Http\Controllers\Controller;
 use Motor\CMS\Models\Navigation;
 
 /**

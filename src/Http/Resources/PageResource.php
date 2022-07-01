@@ -2,9 +2,9 @@
 
 namespace Motor\CMS\Http\Resources;
 
-use Motor\Backend\Http\Resources\BaseResource;
-use Motor\Backend\Http\Resources\ClientResource;
-use Motor\Backend\Http\Resources\LanguageResource;
+use Motor\Admin\Http\Resources\BaseResource;
+use Motor\Admin\Http\Resources\ClientResource;
+use Motor\Admin\Http\Resources\LanguageResource;
 
 /**
  * @OA\Schema(

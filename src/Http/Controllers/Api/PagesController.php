@@ -2,7 +2,7 @@
 
 namespace Motor\CMS\Http\Controllers\Api;
 
-use Motor\Backend\Http\Controllers\ApiController;
+use Motor\Admin\Http\Controllers\ApiController;
 use Motor\CMS\Http\Requests\Backend\PageRequest;
 use Motor\CMS\Http\Resources\PageCollection;
 use Motor\CMS\Http\Resources\PageResource;

@@ -3,7 +3,7 @@
 namespace Motor\CMS\Services;
 
 use Illuminate\Support\Str;
-use Motor\Backend\Services\BaseService;
+use Motor\Admin\Services\BaseService;
 use Motor\CMS\Models\Navigation;
 
 /**
