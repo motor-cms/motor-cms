@@ -3,7 +3,7 @@
 namespace Motor\CMS\Policies;
 
 use Illuminate\Auth\Access\HandlesAuthorization;
-use Motor\Backend\Models\User;
+use Motor\Admin\Models\User;
 use Motor\CMS\Models\Navigation;
 
 class NavigationPolicy
