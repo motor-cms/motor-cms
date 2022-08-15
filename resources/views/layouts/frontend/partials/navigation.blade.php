@@ -2,7 +2,7 @@
     <div class="contain">
         <div class="top-bar-left">
             <ul class="dropdown menu" data-dropdown-menu>
-                <li class="menu-text">{{config('motor-backend-project.name')}}</li>
+                <li class="menu-text">{{config('motor-cms-frontend.name')}}</li>
                 @foreach($navigationItems as $item)
                     @if ($item->is_visible && $item->is_active)
                         <li class=" @if($activeNavigationSlugs[0] == $item->full_slug) active @endif">
