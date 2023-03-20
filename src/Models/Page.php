@@ -2,14 +2,12 @@
 
 namespace Motor\CMS\Models;
 
-use Culpa\Traits\Blameable;
-use Culpa\Traits\CreatedBy;
-use Culpa\Traits\DeletedBy;
-use Culpa\Traits\UpdatedBy;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Motor\CMS\Traits\Versionable;
 use Motor\Core\Traits\Filterable;
 use Motor\Core\Traits\Searchable;
+use RichanFongdasen\EloquentBlameable\BlameableTrait;
 
 /**
  * Motor\CMS\Models\Page
@@ -58,11 +56,10 @@ use Motor\Core\Traits\Searchable;
 class Page extends Model
 {
     use Searchable;
-    use Blameable, CreatedBy, UpdatedBy, DeletedBy;
+    use BlameableTrait;
     use Filterable;
     use Versionable;
-
-    protected $blameable = ['created', 'updated', 'deleted'];
+    use HasUuids;
 
     /**
      * Searchable columns for the searchable trait

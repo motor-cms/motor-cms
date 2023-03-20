@@ -1,7 +1,7 @@
 <?php
 
-use Culpa\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 /**
  * Class CreatePagesTable
@@ -26,9 +26,9 @@ class CreatePagesTable extends Migration
             $table->string('meta_keywords');
             $table->string('state')->index();
 
-            $table->createdBy();
-            $table->updatedBy();
-            $table->deletedBy(true);
+            $table->integer('created_by')->nullable();
+            $table->integer('updated_by')->nullable();
+            $table->integer('deleted_by')->nullable();
             $table->timestamps();
 
             $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
@@ -46,9 +46,9 @@ class CreatePagesTable extends Migration
             $table->string('meta_description');
             $table->string('meta_keywords');
 
-            $table->createdBy();
-            $table->updatedBy();
-            $table->deletedBy(true);
+            $table->integer('created_by')->nullable();
+            $table->integer('updated_by')->nullable();
+            $table->integer('deleted_by')->nullable();
             $table->timestamps();
 
             $table->foreign('versionable_id')->references('id')->on('pages')->onDelete('cascade');

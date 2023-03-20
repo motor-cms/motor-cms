@@ -2,6 +2,7 @@
 
 namespace Motor\CMS\Models;
 
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -16,6 +17,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class ComponentBaseModel extends Model
 {
+
+    use HasUuids;
     /**
      * @return \Illuminate\Database\Eloquent\Relations\MorphMany
      */

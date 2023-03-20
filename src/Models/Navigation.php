@@ -2,15 +2,13 @@
 
 namespace Motor\CMS\Models;
 
-use Culpa\Traits\Blameable;
-use Culpa\Traits\CreatedBy;
-use Culpa\Traits\DeletedBy;
-use Culpa\Traits\UpdatedBy;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Kalnoy\Nestedset\NodeTrait;
 use Motor\Backend\Models\Client;
 use Motor\Backend\Models\Language;
 use Motor\Core\Traits\Filterable;
+use RichanFongdasen\EloquentBlameable\BlameableTrait;
 
 /**
  * Motor\CMS\Models\Navigation
@@ -71,15 +69,9 @@ use Motor\Core\Traits\Filterable;
 class Navigation extends Model
 {
     use Filterable;
-    use Blameable, CreatedBy, UpdatedBy, DeletedBy;
+    use BlameableTrait;
     use NodeTrait;
-
-    /**
-     * Columns for the Blameable trait
-     *
-     * @var array
-     */
-    protected $blameable = ['created', 'updated', 'deleted'];
+    use HasUuids;
 
     /**
      * Searchable columns for the searchable trait
