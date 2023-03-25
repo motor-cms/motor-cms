@@ -3,7 +3,7 @@
 namespace Motor\CMS\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Kra8\Snowflake\HasShortFlakePrimary;
+use Kra8\Snowflake\HasShortflakePrimary;
 
 /**
  * Motor\CMS\Models\ComponentBaseModel
@@ -18,7 +18,7 @@ use Kra8\Snowflake\HasShortFlakePrimary;
 class ComponentBaseModel extends Model
 {
 
-    use HasShortFlakePrimary;
+    use HasShortflakePrimary;
     /**
      * @return \Illuminate\Database\Eloquent\Relations\MorphMany
      */

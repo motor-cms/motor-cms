@@ -4,7 +4,7 @@ namespace Motor\CMS\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Kalnoy\Nestedset\NodeTrait;
-use Kra8\Snowflake\HasShortFlakePrimary;
+use Kra8\Snowflake\HasShortflakePrimary;
 use Motor\Backend\Models\Client;
 use Motor\Backend\Models\Language;
 use Motor\Core\Traits\Filterable;
@@ -71,7 +71,7 @@ class Navigation extends Model
     use Filterable;
     use BlameableTrait;
     use NodeTrait;
-    use HasShortFlakePrimary;
+    use HasShortflakePrimary;
 
     /**
      * Searchable columns for the searchable trait
