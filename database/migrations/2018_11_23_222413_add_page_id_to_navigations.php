@@ -17,7 +17,7 @@ class AddPageIdToNavigations extends Migration
     public function up()
     {
         Schema::table('navigations', function (Blueprint $table) {
-            $table->integer('page_id')->unsigned()->index()->nullable()->after('slug');
+            $table->bigInteger('page_id')->unsigned()->index()->nullable()->after('slug');
             $table->foreign('page_id')->references('id')->on('pages')->onDelete('set null');
         });
     }

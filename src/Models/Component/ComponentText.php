@@ -2,7 +2,7 @@
 
 namespace Motor\CMS\Models\Component;
 
-use Kra8\Snowflake\HasSnowflakePrimary;
+use Kra8\Snowflake\HasShortFlakePrimary;
 use Motor\CMS\Models\ComponentBaseModel;
 use Motor\Media\Models\FileAssociation;
 use Spatie\MediaLibrary\HasMedia;
@@ -34,7 +34,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 class ComponentText extends ComponentBaseModel implements HasMedia
 {
     use InteractsWithMedia;
-    use HasSnowflakePrimary;
+    use HasShortFlakePrimary;
 
     /**
      * The attributes that are mass assignable.

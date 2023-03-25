@@ -18,8 +18,8 @@ class CreateNavigationsTable extends Migration
     {
         Schema::create('navigations', function (Blueprint $table) {
             $table->id();
-            $table->integer('client_id')->unsigned()->index();
-            $table->integer('language_id')->unsigned()->nullable()->index();
+            $table->bigInteger('client_id')->unsigned()->index();
+            $table->bigInteger('language_id')->unsigned()->nullable()->index();
             $table->string('name');
             $table->string('slug');
             $table->string('full_slug');
@@ -29,9 +29,9 @@ class CreateNavigationsTable extends Migration
             $table->string('scope')->index();
             NestedSet::columns($table);
 
-            $table->integer('created_by')->nullable();
-            $table->integer('updated_by')->nullable();
-            $table->integer('deleted_by')->nullable();
+            $table->bigInteger('created_by')->nullable();
+            $table->bigInteger('updated_by')->nullable();
+            $table->bigInteger('deleted_by')->nullable();
             $table->timestamps();
 
             $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');

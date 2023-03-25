@@ -3,7 +3,7 @@
 namespace Motor\CMS\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Kra8\Snowflake\HasSnowflakePrimary;
+use Kra8\Snowflake\HasShortFlakePrimary;
 use Motor\CMS\Traits\Versionable;
 use Motor\Core\Traits\Filterable;
 use Motor\Core\Traits\Searchable;
@@ -59,7 +59,7 @@ class Page extends Model
     use BlameableTrait;
     use Filterable;
     use Versionable;
-    use HasSnowflakePrimary;
+    use HasShortFlakePrimary;
 
     /**
      * Searchable columns for the searchable trait

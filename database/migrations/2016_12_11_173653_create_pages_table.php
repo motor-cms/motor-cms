@@ -17,8 +17,8 @@ class CreatePagesTable extends Migration
     {
         Schema::create('pages', function (Blueprint $table) {
             $table->id();
-            $table->integer('client_id')->unsigned()->index();
-            $table->integer('language_id')->unsigned()->nullable()->index();
+            $table->bigInteger('client_id')->unsigned()->index();
+            $table->bigInteger('language_id')->unsigned()->nullable()->index();
             $table->boolean('is_active');
             $table->string('template');
             $table->string('name');
@@ -26,9 +26,9 @@ class CreatePagesTable extends Migration
             $table->string('meta_keywords');
             $table->string('state')->index();
 
-            $table->integer('created_by')->nullable();
-            $table->integer('updated_by')->nullable();
-            $table->integer('deleted_by')->nullable();
+            $table->bigInteger('created_by')->nullable();
+            $table->bigInteger('updated_by')->nullable();
+            $table->bigInteger('deleted_by')->nullable();
             $table->timestamps();
 
             $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
@@ -38,17 +38,17 @@ class CreatePagesTable extends Migration
         Schema::create('page_versions', function (Blueprint $table) {
             $table->id();
             $table->string('versionable_state')->index();
-            $table->integer('versionable_number')->index();
-            $table->integer('versionable_id')->unsigned()->index();
+            $table->bigInteger('versionable_number')->index();
+            $table->bigInteger('versionable_id')->unsigned()->index();
             $table->boolean('is_active');
             $table->string('template');
             $table->string('name');
             $table->string('meta_description');
             $table->string('meta_keywords');
 
-            $table->integer('created_by')->nullable();
-            $table->integer('updated_by')->nullable();
-            $table->integer('deleted_by')->nullable();
+            $table->bigInteger('created_by')->nullable();
+            $table->bigInteger('updated_by')->nullable();
+            $table->bigInteger('deleted_by')->nullable();
             $table->timestamps();
 
             $table->foreign('versionable_id')->references('id')->on('pages')->onDelete('cascade');
@@ -56,7 +56,7 @@ class CreatePagesTable extends Migration
 
         Schema::create('page_version_components', function (Blueprint $table) {
             $table->id();
-            $table->integer('page_version_id')->unsigned()->index();
+            $table->bigInteger('page_version_id')->unsigned()->index();
             $table->string('container');
             $table->integer('sort_position')->unsigned();
             $table->string('component_name');
