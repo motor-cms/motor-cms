@@ -2,8 +2,8 @@
 
 namespace Motor\CMS\Models;
 
-use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
+use Kra8\Snowflake\HasSnowflakePrimary;
 
 /**
  * Motor\CMS\Models\ComponentBaseModel
@@ -18,7 +18,7 @@ use Illuminate\Database\Eloquent\Model;
 class ComponentBaseModel extends Model
 {
 
-    use HasUuids;
+    use HasSnowflakePrimary;
     /**
      * @return \Illuminate\Database\Eloquent\Relations\MorphMany
      */

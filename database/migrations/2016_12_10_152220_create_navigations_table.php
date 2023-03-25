@@ -17,7 +17,7 @@ class CreateNavigationsTable extends Migration
     public function up()
     {
         Schema::create('navigations', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->integer('client_id')->unsigned()->index();
             $table->integer('language_id')->unsigned()->nullable()->index();
             $table->string('name');

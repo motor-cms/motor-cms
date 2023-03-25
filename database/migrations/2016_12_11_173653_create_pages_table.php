@@ -16,7 +16,7 @@ class CreatePagesTable extends Migration
     public function up()
     {
         Schema::create('pages', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->integer('client_id')->unsigned()->index();
             $table->integer('language_id')->unsigned()->nullable()->index();
             $table->boolean('is_active');
@@ -36,7 +36,7 @@ class CreatePagesTable extends Migration
         });
 
         Schema::create('page_versions', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->string('versionable_state')->index();
             $table->integer('versionable_number')->index();
             $table->integer('versionable_id')->unsigned()->index();
@@ -55,7 +55,7 @@ class CreatePagesTable extends Migration
         });
 
         Schema::create('page_version_components', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->integer('page_version_id')->unsigned()->index();
             $table->string('container');
             $table->integer('sort_position')->unsigned();

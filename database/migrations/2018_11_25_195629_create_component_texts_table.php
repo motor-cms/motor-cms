@@ -16,7 +16,7 @@ class CreateComponentTextsTable extends Migration
     public function up()
     {
         Schema::create('component_texts', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->string('headline');
             $table->text('body');
             $table->timestamps();

@@ -2,9 +2,9 @@
 
 namespace Motor\CMS\Models;
 
-use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Kalnoy\Nestedset\NodeTrait;
+use Kra8\Snowflake\HasSnowflakePrimary;
 use Motor\Backend\Models\Client;
 use Motor\Backend\Models\Language;
 use Motor\Core\Traits\Filterable;
@@ -71,7 +71,7 @@ class Navigation extends Model
     use Filterable;
     use BlameableTrait;
     use NodeTrait;
-    use HasUuids;
+    use HasSnowflakePrimary;
 
     /**
      * Searchable columns for the searchable trait

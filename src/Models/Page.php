@@ -2,8 +2,8 @@
 
 namespace Motor\CMS\Models;
 
-use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
+use Kra8\Snowflake\HasSnowflakePrimary;
 use Motor\CMS\Traits\Versionable;
 use Motor\Core\Traits\Filterable;
 use Motor\Core\Traits\Searchable;
@@ -59,7 +59,7 @@ class Page extends Model
     use BlameableTrait;
     use Filterable;
     use Versionable;
-    use HasUuids;
+    use HasSnowflakePrimary;
 
     /**
      * Searchable columns for the searchable trait
