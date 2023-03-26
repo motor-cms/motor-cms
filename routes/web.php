@@ -91,9 +91,9 @@ Route::group([
          ->name('pages.index')
          ->where('slug', '[0-9a-zA-Z\/\-]+');
     Route::post('{slug}', [FrontendPagesController::class, 'index'])
-         ->name('pages.index')
+         ->name('pages.post')
          ->where('slug', '[0-9a-zA-Z\/\-]+');
     Route::patch('{slug}', [FrontendPagesController::class, 'index'])
-         ->name('pages.index')
+         ->name('pages.patch')
          ->where('slug', '[0-9a-zA-Z\/\-]+');
 });
