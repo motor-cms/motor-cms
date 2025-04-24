@@ -15,14 +15,14 @@ class NavigationGrid extends Grid
     {
         $this->addColumn('name', trans('motor-cms::backend/navigations.name'))->renderer(TreeRenderer::class);
         $this->addColumn('is_active', trans('motor-cms::backend/navigations.is_active'))
-             ->renderer(BooleanRenderer::class);
+            ->renderer(BooleanRenderer::class);
         $this->addColumn('is_visible', trans('motor-cms::backend/navigations.is_visible'))
-             ->renderer(BooleanRenderer::class);
+            ->renderer(BooleanRenderer::class);
         $this->addColumn('page.name', trans('motor-cms::backend/pages.page'));
 
         $this->addEditAction(trans('motor-backend::backend/global.edit'), 'backend.navigations.edit')
-             ->onCondition('parent_id', null, '!=');
+            ->onCondition('parent_id', null, '!=');
         $this->addDeleteAction(trans('motor-backend::backend/global.delete'), 'backend.navigations.destroy')
-             ->onCondition('parent_id', null, '!=');
+            ->onCondition('parent_id', null, '!=');
     }
 }

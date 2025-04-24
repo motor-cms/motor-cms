@@ -7,6 +7,7 @@ use Motor\Backend\Http\Resources\BaseResource;
 /**
  * @OA\Schema(
  *   schema="PageVersionResource",
+ *
  *   @OA\Property(
  *     property="id",
  *     type="integer",
@@ -55,6 +56,7 @@ use Motor\Backend\Http\Resources\BaseResource;
  *   @OA\Property(
  *     property="components",
  *     type="array",
+ *
  *     @OA\Items(
  *       ref="#/components/schemas/PageVersionComponentResource"
  *     ),
@@ -72,16 +74,16 @@ class PageVersionResource extends BaseResource
     public function toArray($request)
     {
         return [
-            'id'                 => (int) $this->id,
-            'name'               => $this->name,
-            'template'           => $this->template,
-            'is_active'          => (bool) $this->is_active,
-            'meta_description'   => $this->meta_description,
-            'meta_keywords'      => $this->meta_keywords,
-            'versionable_state'  => $this->versionable_state,
+            'id' => (int) $this->id,
+            'name' => $this->name,
+            'template' => $this->template,
+            'is_active' => (bool) $this->is_active,
+            'meta_description' => $this->meta_description,
+            'meta_keywords' => $this->meta_keywords,
+            'versionable_state' => $this->versionable_state,
             'versionable_number' => (int) $this->versionable_number,
-            'versionable_id'     => (int) $this->versionable_id,
-            'components'         => PageVersionComponentResource::collection($this->components),
+            'versionable_id' => (int) $this->versionable_id,
+            'components' => PageVersionComponentResource::collection($this->components),
         ];
     }
 }

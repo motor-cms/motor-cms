@@ -2,9 +2,9 @@
 
 return [
     'default' => [
-        'meta'  => [
+        'meta' => [
             'namespace' => 'motor-cms',
-            'name'      => 'Default template',
+            'name' => 'Default template',
         ],
         'items' => [
             [
@@ -16,64 +16,64 @@ return [
                     'items' => [
                         [
                             [
-                                'alias'     => 'content-full',
+                                'alias' => 'content-full',
                                 'container' => 'first-row-content',
-                                'width'     => 12,
+                                'width' => 12,
                             ],
                         ],
                         [
                             [
-                                'alias'     => 'content-third',
+                                'alias' => 'content-third',
                                 'container' => 'second-row-content-1',
-                                'width'     => 4,
+                                'width' => 4,
                             ],
                             [
-                                'alias'     => 'content-third',
+                                'alias' => 'content-third',
                                 'container' => 'second-row-content-2',
-                                'width'     => 4,
+                                'width' => 4,
                             ],
                             [
-                                'alias'     => 'content-third',
+                                'alias' => 'content-third',
                                 'container' => 'second-row-content-3',
-                                'width'     => 4,
+                                'width' => 4,
                             ],
                         ],
                         [
                             [
-                                'alias'     => 'content-half',
+                                'alias' => 'content-half',
                                 'container' => 'third-row-content-1',
-                                'width'     => 6,
+                                'width' => 6,
                             ],
                             [
-                                'alias'     => 'content-half',
+                                'alias' => 'content-half',
                                 'container' => 'third-row-content-2',
-                                'width'     => 6,
+                                'width' => 6,
                             ],
                         ],
                     ],
                 ],
                 [
-                    'alias'     => 'content-third',
-                    'class'     => 'sidebar-content',
+                    'alias' => 'content-third',
+                    'class' => 'sidebar-content',
                     'container' => 'second-row-sidebar',
-                    'width'     => 4,
+                    'width' => 4,
                 ],
             ],
             [
                 [
-                    'alias'     => 'content-full',
-                    'class'     => 'full-content',
+                    'alias' => 'content-full',
+                    'class' => 'full-content',
                     'container' => 'fourth-row-content',
-                    'width'     => 12,
+                    'width' => 12,
                 ],
             ],
         ],
 
     ],
-    'no-nav'  => [
-        'meta'  => [
+    'no-nav' => [
+        'meta' => [
             'namespace' => 'motor-cms',
-            'name'      => 'Default template without navigation',
+            'name' => 'Default template without navigation',
         ],
         'items' => [
             [
@@ -85,55 +85,55 @@ return [
                     'items' => [
                         [
                             [
-                                'alias'     => 'content-full',
+                                'alias' => 'content-full',
                                 'container' => 'first-row-content',
-                                'width'     => 12,
+                                'width' => 12,
                             ],
                         ],
                         [
                             [
-                                'alias'     => 'content-third',
+                                'alias' => 'content-third',
                                 'container' => 'second-row-content-1',
-                                'width'     => 4,
+                                'width' => 4,
                             ],
                             [
-                                'alias'     => 'content-third',
+                                'alias' => 'content-third',
                                 'container' => 'second-row-content-2',
-                                'width'     => 4,
+                                'width' => 4,
                             ],
                             [
-                                'alias'     => 'content-third',
+                                'alias' => 'content-third',
                                 'container' => 'second-row-content-3',
-                                'width'     => 4,
+                                'width' => 4,
                             ],
                         ],
                         [
                             [
-                                'alias'     => 'content-half',
+                                'alias' => 'content-half',
                                 'container' => 'third-row-content-1',
-                                'width'     => 6,
+                                'width' => 6,
                             ],
                             [
-                                'alias'     => 'content-half',
+                                'alias' => 'content-half',
                                 'container' => 'third-row-content-2',
-                                'width'     => 6,
+                                'width' => 6,
                             ],
                         ],
                     ],
                 ],
                 [
-                    'alias'     => 'content-third',
-                    'class'     => 'sidebar-content',
+                    'alias' => 'content-third',
+                    'class' => 'sidebar-content',
                     'container' => 'second-row-sidebar',
-                    'width'     => 4,
+                    'width' => 4,
                 ],
             ],
             [
                 [
-                    'alias'     => 'content-full',
-                    'class'     => 'full-content',
+                    'alias' => 'content-full',
+                    'class' => 'full-content',
                     'container' => 'fourth-row-content',
-                    'width'     => 12,
+                    'width' => 12,
                 ],
             ],
         ],

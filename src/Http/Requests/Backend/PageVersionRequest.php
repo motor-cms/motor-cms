@@ -12,6 +12,7 @@ class PageVersionRequest extends Request
     /**
      * @OA\Schema(
      *   schema="PageVersionRequest",
+     *
      *   @OA\Property(
      *     property="name",
      *     type="string",
@@ -60,11 +61,11 @@ class PageVersionRequest extends Request
     public function rules()
     {
         return [
-            'name'             => 'required',
-            'template'         => 'required',
+            'name' => 'required',
+            'template' => 'required',
             'meta_description' => 'nullable',
-            'meta_keywords'    => 'nullable',
-            'is_active'        => 'required|boolean',
+            'meta_keywords' => 'nullable',
+            'is_active' => 'required|boolean',
         ];
     }
 }

@@ -50,8 +50,8 @@ class NavigationTreesController extends Controller
     public function create()
     {
         $form = $this->form(NavigationTreeForm::class, [
-            'method'  => 'POST',
-            'route'   => 'backend.navigation_trees.store',
+            'method' => 'POST',
+            'route' => 'backend.navigation_trees.store',
             'enctype' => 'multipart/form-data',
         ]);
 
@@ -83,16 +83,15 @@ class NavigationTreesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Navigation  $record
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit(Navigation $record)
     {
         $form = $this->form(NavigationTreeForm::class, [
-            'method'  => 'PATCH',
-            'url'     => route('backend.navigation_trees.update', [$record->id]),
+            'method' => 'PATCH',
+            'url' => route('backend.navigation_trees.update', [$record->id]),
             'enctype' => 'multipart/form-data',
-            'model'   => $record,
+            'model' => $record,
         ]);
 
         return view('motor-cms::backend.navigation_trees.edit', compact('form'));
@@ -102,7 +101,6 @@ class NavigationTreesController extends Controller
      * Update the specified resource in storage.
      *
      * @param  NavigationRequest  $request
-     * @param  Navigation  $record
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function update(NavigationTreeRequest $request, Navigation $record)
@@ -124,7 +122,6 @@ class NavigationTreesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Navigation  $record
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function destroy(Navigation $record)

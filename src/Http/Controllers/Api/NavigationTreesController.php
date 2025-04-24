@@ -24,7 +24,9 @@ class NavigationTreesController extends ApiController
      *   tags={"NavigationTreesController"},
      *   path="/api/navigation_trees",
      *   summary="Get navigation tree collection",
+     *
      *   @OA\Parameter(
+     *
      *     @OA\Schema(type="string"),
      *     in="query",
      *     allowReserved=true,
@@ -32,15 +34,20 @@ class NavigationTreesController extends ApiController
      *     parameter="api_token",
      *     description="Personal api_token of the user"
      *   ),
+     *
      *   @OA\Response(
      *     response=200,
      *     description="Success",
+     *
      *     @OA\JsonContent(
+     *
      *       @OA\Property(
      *         property="data",
      *         type="array",
+     *
      *         @OA\Items(ref="#/components/schemas/NavigationTreeResource")
      *       ),
+     *
      *       @OA\Property(
      *         property="meta",
      *         ref="#/components/schemas/PaginationMeta"
@@ -56,9 +63,11 @@ class NavigationTreesController extends ApiController
      *       )
      *     )
      *   ),
+     *
      *   @OA\Response(
      *     response="403",
      *     description="Access denied",
+     *
      *     @OA\JsonContent(ref="#/components/schemas/AccessDenied"),
      *   )
      * )
@@ -73,8 +82,8 @@ class NavigationTreesController extends ApiController
 
         $filter = $service->getFilter();
         $filter->add(new WhereRenderer('parent_id'))
-               ->setDefaultValue(null)
-               ->setAllowNull(true);
+            ->setDefaultValue(null)
+            ->setAllowNull(true);
 
         $paginator = $service->getPaginator();
 
@@ -86,10 +95,14 @@ class NavigationTreesController extends ApiController
      *   tags={"NavigationTreesController"},
      *   path="/api/navigation_trees",
      *   summary="Create new navigation tree",
+     *
      *   @OA\RequestBody(
+     *
      *     @OA\JsonContent(ref="#/components/schemas/NavigationTreeRequest")
      *   ),
+     *
      *   @OA\Parameter(
+     *
      *     @OA\Schema(type="string"),
      *     in="query",
      *     allowReserved=true,
@@ -97,10 +110,13 @@ class NavigationTreesController extends ApiController
      *     parameter="api_token",
      *     description="Personal api_token of the user"
      *   ),
+     *
      *   @OA\Response(
      *     response=200,
      *     description="Success",
+     *
      *     @OA\JsonContent(
+     *
      *       @OA\Property(
      *         property="data",
      *         type="object",
@@ -113,31 +129,34 @@ class NavigationTreesController extends ApiController
      *       )
      *     )
      *   ),
+     *
      *   @OA\Response(
      *     response="403",
      *     description="Access denied",
+     *
      *     @OA\JsonContent(ref="#/components/schemas/AccessDenied"),
      *   ),
+     *
      *   @OA\Response(
      *     response="404",
      *     description="Not found",
+     *
      *     @OA\JsonContent(ref="#/components/schemas/NotFound"),
      *   )
      * )
      *
      * Store a newly created resource in storage.
      *
-     * @param  NavigationRequest  $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(NavigationRequest $request)
     {
         $result = NavigationService::create($request)
-                                   ->getResult();
+            ->getResult();
 
         return (new NavigationTreeResource($result))->additional(['message' => 'Navigation tree created'])
-                                                    ->response()
-                                                    ->setStatusCode(201);
+            ->response()
+            ->setStatusCode(201);
     }
 
     /**
@@ -145,7 +164,9 @@ class NavigationTreesController extends ApiController
      *   tags={"NavigationTreesController"},
      *   path="/api/navigation_trees/{navigation}",
      *   summary="Get single navigation tree",
+     *
      *   @OA\Parameter(
+     *
      *     @OA\Schema(type="string"),
      *     in="query",
      *     allowReserved=true,
@@ -153,17 +174,22 @@ class NavigationTreesController extends ApiController
      *     parameter="api_token",
      *     description="Personal api_token of the user"
      *   ),
+     *
      *   @OA\Parameter(
+     *
      *     @OA\Schema(type="integer"),
      *     in="path",
      *     name="navigation",
      *     parameter="navigation",
      *     description="Navigation tree id"
      *   ),
+     *
      *   @OA\Response(
      *     response=200,
      *     description="Success",
+     *
      *     @OA\JsonContent(
+     *
      *       @OA\Property(
      *         property="data",
      *         type="object",
@@ -176,27 +202,30 @@ class NavigationTreesController extends ApiController
      *       )
      *     )
      *   ),
+     *
      *   @OA\Response(
      *     response="403",
      *     description="Access denied",
+     *
      *     @OA\JsonContent(ref="#/components/schemas/AccessDenied"),
      *   ),
+     *
      *   @OA\Response(
      *     response="404",
      *     description="Not found",
+     *
      *     @OA\JsonContent(ref="#/components/schemas/NotFound"),
      *   )
      * )
      *
      * Display the specified resource.
      *
-     * @param  \Motor\CMS\Models\Navigation  $record
      * @return \Motor\CMS\Http\Resources\NavigationTreeResource
      */
     public function show(Navigation $record)
     {
         $result = NavigationService::show($record)
-                                   ->getResult();
+            ->getResult();
 
         return (new NavigationTreeResource($result->load('children')))->additional(['message' => 'Navigation tree read']);
     }
@@ -206,10 +235,14 @@ class NavigationTreesController extends ApiController
      *   tags={"NavigationTreesController"},
      *   path="/api/navigation_trees/{navigation}",
      *   summary="Update an existing navigation tree",
+     *
      *   @OA\RequestBody(
+     *
      *     @OA\JsonContent(ref="#/components/schemas/NavigationTreeRequest")
      *   ),
+     *
      *   @OA\Parameter(
+     *
      *     @OA\Schema(type="string"),
      *     in="query",
      *     allowReserved=true,
@@ -217,17 +250,22 @@ class NavigationTreesController extends ApiController
      *     parameter="api_token",
      *     description="Personal api_token of the user"
      *   ),
+     *
      *   @OA\Parameter(
+     *
      *     @OA\Schema(type="integer"),
      *     in="path",
      *     name="navigation",
      *     parameter="navigation",
      *     description="Navigation tree id"
      *   ),
+     *
      *   @OA\Response(
      *     response=200,
      *     description="Success",
+     *
      *     @OA\JsonContent(
+     *
      *       @OA\Property(
      *         property="data",
      *         type="object",
@@ -240,28 +278,30 @@ class NavigationTreesController extends ApiController
      *       )
      *     )
      *   ),
+     *
      *   @OA\Response(
      *     response="403",
      *     description="Access denied",
+     *
      *     @OA\JsonContent(ref="#/components/schemas/AccessDenied"),
      *   ),
+     *
      *   @OA\Response(
      *     response="404",
      *     description="Not found",
+     *
      *     @OA\JsonContent(ref="#/components/schemas/NotFound"),
      *   )
      * )
      *
      * Update the specified resource in storage.
      *
-     * @param  \Motor\CMS\Http\Requests\Backend\NavigationRequest  $request
-     * @param  \Motor\CMS\Models\Navigation  $record
      * @return \Motor\CMS\Http\Resources\NavigationTreeResource
      */
     public function update(NavigationRequest $request, Navigation $record)
     {
         $result = NavigationService::update($record, $request)
-                                   ->getResult();
+            ->getResult();
 
         return (new NavigationTreeResource($result))->additional(['message' => 'Navigation tree updated']);
     }
@@ -271,7 +311,9 @@ class NavigationTreesController extends ApiController
      *   tags={"NavigationTreesController"},
      *   path="/api/navigation_trees/{navigation}",
      *   summary="Delete a navigation tree",
+     *
      *   @OA\Parameter(
+     *
      *     @OA\Schema(type="string"),
      *     in="query",
      *     allowReserved=true,
@@ -279,17 +321,22 @@ class NavigationTreesController extends ApiController
      *     parameter="api_token",
      *     description="Personal api_token of the user"
      *   ),
+     *
      *   @OA\Parameter(
+     *
      *     @OA\Schema(type="integer"),
      *     in="path",
      *     name="navigation",
      *     parameter="navigation",
      *     description="Navigation tree id"
      *   ),
+     *
      *   @OA\Response(
      *     response=200,
      *     description="Success",
+     *
      *     @OA\JsonContent(
+     *
      *       @OA\Property(
      *         property="message",
      *         type="string",
@@ -297,20 +344,27 @@ class NavigationTreesController extends ApiController
      *       )
      *     )
      *   ),
+     *
      *   @OA\Response(
      *     response="403",
      *     description="Access denied",
+     *
      *     @OA\JsonContent(ref="#/components/schemas/AccessDenied"),
      *   ),
+     *
      *   @OA\Response(
      *     response="404",
      *     description="Not found",
+     *
      *     @OA\JsonContent(ref="#/components/schemas/NotFound"),
      *   ),
+     *
      *   @OA\Response(
      *     response="400",
      *     description="Bad request",
+     *
      *     @OA\JsonContent(
+     *
      *       @OA\Property(
      *         property="message",
      *         type="string",
@@ -322,13 +376,12 @@ class NavigationTreesController extends ApiController
      *
      * Remove the specified resource from storage.
      *
-     * @param  Navigation  $record
      * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Navigation $record)
     {
         $result = NavigationService::delete($record)
-                                   ->getResult();
+            ->getResult();
 
         if ($result) {
             return response()->json(['message' => 'Navigation tree deleted']);

@@ -1,14 +1,14 @@
 <?php
 
 return [
-    'groups'     => [
-        'basic'      => [
+    'groups' => [
+        'basic' => [
             'name' => 'Basic components',
         ],
-        'forms'      => [
+        'forms' => [
             'name' => 'Forms',
         ],
-        'media'      => [
+        'media' => [
             'name' => 'Media',
         ],
         'navigation' => [
@@ -17,32 +17,32 @@ return [
     ],
     'components' => [
         'navigation-sidebar' => [
-            'name'            => 'NavigationSidebar',
-            'description'     => 'Show NavigationSidebar component',
-            'view'            => 'motor-cms::frontend.components.navigation-sidebar',
+            'name' => 'NavigationSidebar',
+            'description' => 'Show NavigationSidebar component',
+            'view' => 'motor-cms::frontend.components.navigation-sidebar',
             'component_class' => 'Motor\CMS\Components\ComponentNavigationSidebars',
-            'compatibility'   => [
+            'compatibility' => [
 
             ],
-            'permissions'     => [
+            'permissions' => [
 
             ],
-            'group'           => 'navigation',
+            'group' => 'navigation',
         ],
-        'text'               => [
-            'name'            => 'Text',
-            'description'     => 'Show Text component',
-            'view'            => 'motor-cms::frontend.components.text',
-            'route'           => 'component.texts',
+        'text' => [
+            'name' => 'Text',
+            'description' => 'Show Text component',
+            'view' => 'motor-cms::frontend.components.text',
+            'route' => 'component.texts',
             'component_class' => 'Motor\CMS\Components\ComponentTexts',
-            'resource_class'  => 'Motor\CMS\Http\Resources\Components\TextResource',
-            'compatibility'   => [
+            'resource_class' => 'Motor\CMS\Http\Resources\Components\TextResource',
+            'compatibility' => [
 
             ],
-            'permissions'     => [
+            'permissions' => [
 
             ],
-            'group'           => 'basic',
+            'group' => 'basic',
         ],
     ],
 ];

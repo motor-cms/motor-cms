@@ -12,6 +12,7 @@ class PageRequest extends Request
     /**
      * @OA\Schema(
      *   schema="PageRequest",
+     *
      *   @OA\Property(
      *     property="name",
      *     type="string",
@@ -86,14 +87,14 @@ class PageRequest extends Request
         }
 
         return [
-            'name'             => 'required',
-            'client_id'        => 'required|integer',
-            'language_id'      => 'required|integer',
-            'template'         => 'required',
+            'name' => 'required',
+            'client_id' => 'required|integer',
+            'language_id' => 'required|integer',
+            'template' => 'required',
             'meta_description' => 'nullable',
-            'meta_keywords'    => 'nullable',
-            'is_active'        => 'nullable|boolean',
-            'publish'          => 'nullable|boolean',
+            'meta_keywords' => 'nullable',
+            'is_active' => 'nullable|boolean',
+            'publish' => 'nullable|boolean',
         ];
     }
 }

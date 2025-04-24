@@ -13,24 +13,24 @@ use RichanFongdasen\EloquentBlameable\BlameableTrait;
 /**
  * Motor\CMS\Models\Navigation
  *
- * @property int                                                              $id
- * @property int                                                              $client_id
- * @property int|null                                                         $language_id
- * @property string                                                           $name
- * @property string                                                           $slug
- * @property int|null                                                         $page_id
- * @property string                                                           $full_slug
- * @property int                                                              $is_visible
- * @property int                                                              $is_active
- * @property string                                                           $scope
- * @property int                                                              $_lft
- * @property int                                                              $_rgt
- * @property int|null                                                         $parent_id
- * @property int                                                              $created_by
- * @property int                                                              $updated_by
- * @property int|null                                                         $deleted_by
- * @property \Illuminate\Support\Carbon|null                                  $created_at
- * @property \Illuminate\Support\Carbon|null                                  $updated_at
+ * @property int $id
+ * @property int $client_id
+ * @property int|null $language_id
+ * @property string $name
+ * @property string $slug
+ * @property int|null $page_id
+ * @property string $full_slug
+ * @property int $is_visible
+ * @property int $is_active
+ * @property string $scope
+ * @property int $_lft
+ * @property int $_rgt
+ * @property int|null $parent_id
+ * @property int $created_by
+ * @property int $updated_by
+ * @property int|null $deleted_by
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Kalnoy\Nestedset\Collection|\Motor\CMS\Models\Navigation[] $children
  * @property-read \Motor\Backend\Models\Client                                $client
  * @property-read \Motor\Backend\Models\User                                  $creator
@@ -64,14 +64,15 @@ use RichanFongdasen\EloquentBlameable\BlameableTrait;
  * @method static \Illuminate\Database\Eloquent\Builder|\Motor\CMS\Models\Navigation whereSlug( $value )
  * @method static \Illuminate\Database\Eloquent\Builder|\Motor\CMS\Models\Navigation whereUpdatedAt( $value )
  * @method static \Illuminate\Database\Eloquent\Builder|\Motor\CMS\Models\Navigation whereUpdatedBy( $value )
+ *
  * @mixin \Eloquent
  */
 class Navigation extends Model
 {
-    use Filterable;
     use BlameableTrait;
-    use NodeTrait;
+    use Filterable;
     use HasShortflakePrimary;
+    use NodeTrait;
 
     /**
      * Searchable columns for the searchable trait

@@ -64,7 +64,7 @@ class MotorServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //$this->mergeConfigFrom(__DIR__ . '/../../config/laravel-menu/settings.php', 'laravel-menu.settings');
+        // $this->mergeConfigFrom(__DIR__ . '/../../config/laravel-menu/settings.php', 'laravel-menu.settings');
     }
 
     /**
@@ -72,14 +72,14 @@ class MotorServiceProvider extends ServiceProvider
      */
     public function publishResourceAssets()
     {
-        //$assets = [
+        // $assets = [
         //    //__DIR__ . '/../../resources/assets/sass'   => resource_path('assets/sass'),
         //    __DIR__ . '/../../resources/assets/js'     => resource_path('assets/js'),
         //    //__DIR__ . '/../../resources/assets/images' => resource_path('assets/images'),
         //    __DIR__ . '/../../resources/assets/npm'    => resource_path('assets/npm'),
-        //];
+        // ];
         //
-        //$this->publishes($assets, 'motor-cms-install-resources');
+        // $this->publishes($assets, 'motor-cms-install-resources');
     }
 
     /**
@@ -154,9 +154,9 @@ class MotorServiceProvider extends ServiceProvider
      */
     public function config()
     {
-        //$this->publishes([
+        // $this->publishes([
         //    __DIR__ . '/../../config/motor-backend-project.php'          => config_path('motor-backend-project.php'),
-        //], 'motor-backend-install');
+        // ], 'motor-backend-install');
     }
 
     /**

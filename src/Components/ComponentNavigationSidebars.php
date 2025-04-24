@@ -14,8 +14,6 @@ class ComponentNavigationSidebars
 
     /**
      * ComponentNavigationSidebars constructor.
-     *
-     * @param  PageVersionComponent  $pageVersionComponent
      */
     public function __construct(PageVersionComponent $pageVersionComponent)
     {
@@ -23,7 +21,6 @@ class ComponentNavigationSidebars
     }
 
     /**
-     * @param  Request  $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(Request $request)

@@ -22,7 +22,6 @@ class NavigationsController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param  Navigation  $record
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      *
      * @throws \ReflectionException
@@ -48,14 +47,13 @@ class NavigationsController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @param  Navigation  $root
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create(Navigation $root)
     {
         $form = $this->form(NavigationForm::class, [
-            'method'  => 'POST',
-            'route'   => 'backend.navigations.store',
+            'method' => 'POST',
+            'route' => 'backend.navigations.store',
             'enctype' => 'multipart/form-data',
         ]);
 
@@ -72,7 +70,6 @@ class NavigationsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  NavigationRequest  $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function store(NavigationRequest $request)
@@ -93,9 +90,6 @@ class NavigationsController extends Controller
         return redirect('backend/navigations/'.$root->id);
     }
 
-    /**
-     * @param $id
-     */
     public function show($id)
     {
         //
@@ -104,7 +98,6 @@ class NavigationsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Navigation  $record
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit(Navigation $record)
@@ -114,10 +107,10 @@ class NavigationsController extends Controller
         $trees = Navigation::where('scope', $root->scope)->defaultOrder()->get()->toTree();
 
         $form = $this->form(NavigationForm::class, [
-            'method'  => 'PATCH',
-            'url'     => route('backend.navigations.update', [$record->id]),
+            'method' => 'PATCH',
+            'url' => route('backend.navigations.update', [$record->id]),
             'enctype' => 'multipart/form-data',
-            'model'   => $record,
+            'model' => $record,
         ]);
 
         $newItem = false;
@@ -129,8 +122,6 @@ class NavigationsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  NavigationRequest  $request
-     * @param  Navigation  $record
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function update(NavigationRequest $request, Navigation $record)
@@ -154,7 +145,6 @@ class NavigationsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Navigation  $record
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function destroy(Navigation $record)

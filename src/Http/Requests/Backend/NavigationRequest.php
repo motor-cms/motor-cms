@@ -12,6 +12,7 @@ class NavigationRequest extends Request
     /**
      * @OA\Schema(
      *   schema="NavigationRequest",
+     *
      *   @OA\Property(
      *     property="name",
      *     type="string",
@@ -69,13 +70,13 @@ class NavigationRequest extends Request
     public function rules()
     {
         return [
-            'name'                => 'required',
-            'parent_id'           => 'required|integer',
+            'name' => 'required',
+            'parent_id' => 'required|integer',
             'previous_sibling_id' => 'nullable|integer',
-            'next_sibling_id'     => 'nullable|integer',
-            'page_id'             => 'nullable|integer',
-            'is_visible'          => 'nullable|boolean',
-            'is_active'           => 'nullable|boolean',
+            'next_sibling_id' => 'nullable|integer',
+            'page_id' => 'nullable|integer',
+            'is_visible' => 'nullable|boolean',
+            'is_active' => 'nullable|boolean',
         ];
     }
 }

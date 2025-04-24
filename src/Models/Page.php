@@ -12,20 +12,20 @@ use RichanFongdasen\EloquentBlameable\BlameableTrait;
 /**
  * Motor\CMS\Models\Page
  *
- * @property int                                                                           $id
- * @property int                                                                           $client_id
- * @property int|null                                                                      $language_id
- * @property int                                                                           $is_active
- * @property string                                                                        $template
- * @property string                                                                        $name
- * @property string                                                                        $meta_description
- * @property string                                                                        $meta_keywords
- * @property string                                                                        $state
- * @property int                                                                           $created_by
- * @property int                                                                           $updated_by
- * @property int|null                                                                      $deleted_by
- * @property \Illuminate\Support\Carbon|null                                               $created_at
- * @property \Illuminate\Support\Carbon|null                                               $updated_at
+ * @property int $id
+ * @property int $client_id
+ * @property int|null $language_id
+ * @property int $is_active
+ * @property string $template
+ * @property string $name
+ * @property string $meta_description
+ * @property string $meta_keywords
+ * @property string $state
+ * @property int $created_by
+ * @property int $updated_by
+ * @property int|null $deleted_by
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Motor\Backend\Models\User                                               $creator
  * @property-read \Motor\Backend\Models\User|null                                          $eraser
  * @property-read \Motor\Backend\Models\User                                               $updater
@@ -51,15 +51,16 @@ use RichanFongdasen\EloquentBlameable\BlameableTrait;
  * @method static \Illuminate\Database\Eloquent\Builder|\Motor\CMS\Models\Page whereTemplate( $value )
  * @method static \Illuminate\Database\Eloquent\Builder|\Motor\CMS\Models\Page whereUpdatedAt( $value )
  * @method static \Illuminate\Database\Eloquent\Builder|\Motor\CMS\Models\Page whereUpdatedBy( $value )
+ *
  * @mixin \Eloquent
  */
 class Page extends Model
 {
-    use Searchable;
     use BlameableTrait;
     use Filterable;
-    use Versionable;
     use HasShortflakePrimary;
+    use Searchable;
+    use Versionable;
 
     /**
      * Searchable columns for the searchable trait

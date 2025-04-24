@@ -22,8 +22,8 @@ class PagesController extends Controller
     {
         // Find page by slug
         $navigation = Navigation::where('scope', 'main')
-                                ->where('full_slug', $slug)
-                                ->first();
+            ->where('full_slug', $slug)
+            ->first();
 
         if (is_null($navigation)) {
             return response()->json(['Navigation '.$slug.' not found'], 404);

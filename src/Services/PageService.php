@@ -38,9 +38,9 @@ class PageService extends BaseService
             $this->record->setVersionState('LIVE');
             $this->record->setVersionAttributes($this->data);
             $this->record->updateVersion($this->record->getCurrentVersion());
-            //$previousVersion = $this->record->getCurrentVersion();
-            //$previousVersion->versionable_state = 'LIVE';
-            //$previousVersion->save();
+            // $previousVersion = $this->record->getCurrentVersion();
+            // $previousVersion->versionable_state = 'LIVE';
+            // $previousVersion->save();
             $this->record->addVersion();
         }
     }

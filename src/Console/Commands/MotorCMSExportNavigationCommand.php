@@ -28,8 +28,6 @@ class MotorCMSExportNavigationCommand extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return void
      */
     public function handle(): void
     {

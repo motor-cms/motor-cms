@@ -9,6 +9,7 @@ use Motor\Backend\Http\Resources\LanguageResource;
 /**
  * @OA\Schema(
  *   schema="NavigationTreeResource",
+ *
  *   @OA\Property(
  *     property="id",
  *     type="integer",
@@ -47,10 +48,10 @@ class NavigationTreeResource extends BaseResource
     public function toArray($request)
     {
         return [
-            'id'       => (int) $this->id,
-            'name'     => $this->name,
-            'scope'    => $this->scope,
-            'client'   => new ClientResource($this->client),
+            'id' => (int) $this->id,
+            'name' => $this->name,
+            'scope' => $this->scope,
+            'client' => new ClientResource($this->client),
             'language' => new LanguageResource($this->language),
             'children' => NavigationResource::collection($this->whenLoaded('children')),
         ];

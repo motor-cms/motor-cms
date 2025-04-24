@@ -13,12 +13,13 @@ use Kra8\Snowflake\HasShortflakePrimary;
  * @method static \Illuminate\Database\Eloquent\Builder|\Motor\CMS\Models\ComponentBaseModel newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\Motor\CMS\Models\ComponentBaseModel newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\Motor\CMS\Models\ComponentBaseModel query()
+ *
  * @mixin \Eloquent
  */
 class ComponentBaseModel extends Model
 {
-
     use HasShortflakePrimary;
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\MorphMany
      */

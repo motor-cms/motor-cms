@@ -25,20 +25,19 @@ trait Versionable
     public static function bootVersionable()
     {
         // FIXME: these seem to be unused currently - can we get rid of them (incompatibility with Laravel 5.8 as well)
-        //$hooks = new VersionableHooks;
+        // $hooks = new VersionableHooks;
         //
-        //foreach ([
+        // foreach ([
         //             'isDirty',
         //             'setAttribute',
         //         ] as $method) {
         //    static::observe($method, $hooks->{$method}());
-        //}
+        // }
     }
 
     /**
      * Override getter so we can return versionable attributes
      *
-     * @param $key
      * @return mixed
      *
      * @throws \ReflectionException
@@ -71,9 +70,6 @@ trait Versionable
         return $this->versionAttributes;
     }
 
-    /**
-     * @param $attributes
-     */
     public function setVersionAttributes($attributes)
     {
         $this->versionAttributes = $attributes;
@@ -132,7 +128,6 @@ trait Versionable
     /**
      * Set next version state
      *
-     * @param $state
      * @return $this
      */
     public function setVersionState($state)
@@ -155,7 +150,6 @@ trait Versionable
     /**
      * Override insert method
      *
-     * @param  Builder  $query
      * @return bool
      *
      * @throws \ReflectionException
@@ -173,7 +167,6 @@ trait Versionable
     /**
      * Override update method
      *
-     * @param  Builder  $query
      * @return bool
      *
      * @throws \ReflectionException
@@ -198,19 +191,18 @@ trait Versionable
      * @param  array  $options
      * @return mixed
      */
-    //public function saveNewVersion(array $options = [])
-    //{
+    // public function saveNewVersion(array $options = [])
+    // {
     //    $this->insertNewVersion = true;
     //    $result                 = parent::save($options);
     //    $this->insertNewVersion = false;
     //
     //    return $result;
-    //}
+    // }
 
     /**
      * Sets the current version to a given version number
      *
-     * @param $number
      * @return $this
      *
      * @throws \ReflectionException
@@ -258,8 +250,6 @@ trait Versionable
     }
 
     /**
-     * @return Model
-     *
      * @throws \ReflectionException
      */
     public function getLiveVersion(): Model
@@ -309,7 +299,6 @@ trait Versionable
     /**
      * Update a version and set the necessary attributes
      *
-     * @param $version
      *
      * @throws \ReflectionException
      */
@@ -317,7 +306,7 @@ trait Versionable
     {
         $model = $this->getVersionModel();
         if (is_null($version)) {
-            $version = new $model();
+            $version = new $model;
             $version->versionable_number = $this->getNextVersionNumber();
         }
 

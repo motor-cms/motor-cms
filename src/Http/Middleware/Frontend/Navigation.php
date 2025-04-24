@@ -13,17 +13,16 @@ class Navigation
      * Handle an incoming request.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
      * @return mixed
      */
     public function handle($request, Closure $next)
     {
         $activeNavigationSlug = $request->route()->parameter('slug');
         $navigationItems = \Motor\CMS\Models\Navigation::where('scope', 'main')
-                                                            ->where('parent_id', '!=', null)
-                                                            ->defaultOrder()
-                                                            ->get()
-                                                            ->toTree();
+            ->where('parent_id', '!=', null)
+            ->defaultOrder()
+            ->get()
+            ->toTree();
 
         $activeNavigationItem = null;
         $activeTopLevelNavigationItem = null;

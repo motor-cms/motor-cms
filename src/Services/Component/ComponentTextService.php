@@ -18,10 +18,10 @@ class ComponentTextService extends ComponentBaseService
     {
         parent::afterCreate();
         $this->addFileAssociation('image', [
-            'position'    => $this->request->get('image_position'),
-            'enlarge'     => $this->request->get('image_enlarge'),
+            'position' => $this->request->get('image_position'),
+            'enlarge' => $this->request->get('image_enlarge'),
             'description' => $this->request->get('image_description'),
-            'crop'        => $this->request->get('image_crop'),
+            'crop' => $this->request->get('image_crop'),
         ]);
     }
 
@@ -29,10 +29,10 @@ class ComponentTextService extends ComponentBaseService
     {
         parent::afterUpdate();
         $this->addFileAssociation('image', [
-            'position'    => $this->request->get('image_position'),
-            'enlarge'     => $this->request->get('image_enlarge'),
+            'position' => $this->request->get('image_position'),
+            'enlarge' => $this->request->get('image_enlarge'),
             'description' => $this->request->get('image_description'),
-            'crop'        => $this->request->get('image_crop'),
+            'crop' => $this->request->get('image_crop'),
         ]);
     }
 }

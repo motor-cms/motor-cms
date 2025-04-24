@@ -31,7 +31,7 @@ class MotorCMSBackendNavigationTest extends TestCase
         'media',
     ];
 
-    public function setUp()
+    protected function setUp()
     {
         parent::setUp();
 

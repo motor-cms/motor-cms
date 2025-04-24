@@ -46,8 +46,8 @@ class PagesController extends Controller
     public function create()
     {
         $form = $this->form(PageForm::class, [
-            'method'  => 'POST',
-            'route'   => 'backend.pages.store',
+            'method' => 'POST',
+            'route' => 'backend.pages.store',
             'enctype' => 'multipart/form-data',
         ]);
 
@@ -60,7 +60,6 @@ class PagesController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  PageRequest  $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function store(PageRequest $request)
@@ -81,8 +80,6 @@ class PagesController extends Controller
 
     /**
      * Display the specified resource.
-     *
-     * @param $id
      */
     public function show($id)
     {
@@ -90,7 +87,6 @@ class PagesController extends Controller
     }
 
     /**
-     * @param  Page  $record
      * @param  PageRequest  $request
      * @return \Illuminate\Http\JsonResponse
      */
@@ -102,8 +98,8 @@ class PagesController extends Controller
                     'page_version_id',
                     $component['page_component_data']['page_version_id']
                 )
-                                                            ->where('id', $component['page_component_data']['id'])
-                                                            ->first();
+                    ->where('id', $component['page_component_data']['id'])
+                    ->first();
                 if (! is_null($pageVersionComponent)) {
                     $pageVersionComponent->container = $component['page_component_data']['container'];
                     $pageVersionComponent->sort_position = $component['page_component_data']['sort_position'];
@@ -116,7 +112,6 @@ class PagesController extends Controller
     }
 
     /**
-     * @param  Page  $record
      * @return \Illuminate\Http\JsonResponse
      *
      * @throws \ReflectionException
@@ -125,28 +120,28 @@ class PagesController extends Controller
     {
         $returnArray = [];
         foreach ($record->getCurrentVersion()
-                        ->components()
-                        ->orderBy('container')
-                        ->orderBy('sort_position')
-                        ->get() as $pageComponent) {
+            ->components()
+            ->orderBy('container')
+            ->orderBy('sort_position')
+            ->get() as $pageComponent) {
             if (! isset($returnArray[$pageComponent->container])) {
                 $returnArray[$pageComponent->container] = [];
             }
 
             if ($pageComponent->component_id == null) {
                 $returnArray[$pageComponent->container][] = [
-                    'component_slug'      => $pageComponent->component_name,
+                    'component_slug' => $pageComponent->component_name,
                     'page_component_data' => $pageComponent->toArray(),
-                    'preview'             => '',
-                    'component_name'      => config('motor-cms-page-components.components.'.$pageComponent->component_name.'.name'),
+                    'preview' => '',
+                    'component_name' => config('motor-cms-page-components.components.'.$pageComponent->component_name.'.name'),
                 ];
             } else {
                 $preview = $pageComponent->component->preview();
                 $returnArray[$pageComponent->container][] = [
-                    'component_slug'      => $pageComponent->component_name,
+                    'component_slug' => $pageComponent->component_name,
                     'page_component_data' => $pageComponent->toArray(),
-                    'component_name'      => $preview['name'],
-                    'preview'             => $preview['preview'],
+                    'component_name' => $preview['name'],
+                    'preview' => $preview['preview'],
                 ];
             }
         }
@@ -155,8 +150,6 @@ class PagesController extends Controller
     }
 
     /**
-     * @param  Page  $page
-     * @param  PageVersionComponent  $pageVersionComponent
      * @return \Illuminate\Http\JsonResponse
      *
      * @throws \Exception
@@ -177,33 +170,31 @@ class PagesController extends Controller
         ]);
     }
 
-    //public function components(Page $record)
-    //{
+    // public function components(Page $record)
+    // {
     //    $templates  = config('motor-cms-page-templates');
     //
     //    return view('motor-cms::layouts.partials.template-loop', ['templates' => $templates, 'record' => $record]);
-    //}
+    // }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Page  $record
-     * @param  PageRequest  $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      *
      * @throws \ReflectionException
      */
     public function edit(Page $record, PageRequest $request)
     {
-        //if ($request->get('version_number')) {
+        // if ($request->get('version_number')) {
         //    $record->setCurrentVersion($request->get('version_number'));
-        //}
+        // }
 
         $form = $this->form(PageForm::class, [
-            'method'  => 'PATCH',
-            'url'     => route('backend.pages.update', [$record->id]),
+            'method' => 'PATCH',
+            'url' => route('backend.pages.update', [$record->id]),
             'enctype' => 'multipart/form-data',
-            'model'   => $record,
+            'model' => $record,
         ]);
 
         $templates = config('motor-cms-page-templates');
@@ -217,8 +208,6 @@ class PagesController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  PageRequest  $request
-     * @param  Page  $record
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function update(PageRequest $request, Page $record)
@@ -240,7 +229,6 @@ class PagesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Page  $record
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function destroy(Page $record)

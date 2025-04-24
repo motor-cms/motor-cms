@@ -9,6 +9,7 @@ use Motor\Backend\Http\Resources\LanguageResource;
 /**
  * @OA\Schema(
  *   schema="NavigationResource",
+ *
  *   @OA\Property(
  *     property="id",
  *     type="integer",
@@ -91,20 +92,20 @@ class NavigationResource extends BaseResource
         }
 
         return [
-            'id'         => (int) $this->id,
-            'name'       => $this->name,
-            'scope'      => $this->scope,
-            'slug'       => $this->slug,
-            'full_slug'  => $this->full_slug,
+            'id' => (int) $this->id,
+            'name' => $this->name,
+            'scope' => $this->scope,
+            'slug' => $this->slug,
+            'full_slug' => $this->full_slug,
             'is_visible' => (bool) $this->is_active,
-            'is_active'  => (bool) $this->is_active,
-            'page'       => new PageResource($this->page),
-            'client'     => new ClientResource($this->client),
-            'language'   => new LanguageResource($this->language),
-            'parent_id'  => (int) $this->parent_id,
-            '_lft'       => (int) $this->_lft,
-            '_rgt'       => (int) $this->_rgt,
-            'children'   => NavigationResource::collection($this->whenLoaded('children')),
+            'is_active' => (bool) $this->is_active,
+            'page' => new PageResource($this->page),
+            'client' => new ClientResource($this->client),
+            'language' => new LanguageResource($this->language),
+            'parent_id' => (int) $this->parent_id,
+            '_lft' => (int) $this->_lft,
+            '_rgt' => (int) $this->_rgt,
+            'children' => NavigationResource::collection($this->whenLoaded('children')),
         ];
     }
 }

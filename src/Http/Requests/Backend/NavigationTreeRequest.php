@@ -13,6 +13,7 @@ class NavigationTreeRequest extends Request
     /**
      * @OA\Schema(
      *   schema="NavigationTreeRequest",
+     *
      *   @OA\Property(
      *     property="name",
      *     type="string",
@@ -57,23 +58,23 @@ class NavigationTreeRequest extends Request
         $request = $this;
 
         return [
-            'name'        => 'required',
-            'scope'       => [
+            'name' => 'required',
+            'scope' => [
                 'required',
                 Rule::unique('navigations')
                     ->where(function ($query) use ($request) {
                         if ($request->method() == 'PATCH' || $request->method() == 'PUT') {
                             return $query->where('scope', $request->scope)
-                                         ->where('parent_id', null)
-                                         ->where('id', '!=', $request->route()
-                                                                     ->originalParameter('navigation'));
+                                ->where('parent_id', null)
+                                ->where('id', '!=', $request->route()
+                                    ->originalParameter('navigation'));
                         } else {
                             return $query->where('scope', $request->scope)
-                                         ->where('parent_id', null);
+                                ->where('parent_id', null);
                         }
                     }),
             ],
-            'client_id'   => 'required|integer',
+            'client_id' => 'required|integer',
             'language_id' => 'nullable|integer',
         ];
     }

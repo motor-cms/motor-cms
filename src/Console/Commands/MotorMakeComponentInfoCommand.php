@@ -24,65 +24,44 @@ class MotorMakeComponentInfoCommand extends MotorAbstractCommand
      */
     protected $description = 'Display config information according to the given name';
 
-    /**
-     * @return string
-     */
     protected function getTargetPath(): string
     {
         return '';
     }
 
-    /**
-     * @return string
-     */
     protected function getTargetFile(): string
     {
         return '';
     }
 
-    /**
-     * @return string
-     */
     protected function getComponentConfigurationStub(): string
     {
         return __DIR__.'/stubs/info/component_configuration.stub';
     }
 
-    /**
-     * @return string
-     */
     protected function getComponentConfigurationNoModelStub(): string
     {
         return __DIR__.'/stubs/info/component_configuration_no_model.stub';
     }
 
-    /**
-     * @return string
-     */
     protected function getRouteStub(): string
     {
         return __DIR__.'/stubs/info/route.stub';
     }
 
-    /**
-     * @return string
-     */
     protected function getRouteModelBindingStub(): string
     {
         return __DIR__.'/stubs/info/routemodelbinding.stub';
     }
 
-    //protected function getPermissionStub()
-    //{
+    // protected function getPermissionStub()
+    // {
     //    return __DIR__ . '/stubs/info/permissions.stub';
-    //}
+    // }
 
-    /**
-     * @param $directory
-     */
     protected function makeDirectory($directory): void
     {
-        $filesystem = new Filesystem();
+        $filesystem = new Filesystem;
         if (! $filesystem->isDirectory($directory)) {
             $filesystem->makeDirectory($directory, 0755, true);
         }
@@ -90,8 +69,6 @@ class MotorMakeComponentInfoCommand extends MotorAbstractCommand
 
     /**
      * Execute the console command.
-     *
-     * @return void
      */
     public function handle(): void
     {
@@ -125,10 +102,10 @@ class MotorMakeComponentInfoCommand extends MotorAbstractCommand
             $this->info('In order to make your translations available for the page manager please, execute \'php artisan motor:vue-i18n:generate\'');
         }
 
-        //$permission = file_get_contents($this->getPermissionStub());
-        //$permission = $this->replaceTemplateVars($permission);
+        // $permission = file_get_contents($this->getPermissionStub());
+        // $permission = $this->replaceTemplateVars($permission);
 
-        //$this->info('Add this to your app/config/motor-backend-permissions.php file');
-        //echo $permission."\n";
+        // $this->info('Add this to your app/config/motor-backend-permissions.php file');
+        // echo $permission."\n";
     }
 }

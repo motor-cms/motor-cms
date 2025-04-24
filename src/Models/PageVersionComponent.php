@@ -10,15 +10,15 @@ use Motor\Core\Traits\Searchable;
 /**
  * Motor\CMS\Models\PageVersionComponent
  *
- * @property int                                                $id
- * @property int                                                $page_version_id
- * @property string                                             $container
- * @property int                                                $sort_position
- * @property string                                             $component_name
- * @property string                                             $component_type
- * @property string                                             $component_id
- * @property \Illuminate\Support\Carbon|null                    $created_at
- * @property \Illuminate\Support\Carbon|null                    $updated_at
+ * @property int $id
+ * @property int $page_version_id
+ * @property string $container
+ * @property int $sort_position
+ * @property string $component_name
+ * @property string $component_type
+ * @property string $component_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $component
  * @property-read \Motor\CMS\Models\PageVersion                 $version
  *
@@ -37,13 +37,14 @@ use Motor\Core\Traits\Searchable;
  * @method static \Illuminate\Database\Eloquent\Builder|\Motor\CMS\Models\PageVersionComponent wherePageVersionId( $value )
  * @method static \Illuminate\Database\Eloquent\Builder|\Motor\CMS\Models\PageVersionComponent whereSortPosition( $value )
  * @method static \Illuminate\Database\Eloquent\Builder|\Motor\CMS\Models\PageVersionComponent whereUpdatedAt( $value )
+ *
  * @mixin \Eloquent
  */
 class PageVersionComponent extends Model
 {
-    use Searchable;
     use Filterable;
     use HasShortflakePrimary;
+    use Searchable;
 
     /**
      * Searchable columns for the searchable trait

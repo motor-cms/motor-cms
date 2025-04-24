@@ -25,7 +25,9 @@ class PageVersionsController extends ApiController
      *   tags={"PageVersionsController"},
      *   path="/api/pages/{page}/page_versions",
      *   summary="Get page versions collection",
+     *
      *   @OA\Parameter(
+     *
      *     @OA\Schema(type="string"),
      *     in="query",
      *     allowReserved=true,
@@ -33,22 +35,29 @@ class PageVersionsController extends ApiController
      *     parameter="api_token",
      *     description="Personal api_token of the user"
      *   ),
+     *
      *   @OA\Parameter(
+     *
      *     @OA\Schema(type="integer"),
      *     in="path",
      *     name="page",
      *     parameter="page",
      *     description="Page id"
      *   ),
+     *
      *   @OA\Response(
      *     response=200,
      *     description="Success",
+     *
      *     @OA\JsonContent(
+     *
      *       @OA\Property(
      *         property="data",
      *         type="array",
+     *
      *         @OA\Items(ref="#/components/schemas/PageVersionResource")
      *       ),
+     *
      *       @OA\Property(
      *         property="meta",
      *         ref="#/components/schemas/PaginationMeta"
@@ -64,16 +73,17 @@ class PageVersionsController extends ApiController
      *       )
      *     )
      *   ),
+     *
      *   @OA\Response(
      *     response="403",
      *     description="Access denied",
+     *
      *     @OA\JsonContent(ref="#/components/schemas/AccessDenied"),
      *   )
      * )
      *
      * Display a listing of the resource.
      *
-     * @param  \Motor\CMS\Models\Page  $page
      * @return \Motor\CMS\Http\Resources\PageVersionCollection
      */
     public function index(Page $page)
@@ -82,7 +92,7 @@ class PageVersionsController extends ApiController
 
         $filter = $service->getFilter();
         $filter->add(new WhereRenderer('page_id'))
-               ->setValue($page->id);
+            ->setValue($page->id);
 
         $paginator = $service->getPaginator();
 
@@ -94,7 +104,9 @@ class PageVersionsController extends ApiController
      *   tags={"PageVersionsController"},
      *   path="/api/pages/{page}/page_versions/{page_version}",
      *   summary="Get single page",
+     *
      *   @OA\Parameter(
+     *
      *     @OA\Schema(type="string"),
      *     in="query",
      *     allowReserved=true,
@@ -102,24 +114,31 @@ class PageVersionsController extends ApiController
      *     parameter="api_token",
      *     description="Personal api_token of the user"
      *   ),
+     *
      *   @OA\Parameter(
+     *
      *     @OA\Schema(type="integer"),
      *     in="path",
      *     name="page",
      *     parameter="page",
      *     description="Page id"
      *   ),
+     *
      *   @OA\Parameter(
+     *
      *     @OA\Schema(type="integer"),
      *     in="path",
      *     name="page_version",
      *     parameter="page_version",
      *     description="Page version id"
      *   ),
+     *
      *   @OA\Response(
      *     response=200,
      *     description="Success",
+     *
      *     @OA\JsonContent(
+     *
      *       @OA\Property(
      *         property="data",
      *         type="object",
@@ -132,28 +151,30 @@ class PageVersionsController extends ApiController
      *       )
      *     )
      *   ),
+     *
      *   @OA\Response(
      *     response="403",
      *     description="Access denied",
+     *
      *     @OA\JsonContent(ref="#/components/schemas/AccessDenied"),
      *   ),
+     *
      *   @OA\Response(
      *     response="404",
      *     description="Not found",
+     *
      *     @OA\JsonContent(ref="#/components/schemas/NotFound"),
      *   )
      * )
      *
      * Display the specified resource.
      *
-     * @param  \Motor\CMS\Models\Page  $page
-     * @param  \Motor\CMS\Models\PageVersion  $record
      * @return \Motor\CMS\Http\Resources\PageVersionResource
      */
     public function show(Page $page, PageVersion $record)
     {
         $result = PageVersionService::show($record)
-                                    ->getResult();
+            ->getResult();
 
         return (new PageVersionResource($result))->additional(['message' => 'Page version read']);
     }
@@ -163,10 +184,14 @@ class PageVersionsController extends ApiController
      *   tags={"PageVersionsController"},
      *   path="/api/pages/{page}/page_versions/{page_version}",
      *   summary="Update an existing page version",
+     *
      *   @OA\RequestBody(
+     *
      *     @OA\JsonContent(ref="#/components/schemas/PageVersionRequest")
      *   ),
+     *
      *   @OA\Parameter(
+     *
      *     @OA\Schema(type="string"),
      *     in="query",
      *     allowReserved=true,
@@ -174,24 +199,31 @@ class PageVersionsController extends ApiController
      *     parameter="api_token",
      *     description="Personal api_token of the user"
      *   ),
+     *
      *   @OA\Parameter(
+     *
      *     @OA\Schema(type="integer"),
      *     in="path",
      *     name="page",
      *     parameter="page",
      *     description="Page id"
      *   ),
+     *
      *   @OA\Parameter(
+     *
      *     @OA\Schema(type="integer"),
      *     in="path",
      *     name="page_version",
      *     parameter="page_version",
      *     description="Page version id"
      *   ),
+     *
      *   @OA\Response(
      *     response=200,
      *     description="Success",
+     *
      *     @OA\JsonContent(
+     *
      *       @OA\Property(
      *         property="data",
      *         type="object",
@@ -204,29 +236,30 @@ class PageVersionsController extends ApiController
      *       )
      *     )
      *   ),
+     *
      *   @OA\Response(
      *     response="403",
      *     description="Access denied",
+     *
      *     @OA\JsonContent(ref="#/components/schemas/AccessDenied"),
      *   ),
+     *
      *   @OA\Response(
      *     response="404",
      *     description="Not found",
+     *
      *     @OA\JsonContent(ref="#/components/schemas/NotFound"),
      *   )
      * )
      *
      * Update the specified resource in storage.
      *
-     * @param  \Motor\CMS\Http\Requests\Backend\PageVersionRequest  $request
-     * @param  \Motor\CMS\Models\Page  $page
-     * @param  \Motor\CMS\Models\PageVersion  $record
      * @return \Motor\CMS\Http\Resources\PageVersionResource
      */
     public function update(PageVersionRequest $request, Page $page, PageVersion $record)
     {
         $result = PageVersionService::update($record, $request)
-                                    ->getResult();
+            ->getResult();
 
         return (new PageVersionResource($result))->additional(['message' => 'Page version updated']);
     }
@@ -236,7 +269,9 @@ class PageVersionsController extends ApiController
      *   tags={"PageVersionsController"},
      *   path="/api/pages/{page}/page_versions/{page_version}",
      *   summary="Delete a page version",
+     *
      *   @OA\Parameter(
+     *
      *     @OA\Schema(type="string"),
      *     in="query",
      *     allowReserved=true,
@@ -244,24 +279,31 @@ class PageVersionsController extends ApiController
      *     parameter="api_token",
      *     description="Personal api_token of the user"
      *   ),
+     *
      *   @OA\Parameter(
+     *
      *     @OA\Schema(type="integer"),
      *     in="path",
      *     name="page",
      *     parameter="page",
      *     description="Page id"
      *   ),
+     *
      *   @OA\Parameter(
+     *
      *     @OA\Schema(type="integer"),
      *     in="path",
      *     name="page_version",
      *     parameter="page_version",
      *     description="Page version id"
      *   ),
+     *
      *   @OA\Response(
      *     response=200,
      *     description="Success",
+     *
      *     @OA\JsonContent(
+     *
      *       @OA\Property(
      *         property="message",
      *         type="string",
@@ -269,20 +311,27 @@ class PageVersionsController extends ApiController
      *       )
      *     )
      *   ),
+     *
      *   @OA\Response(
      *     response="403",
      *     description="Access denied",
+     *
      *     @OA\JsonContent(ref="#/components/schemas/AccessDenied"),
      *   ),
+     *
      *   @OA\Response(
      *     response="404",
      *     description="Not found",
+     *
      *     @OA\JsonContent(ref="#/components/schemas/NotFound"),
      *   ),
+     *
      *   @OA\Response(
      *     response="400",
      *     description="Bad request",
+     *
      *     @OA\JsonContent(
+     *
      *       @OA\Property(
      *         property="message",
      *         type="string",
@@ -294,14 +343,12 @@ class PageVersionsController extends ApiController
      *
      * Remove the specified resource from storage.
      *
-     * @param  \Motor\CMS\Models\Page  $page
-     * @param  \Motor\CMS\Models\PageVersion  $record
      * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Page $page, PageVersion $record)
     {
         $result = PageVersionService::delete($record)
-                                    ->getResult();
+            ->getResult();
 
         if ($result) {
             return response()->json(['message' => 'Page version deleted']);

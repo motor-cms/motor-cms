@@ -12,6 +12,7 @@ class ComponentBaseRequest extends Request
     /**
      * @OA\Schema(
      *   schema="ComponentBaseRequest",
+     *
      *   @OA\Property(
      *     property="name",
      *     type="string",

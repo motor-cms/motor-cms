@@ -17,8 +17,8 @@ class ComponentTextResource extends BaseResource
     {
         $media = null;
         $fileAssociation = $this->file_associations()
-                                ->where('identifier', 'image')
-                                ->first();
+            ->where('identifier', 'image')
+            ->first();
 
         if (! is_null($fileAssociation)) {
             $media = $fileAssociation->file->getFirstMedia('file');
@@ -26,9 +26,9 @@ class ComponentTextResource extends BaseResource
 
         return [
             'headline' => $this->headline,
-            'body'     => $this->body,
-            'anchor'   => $this->anchor,
-            'image'    => $this->when($media, new MediaResource($media)),
+            'body' => $this->body,
+            'anchor' => $this->anchor,
+            'image' => $this->when($media, new MediaResource($media)),
         ];
     }
 }

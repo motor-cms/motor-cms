@@ -10,6 +10,7 @@ use ReflectionClass;
 /**
  * @OA\Schema(
  *   schema="PageVersionComponentResource",
+ *
  *   @OA\Property(
  *     property="id",
  *     type="integer",
@@ -67,14 +68,14 @@ class PageVersionComponentResource extends BaseResource
         }
 
         return [
-            'id'              => (int) $this->id,
+            'id' => (int) $this->id,
             'page_version_id' => (int) $this->page_version_id,
-            'container'       => $this->container,
-            'sort_position'   => (int) $this->sort_position,
-            'component_name'  => $this->component_name,
-            'component_type'  => $this->component_type,
-            'component_id'    => (int) $this->component_id,
-            'component'       => $this->when($componentResource, $componentResource),
+            'container' => $this->container,
+            'sort_position' => (int) $this->sort_position,
+            'component_name' => $this->component_name,
+            'component_type' => $this->component_type,
+            'component_id' => (int) $this->component_id,
+            'component' => $this->when($componentResource, $componentResource),
         ];
     }
 }
