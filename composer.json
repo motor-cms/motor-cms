@@ -13,7 +13,7 @@
   ],
   "require": {
     "php": "^8.2",
-    "motor-cms/motor-backend": "^1.4"
+    "motor-cms/motor-backend": "^1.6"
   },
   "autoload": {
     "psr-4": {
