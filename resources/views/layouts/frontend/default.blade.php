@@ -21,7 +21,7 @@
 
 <script src="{{mix('js/motor-frontend.js')}}"></script>
 @yield('view-scripts')
-<script>
+<script type="module">
     $(document).foundation();
 </script>
 </body>

@@ -5,16 +5,16 @@
                 <div class="modal-header">
                     <h4 class="modal-title"></h4>
                     <button class="close" type="button" @click="closeModal()">
-                        <span aria-hidden="true">×</span>
+                        <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body motor-cms-components d-none">
-                    <template v-for="(group, name, index) in availableComponents.groups">
+                    <template v-for="(group, name, index) in availableComponents.groups" :key="name">
                         <template v-if="hasComponents(name)">
                             <h4 :class="{'pt-3' : index > 0}">{{group.name}}</h4>
                             <div>
-                                <template v-for="(component, name, index) in getComponents(name)">
-                                    <button @click="addComponent(component, name)"
+                                <template v-for="(component, cName, cIndex) in getComponents(name)" :key="cName">
+                                    <button @click="addComponent(component, cName)"
                                             class="btn btn-secondary">{{component.name}}
                                         <br><sub>{{component.description}}</sub></button>
                                 </template>
@@ -26,7 +26,7 @@
                 <div class="modal-body motor-cms-component-form d-none">
                     <div class="row">
                         <div class="component-body" :class="[form.options.mediapool ? 'col-md-8' : 'col-md-12']">
-                            <template v-for="field of form.fields">
+                            <template v-for="field of form.fields" :key="field.options?.real_name">
                                 <template v-if="field.type == 'hidden'">
                                     <input type="hidden" v-model="field.options.value" :name="field.options.real_name">
                                 </template>
@@ -38,8 +38,8 @@
                                         <select v-model="field.options.selected" :name="field.options.real_name"
                                                 :id="field.options.real_name" class="form-control">
                                             <option v-if="field.options.empty_value">{{field.options.empty_value}}</option>
-                                            <option v-for="(name, value) in field.options.choices" :value="value">
-                                                {{name}}
+                                            <option v-for="(optName, optValue) in field.options.choices" :key="optValue" :value="optValue">
+                                                {{optName}}
                                             </option>
                                         </select>
                                     </div>
@@ -91,9 +91,9 @@
                                         <label :for="field.options.real_name" class="control-label">{{
                                             field.options.label
                                             }}</label>
-                                        <date-picker :id="field.options.real_name" class="form-control"
-                                                     v-model="field.options.value"
-                                                     :name="field.options.real_name" :config="{}"></date-picker>
+                                        <input type="datetime-local" :id="field.options.real_name" class="form-control"
+                                               v-model="field.options.value"
+                                               :name="field.options.real_name">
                                     </div>
                                 </template>
                                 <template v-if="field.type == 'file_association'">
@@ -123,248 +123,231 @@
     }
 </style>
 
-<script>
-    import datePicker from 'vue-bootstrap-datetimepicker';
-    import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+<script setup>
+import { ref, reactive, onMounted, onUnmounted, getCurrentInstance } from 'vue';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
-    export default {
-        name: 'motor-cms-page-component-modal',
-        props: ['pageId', 'pageVersionId', 'availableComponents'],
-        components: {
-            datePicker
-        },
-        data() {
-            return {
-                editor: ClassicEditor,
-                editorConfig: { toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote' ]},
-                componentContainer: '',
-                form: {
-                    fields: [],
-                    options: [],
-                    route: false,
-                    method: false,
-                    componentId: null,
-                }
+const props = defineProps(['pageId', 'pageVersionId', 'availableComponents']);
+
+const { proxy, appContext } = getCurrentInstance();
+const $t = proxy.$t;
+const route = appContext.config.globalProperties.route;
+const eventBus = window.eventBus;
+
+const editor = ClassicEditor;
+const editorConfig = {
+    toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote']
+};
+
+const componentContainer = ref('');
+const form = reactive({
+    fields: [],
+    options: [],
+    route: false,
+    method: false,
+    componentId: null,
+});
+
+function getComponents(group) {
+    let components = {};
+    for (let key in props.availableComponents.components) {
+        if (props.availableComponents.components.hasOwnProperty(key)) {
+            if (props.availableComponents.components[key].group == group) {
+                components[key] = props.availableComponents.components[key];
             }
-        },
-        created: function () {
-            this.$eventHub.$on('motor-cms:open-modal', (data) => {
-                this.openModal(data);
-            });
-            this.$eventHub.$on('motor-cms:edit-component', (data) => {
-                this.editComponent(data.route, data.componentId, data.container);
-            });
-            this.$eventHub.$on('motor-cms:delete-component', (data) => {
-                this.deleteComponent(data.pageId, data.componentId);
-            });
-        },
-        mounted: function () {
-            $('#motor-component-modal').modal({focus: false, show: false});
-        },
-        methods: {
-            getComponents(group) {
-                let components = {};
-                for (let key in this.availableComponents.components) {
-                    if (this.availableComponents.components.hasOwnProperty(key)) {
-                        if (this.availableComponents.components[key].group == group) {
-                            components[key] = this.availableComponents.components[key];
-                        }
-                    }
-                }
-                return components;
-            },
-            hasComponents(group) {
-                for (let key in this.availableComponents.components) {
-                    if (this.availableComponents.components.hasOwnProperty(key)) {
-                        if (this.availableComponents.components[key].group == group) {
-                            return true;
-                        }
-                    }
-                }
-                return false;
-            },
-            closeModal() {
-                // Send clear event to all components to remove data in case the component gets reused
-                this.form.fields = [];
-                this.form.options = [];
-                this.form.route = false;
-                this.form.method = false;
-                this.form.componentId = null;
-                this.$eventHub.$emit('motor-cms:clear-data');
-                $('#motor-component-modal').modal('hide');
-            },
-            openModal(data) {
-                $('.motor-cms-components').removeClass('d-none');
-                $('.motor-cms-component-form').addClass('d-none');
-                $('.modal-footer').addClass('d-none');
-
-                $('.motor-cms-components').data('container', data.container);
-
-                console.log('new component for container ' + data.container);
-
-                // $.fn.modal.Constructor.prototype._enforceFocus = function() {};
-
-                $('#motor-component-modal .modal-title').html('Add new component to container ' + data.container);
-                this.componentContainer = data.container;
-                $('#motor-component-modal').modal('show');
-            },
-            addComponent(component, index) {
-                if (component.route === undefined) {
-                    // This is a component without configuration or separate model
-                    axios.post(route('component.base.store'), {
-                        container: this.componentContainer,
-                        page_version_id: this.pageVersionId,
-                        page_id: this.pageId,
-                        name: component.name,
-                        component_name: index
-                    })
-                        .then((response) => {
-
-                            $('#motor-component-modal').modal('hide');
-                            this.$eventHub.$emit('motor-cms:update-components');
-                            $('.motor-cms-component-flash').html(response.data.message).removeClass('d-none').css('display', '').delay(3000).fadeOut(350);
-
-                        })
-                        .catch(function (error) {
-                            console.log(error);
-                        });
-
-                } else {
-                    axios.get(route(component.route + '.create'))
-                        .then((response) => {
-
-                            this.form.options = response.data.options;
-                            this.form.fields = response.data.fields;
-                            this.form.route = response.data.route;
-
-                            $('.motor-cms-components').addClass('d-none');
-                            $('.motor-cms-component-form').removeClass('d-none');
-                            $('.modal-footer').removeClass('d-none');
-
-                        })
-                        .catch(function (error) {
-                            console.log(error);
-                        });
-                }
-            },
-            saveComponent() {
-                if (this.form.route.indexOf('.store') != -1) {
-                    this.post();
-                }
-                if (this.form.route.indexOf('.update') != -1) {
-                    this.patch();
-                }
-
-                // Send clear event to all components to remove data in case the component gets reused
-                this.$eventHub.$emit('motor-cms:clear-data');
-
-            },
-            editComponent: function (routeString, componentId, container) {
-
-                this.componentContainer = container;
-
-                axios.get(route(routeString, componentId)).then((response) => {
-
-                    this.form.options = JSON.parse(JSON.stringify(response.data.options));
-                    this.form.fields = JSON.parse(JSON.stringify(response.data.fields));
-                    this.form.route = JSON.parse(JSON.stringify(response.data.route));
-                    this.form.componentId = componentId;
-
-                    $('.motor-cms-components').addClass('d-none');
-                    $('.motor-cms-component-form').removeClass('d-none');
-                    $('.modal-footer').removeClass('d-none');
-                    $('#motor-component-modal .modal-title').html('Edit component in container ' + container);
-                    $('#motor-component-modal').modal('show');
-
-
-                });
-            },
-            post: function () {
-                let that = this;
-                let data = {};
-
-                for (let field of that.form.fields) {
-                    if (field.type === 'select') {
-                        data[field.options.real_name] = field.options.selected;
-                        // data[field.options.real_name] = parseInt(field.options.selected);
-                    } else if (field.type === 'file_association') {
-                        data[field.options.real_name] = field.options.value;
-                        data[field.options.real_name+'_position'] = field.options.position;
-                        data[field.options.real_name+'_enlarge'] = field.options.enlarge;
-                        data[field.options.real_name+'_description'] = field.options.description;
-                        data[field.options.real_name+'_crop'] = field.options.crop;
-                    } else {
-                        data[field.options.real_name] = field.options.value;
-                    }
-                }
-
-                data.page_version_id = that.pageVersionId;
-                data.container = this.componentContainer;
-
-                axios.post(route(this.form.route), data)
-                    .then((response) => {
-                        this.closeModal();
-                        // $('#motor-component-modal').modal('hide');
-                        this.$eventHub.$emit('motor-cms:update-components');
-                        $('.motor-cms-component-flash').html(response.data.message).removeClass('d-none').css('display', '').delay(3000).fadeOut(350);
-
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    })
-
-            },
-            patch: function () {
-                let that = this;
-                let data = {};
-
-                for (let field of that.form.fields) {
-                    if (field.type === 'select') {
-                        data[field.options.real_name] = field.options.selected;
-                        // data[field.options.real_name] = parseInt(field.options.selected);
-                    } else if (field.type === 'file_association') {
-                        data[field.options.real_name] = field.options.value;
-                        data[field.options.real_name+'_position'] = field.options.position;
-                        data[field.options.real_name+'_enlarge'] = field.options.enlarge;
-                        data[field.options.real_name+'_description'] = field.options.description;
-                        data[field.options.real_name+'_crop'] = field.options.crop;
-                    } else {
-                        data[field.options.real_name] = field.options.value;
-                    }
-                }
-
-                data.page_version_id = that.pageVersionId;
-                data.container = this.componentContainer;
-
-                axios.patch(route(this.form.route, this.form.componentId), data)
-                    .then((response) => {
-                        this.closeModal();
-                        // $('#motor-component-modal').modal('hide');
-                        // this.$eventHub.$emit('motor-cms:update-components');
-                        // $('#motor-component-modal').modal('hide');
-                        this.$eventHub.$emit('motor-cms:update-components');
-                        $('.motor-cms-component-flash').html(response.data.message).removeClass('d-none').css('display', '').delay(3000).fadeOut(350);
-
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    })
-            },
-            deleteComponent: function (pageId, componentId) {
-
-                if (!confirm(this.$t('motor-cms.backend.pages.delete_component_question'))) {
-                    return false;
-                }
-
-                axios.delete(route('backend.pages.components.delete', [pageId, componentId])).then((response) => {
-                    this.$eventHub.$emit('motor-cms:update-components');
-                    $('.motor-cms-component-flash').html(response.data.message).removeClass('d-none').css('display', '').delay(3000).fadeOut(350);
-                });
-            }
-        },
+        }
     }
-</script>
+    return components;
+}
 
+function hasComponents(group) {
+    for (let key in props.availableComponents.components) {
+        if (props.availableComponents.components.hasOwnProperty(key)) {
+            if (props.availableComponents.components[key].group == group) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+function closeModal() {
+    // Send clear event to all components to remove data in case the component gets reused
+    form.fields = [];
+    form.options = [];
+    form.route = false;
+    form.method = false;
+    form.componentId = null;
+    eventBus.emit('motor-cms:clear-data');
+    $('#motor-component-modal').modal('hide');
+}
+
+function openModal(data) {
+    $('.motor-cms-components').removeClass('d-none');
+    $('.motor-cms-component-form').addClass('d-none');
+    $('.modal-footer').addClass('d-none');
+
+    $('.motor-cms-components').data('container', data.container);
+
+    console.log('new component for container ' + data.container);
+
+    $('#motor-component-modal .modal-title').html('Add new component to container ' + data.container);
+    componentContainer.value = data.container;
+    $('#motor-component-modal').modal('show');
+}
+
+function addComponent(component, index) {
+    if (component.route === undefined) {
+        // This is a component without configuration or separate model
+        axios.post(route('component.base.store'), {
+            container: componentContainer.value,
+            page_version_id: props.pageVersionId,
+            page_id: props.pageId,
+            name: component.name,
+            component_name: index
+        })
+            .then((response) => {
+                $('#motor-component-modal').modal('hide');
+                eventBus.emit('motor-cms:update-components');
+                $('.motor-cms-component-flash').html(response.data.message).removeClass('d-none').css('display', '').delay(3000).fadeOut(350);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+
+    } else {
+        axios.get(route(component.route + '.create'))
+            .then((response) => {
+                form.options = response.data.options;
+                form.fields = response.data.fields;
+                form.route = response.data.route;
+
+                $('.motor-cms-components').addClass('d-none');
+                $('.motor-cms-component-form').removeClass('d-none');
+                $('.modal-footer').removeClass('d-none');
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+}
+
+function saveComponent() {
+    if (form.route.indexOf('.store') != -1) {
+        post();
+    }
+    if (form.route.indexOf('.update') != -1) {
+        patch();
+    }
+
+    // Send clear event to all components to remove data in case the component gets reused
+    eventBus.emit('motor-cms:clear-data');
+}
+
+function editComponent(data) {
+    componentContainer.value = data.container;
+
+    axios.get(route(data.route + '.edit', data.componentId)).then((response) => {
+        form.options = JSON.parse(JSON.stringify(response.data.options));
+        form.fields = JSON.parse(JSON.stringify(response.data.fields));
+        form.route = JSON.parse(JSON.stringify(response.data.route));
+        form.componentId = data.componentId;
+
+        $('.motor-cms-components').addClass('d-none');
+        $('.motor-cms-component-form').removeClass('d-none');
+        $('.modal-footer').removeClass('d-none');
+        $('#motor-component-modal .modal-title').html('Edit component in container ' + data.container);
+        $('#motor-component-modal').modal('show');
+    });
+}
+
+function buildFormData() {
+    let data = {};
+
+    for (let field of form.fields) {
+        if (field.type === 'select') {
+            data[field.options.real_name] = field.options.selected;
+        } else if (field.type === 'file_association') {
+            data[field.options.real_name] = field.options.value;
+            data[field.options.real_name + '_position'] = field.options.position;
+            data[field.options.real_name + '_enlarge'] = field.options.enlarge;
+            data[field.options.real_name + '_description'] = field.options.description;
+            data[field.options.real_name + '_crop'] = field.options.crop;
+        } else {
+            data[field.options.real_name] = field.options.value;
+        }
+    }
+
+    data.page_version_id = props.pageVersionId;
+    data.container = componentContainer.value;
+
+    return data;
+}
+
+function post() {
+    let data = buildFormData();
+
+    axios.post(route(form.route), data)
+        .then((response) => {
+            closeModal();
+            eventBus.emit('motor-cms:update-components');
+            $('.motor-cms-component-flash').html(response.data.message).removeClass('d-none').css('display', '').delay(3000).fadeOut(350);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+}
+
+function patch() {
+    let data = buildFormData();
+
+    axios.patch(route(form.route, form.componentId), data)
+        .then((response) => {
+            closeModal();
+            eventBus.emit('motor-cms:update-components');
+            $('.motor-cms-component-flash').html(response.data.message).removeClass('d-none').css('display', '').delay(3000).fadeOut(350);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+}
+
+function deleteComponentHandler(data) {
+    if (!confirm($t('motor-cms.backend.pages.delete_component_question'))) {
+        return false;
+    }
+
+    axios.delete(route('backend.pages.components.delete', [data.pageId, data.componentId])).then((response) => {
+        eventBus.emit('motor-cms:update-components');
+        $('.motor-cms-component-flash').html(response.data.message).removeClass('d-none').css('display', '').delay(3000).fadeOut(350);
+    });
+}
+
+function onOpenModal(data) {
+    openModal(data);
+}
+
+function onEditComponent(data) {
+    editComponent(data);
+}
+
+function onDeleteComponent(data) {
+    deleteComponentHandler(data);
+}
+
+onMounted(() => {
+    eventBus.on('motor-cms:open-modal', onOpenModal);
+    eventBus.on('motor-cms:edit-component', onEditComponent);
+    eventBus.on('motor-cms:delete-component', onDeleteComponent);
+    $('#motor-component-modal').modal({ focus: false, show: false });
+});
+
+onUnmounted(() => {
+    eventBus.off('motor-cms:open-modal', onOpenModal);
+    eventBus.off('motor-cms:edit-component', onEditComponent);
+    eventBus.off('motor-cms:delete-component', onDeleteComponent);
+});
+</script>
 
 <style lang="scss">
     .ck-balloon-panel {

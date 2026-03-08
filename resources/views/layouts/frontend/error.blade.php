@@ -16,7 +16,7 @@
 <div class="grid-container">
     @yield('main-content')
 </div>
-<script>
+<script type="module">
     $(document).foundation();
 </script>
 </body>
