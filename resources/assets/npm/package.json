@@ -1,7 +1,0 @@
-{
-  "private": true,
-  "devDependencies": {
-    "@ckeditor/ckeditor5-vue": "^1.0.0",
-    "vue-bootstrap-datetimepicker": "^5.0.1"
-  }
-}
