@@ -6,7 +6,7 @@
 
     <title>Oops!</title>
 
-    <link href="{{ mix('/css/motor-frontend.css') }}" rel="stylesheet" type="text/css"/>
+    @vite(['resources/assets/sass/partymeister-frontend.package-development.scss', 'resources/assets/js/frontend.js'])
     <!-- Custom styles for this template -->
     @yield('view_styles')
     <style type="text/css">

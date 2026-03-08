@@ -6,7 +6,7 @@
 
     <title>PAGE TITLE</title>
 
-    <link href="{{ mix('/css/motor-frontend.css') }}" rel="stylesheet" type="text/css"/>
+    @vite(['resources/assets/sass/partymeister-frontend.package-development.scss'])
     <!-- Custom styles for this template -->
     @yield('view_styles')
     <style type="text/css">
@@ -17,7 +17,7 @@
     @include('motor-cms::layouts.frontend.partials.template-sections', ['rows' => $template['items']])
 </div>
 
-<script src="{{mix('js/motor-frontend.js')}}"></script>
+@vite(['resources/assets/js/frontend.js'])
 @yield('view_scripts')
 <script type="module">
     $(document).foundation();
