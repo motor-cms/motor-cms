@@ -52,7 +52,7 @@ class ComponentText extends ComponentBaseModel implements HasMedia
      *
      * @throws \Spatie\Image\Exceptions\InvalidManipulation
      */
-    public function registerMediaConversions(Media $media = null): void
+    public function registerMediaConversions(?Media $media = null): void
     {
         $this->addMediaConversion('thumb')->width(320)->height(240)->nonQueued();
 

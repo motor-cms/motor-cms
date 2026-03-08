@@ -10,7 +10,6 @@ use Motor\CMS\Http\Controllers\Component\BaseController;
 Route::group([
     'as'         => 'backend.',
     'prefix'     => 'backend',
-    'namespace'  => 'Motor\CMS\Http\Controllers\Backend',
     'middleware' => [
         'web',
         'web_auth',
@@ -34,7 +33,7 @@ Route::group([
         ],
     ]);
 
-    Route::resource('pages', 'PagesController');
+    Route::resource('pages', PagesController::class);
     Route::delete('pages/{page}/components/{page_version_component}', [PagesController::class, 'destroyComponent'])
          ->name('pages.components.delete');
     Route::get('pages/{page}/components', [PagesController::class, 'components'])
@@ -50,7 +49,6 @@ Route::group([
 Route::group([
     'as'         => 'component.',
     'prefix'     => 'component',
-    'namespace'  => 'Motor\CMS\Http\Controllers\Backend\Component',
     'middleware' => [
         'web',
         //'web_auth'
@@ -69,7 +67,6 @@ Route::group([
 Route::group([
     'as'         => 'component.',
     'prefix'     => 'component',
-    'namespace'  => 'Motor\CMS\Http\Controllers\Component',
     'middleware' => [
         'web',
         //'web_auth'
@@ -81,7 +78,6 @@ Route::group([
 
 Route::group([
     'as'         => 'frontend.',
-    'namespace'  => 'Motor\CMS\Http\Controllers\Frontend',
     'middleware' => [
         'web',
         'frontend',

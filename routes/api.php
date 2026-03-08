@@ -12,7 +12,6 @@ Route::group([
         'bindings',
         'permission',
     ],
-    'namespace'  => 'Motor\CMS\Http\Controllers\Api',
     'prefix'     => 'api',
     'as'         => 'api.',
 ], static function () {
@@ -28,7 +27,6 @@ Route::group([
 });
 
 Route::group([
-    'namespace'  => 'Motor\CMS\Http\Controllers\Api\Frontend',
     'prefix'     => 'api/frontend',
     'as'         => 'api.frontend.',
     'middleware' => [],
