@@ -247,7 +247,7 @@ function saveComponent() {
 function editComponent(data) {
     componentContainer.value = data.container;
 
-    axios.get(route(data.route + '.edit', data.componentId)).then((response) => {
+    axios.get(route(data.route, data.componentId)).then((response) => {
         form.options = JSON.parse(JSON.stringify(response.data.options));
         form.fields = JSON.parse(JSON.stringify(response.data.fields));
         form.route = JSON.parse(JSON.stringify(response.data.route));
