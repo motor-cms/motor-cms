@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests\Motor\CMS\Integration\Controller\Backend;
+
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Motor\CMS\Models\Navigation;
 
