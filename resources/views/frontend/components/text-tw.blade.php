@@ -1,4 +1,4 @@
-<div class="prose prose-lg max-w-none">
+<div class="prose max-w-none">
     @if($component->headline)<h1>{{ $component->headline }}</h1>@endif
     <div id="{{ $component->anchor }}"></div>
     @if (is_null($file))

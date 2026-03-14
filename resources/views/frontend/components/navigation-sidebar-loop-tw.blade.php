@@ -3,7 +3,7 @@
         @if ($item->is_visible && $item->is_active)
             <li>
                 <a href="{{ route('frontend.pages.index', ['slug' => $item->full_slug]) }}"
-                   class="block px-3 py-1.5 rounded-md text-sm transition-colors
+                   class="block px-3 py-2 rounded-md text-sm transition-colors
                           @if(in_array($item->full_slug, $activeNavigationSlugs))
                               text-heading bg-surface-raised font-medium
                           @else
