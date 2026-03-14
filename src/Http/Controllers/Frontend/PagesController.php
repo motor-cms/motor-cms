@@ -5,7 +5,6 @@ namespace Motor\CMS\Http\Controllers\Frontend;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use Motor\Backend\Http\Controllers\Controller;
-use Motor\CMS\Models\Navigation;
 
 /**
  * Class PagesController
@@ -20,10 +19,10 @@ class PagesController extends Controller
      *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    public function index($slug)
+    public function index(\Illuminate\Http\Request $request, $slug)
     {
-        // Find page by slug
-        $navigation = Navigation::where('scope', 'main')->where('full_slug', $slug)->first();
+        // Use navigation item already resolved by middleware (avoids duplicate query)
+        $navigation = $request->attributes->get('activeNavigationItem');
 
         if (is_null($navigation)) {
             return response('Navigation '.$slug.' not found', 404);
@@ -43,7 +42,7 @@ class PagesController extends Controller
 
         $renderedOutput = [];
 
-        foreach ($version->components()->orderBy('container')->orderBy('sort_position')->get() as $pageComponent) {
+        foreach ($version->components()->with('component')->orderBy('container')->orderBy('sort_position')->get() as $pageComponent) {
             if (! isset($renderedOutput[$pageComponent->container])) {
                 $renderedOutput[$pageComponent->container] = [];
             }

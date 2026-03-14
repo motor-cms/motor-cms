@@ -3,6 +3,7 @@
 namespace Motor\CMS\Http\Middleware\Frontend;
 
 use Closure;
+use Illuminate\Support\Facades\Cache;
 
 /**
  * Class Navigation
@@ -19,11 +20,13 @@ class Navigation
     public function handle($request, Closure $next)
     {
         $activeNavigationSlug = $request->route()->parameter('slug');
-        $navigationItems = \Motor\CMS\Models\Navigation::where('scope', 'main')
-                                                            ->where('parent_id', '!=', null)
-                                                            ->defaultOrder()
-                                                            ->get()
-                                                            ->toTree();
+        $navigationItems = Cache::remember('nav-main-tree', 3600, function () {
+            return \Motor\CMS\Models\Navigation::where('scope', 'main')
+                                                ->where('parent_id', '!=', null)
+                                                ->defaultOrder()
+                                                ->get()
+                                                ->toTree();
+        });
 
         $activeNavigationItem = null;
         $activeTopLevelNavigationItem = null;
@@ -68,6 +71,8 @@ class Navigation
         \View::share('activeNavigationSlugs', $activeNavigationSlugs);
         \View::share('activeNavigationItem', $activeNavigationItem);
         \View::share('navigationItems', $navigationItems);
+
+        $request->attributes->set('activeNavigationItem', $activeNavigationItem);
 
         return $next($request);
     }
