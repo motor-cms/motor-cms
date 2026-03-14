@@ -19,7 +19,7 @@ return [
         'navigation-sidebar' => [
             'name'            => 'NavigationSidebar',
             'description'     => 'Show NavigationSidebar component',
-            'view'            => 'motor-cms::frontend.components.navigation-sidebar',
+            'view'            => 'motor-cms::frontend.components.navigation-sidebar-tw',
             'component_class' => 'Motor\CMS\Components\ComponentNavigationSidebars',
             'compatibility'   => [
 
@@ -32,7 +32,7 @@ return [
         'text'               => [
             'name'            => 'Text',
             'description'     => 'Show Text component',
-            'view'            => 'motor-cms::frontend.components.text',
+            'view'            => 'motor-cms::frontend.components.text-tw',
             'route'           => 'component.texts',
             'component_class' => 'Motor\CMS\Components\ComponentTexts',
             'resource_class'  => 'Motor\CMS\Http\Resources\Components\TextResource',
