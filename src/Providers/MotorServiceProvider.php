@@ -10,6 +10,8 @@ use Motor\CMS\Console\Commands\MotorMakeComponentClassCommand;
 use Motor\CMS\Console\Commands\MotorMakeComponentCommand;
 use Motor\CMS\Console\Commands\MotorMakeComponentInfoCommand;
 use Motor\CMS\Http\Middleware\Frontend\Navigation;
+use Motor\CMS\Models\Navigation as NavigationModel;
+use Motor\CMS\Observers\NavigationObserver;
 
 /**
  * Class MotorServiceProvider
@@ -23,6 +25,8 @@ class MotorServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        NavigationModel::observe(NavigationObserver::class);
+
         app('router')->pushMiddlewareToGroup('frontend', Navigation::class);
 
         $this->config();
