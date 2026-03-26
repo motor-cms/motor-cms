@@ -76,20 +76,22 @@ Route::group([
          ->only(['store', 'destroy']);
 });
 
-Route::group([
-    'as'         => 'frontend.',
-    'middleware' => [
-        'web',
-        'frontend',
-    ],
-], static function () {
-    Route::get('{slug}', [FrontendPagesController::class, 'index'])
-         ->name('pages.index')
-         ->where('slug', '[0-9a-zA-Z\/\-]+');
-    Route::post('{slug}', [FrontendPagesController::class, 'index'])
-         ->name('pages.post')
-         ->where('slug', '[0-9a-zA-Z\/\-]+');
-    Route::patch('{slug}', [FrontendPagesController::class, 'index'])
-         ->name('pages.patch')
-         ->where('slug', '[0-9a-zA-Z\/\-]+');
-});
+if (config('motor-cms-frontend.enabled', true)) {
+    Route::group([
+        'as'         => 'frontend.',
+        'middleware' => [
+            'web',
+            'frontend',
+        ],
+    ], static function () {
+        Route::get('{slug}', [FrontendPagesController::class, 'index'])
+             ->name('pages.index')
+             ->where('slug', '[0-9a-zA-Z\/\-]+');
+        Route::post('{slug}', [FrontendPagesController::class, 'index'])
+             ->name('pages.post')
+             ->where('slug', '[0-9a-zA-Z\/\-]+');
+        Route::patch('{slug}', [FrontendPagesController::class, 'index'])
+             ->name('pages.patch')
+             ->where('slug', '[0-9a-zA-Z\/\-]+');
+    });
+}
